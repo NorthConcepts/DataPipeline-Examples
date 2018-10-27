@@ -15,8 +15,8 @@ import com.northconcepts.datapipeline.transform.lookup.LookupTransformer;
 
 public class LookupDataInFlatFile {
 
-    private static final String INPUT_FOLDER = "data/input";
-    private static final String OUTPUT_FOLDER = "data/output";
+    private static final String INPUT_FOLDER = "../common/data/input";
+    private static final String OUTPUT_FOLDER = "../common/data/output";
 
     public static void main(String[] args) {
         
