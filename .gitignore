@@ -5,7 +5,7 @@
 .idea
 bin/
 build/
-common/data/output/*
+data/output/*
 gen/
 gradle/
 local.properties

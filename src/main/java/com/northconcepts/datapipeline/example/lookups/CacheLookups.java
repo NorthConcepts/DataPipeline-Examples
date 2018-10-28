@@ -1,4 +1,4 @@
-package com.northconcepts.datapipeline.example;
+package com.northconcepts.datapipeline.example.lookups;
 
 public class CacheLookups {
 
