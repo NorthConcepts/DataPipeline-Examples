@@ -1,0 +1,6 @@
+
+	<record>
+		<#list record.fieldNames as fieldName>
+		<field name="${fieldName}">${record.getField(fieldName).getValue()}</field>
+		</#list>
+	</record>

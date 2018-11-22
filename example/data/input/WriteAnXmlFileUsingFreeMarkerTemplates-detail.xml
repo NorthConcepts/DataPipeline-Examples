@@ -1,0 +1,7 @@
+		<actor stage-name="${stageName}" real-name="${realName}">
+			<gender>${gender}</gender>
+			<city>${city}</city>
+			<#if (balance >= 0)>
+				<balance>${balance}</balance>
+			</#if>			
+		</actor>

@@ -1,0 +1,16 @@
+<#if (writer.recordCount == 0)>
+<table>
+	<thead>
+		<tr>
+		<#list record.fieldNames as fieldName>
+			<td>${fieldName}</td>
+		</#list>		
+		</tr>
+	</thead>
+	<tbody>
+</#if>
+		<tr>
+			<#list record.values as value>
+				<td>${value}</td>
+			</#list>
+		</tr>
