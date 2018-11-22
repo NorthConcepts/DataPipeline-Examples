@@ -15,7 +15,7 @@ plugins {
 }
 
 // Define the main class for the application
-mainClassName = 'com.northconcepts.datapipeline.example.LookupDataInFlatFile'
+mainClassName = classToExecute
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
@@ -29,6 +29,7 @@ dependencies {
     compile 'org.apache.avro:avro:1.8.2'
     compile 'org.freemarker:freemarker:2.3.28'
     compile 'mysql:mysql-connector-java:8.0.13'
+    compile 'junit:junit:4.12'
     compile fileTree(dir: 'lib', include: ['*.jar'])
 
     // Use JUnit test framework
