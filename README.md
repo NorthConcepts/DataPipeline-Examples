@@ -1,5 +1,5 @@
 # DataPipeline Examples
-This repo contains [DataPipeline's Java code examples](https://northconcepts.com/docs/examples/).  These are the same examples you get when download DataPipeline.
+This repo contains [DataPipeline's Java code examples](https://northconcepts.com/docs/examples/).  These are the same examples you get when you download DataPipeline.
 
 
 ## DataPipeline License
