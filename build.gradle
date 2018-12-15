@@ -15,7 +15,7 @@ plugins {
 }
 
 // Define the main class for the application
-mainClassName = classToExecute
+//mainClassName = classToExecute
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.

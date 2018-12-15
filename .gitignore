@@ -11,7 +11,7 @@ gen/
 gradle/
 local.properties
 NorthConcepts-DataPipeline.license
-NorthConcepts-DataPipeline-*.jar
+#NorthConcepts-DataPipeline-*.jar
 Thumbs.db
 dist/
 src/main/java/com/northconcepts/datapipeline/examples/userguide/RunningJobs.java
