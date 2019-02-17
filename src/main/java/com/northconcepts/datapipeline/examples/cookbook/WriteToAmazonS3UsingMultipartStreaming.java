@@ -11,11 +11,11 @@ import java.io.File;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
+import com.northconcepts.datapipeline.amazons3.AmazonS3FileSystem;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.csv.CSVWriter;
-import com.northconcepts.datapipeline.filesystem.amazons3.AmazonS3FileSystem;
 import com.northconcepts.datapipeline.job.Job;
 
 public class WriteToAmazonS3UsingMultipartStreaming {

@@ -5,7 +5,7 @@
  * http://northconcepts.com/data-pipeline/licensing/
  *
  */
-package com.northconcepts.datapipeline.examples.cookbook;
+package com.northconcepts.datapipeline.examples.amazons3;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
