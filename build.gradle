@@ -8,23 +8,23 @@ plugins {
 mainClassName = "com.northconcepts.datapipeline.examples.cookbook.AddASequenceNumberColumn"
 
 dependencies {
-    compile "com.northconcepts:northconcepts-datapipeline-small-business:5.0.0"
+    compile "com.northconcepts:northconcepts-datapipeline-small-business:5.2.0-SNAPSHOT"
     
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-avro:5.0.0"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-email:5.0.0"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-google:5.0.0"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-instagram:5.0.0"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-jms:5.0.0"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-kafka:5.0.0"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-mailchimp:5.0.0"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-mongodb:5.0.0"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-pdf:5.0.0"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-rtf:5.0.0"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-template:5.0.0"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-trello:5.0.0"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-twitter:5.0.0"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-avro:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-email:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-google:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-instagram:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-jms:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-kafka:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-mailchimp:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-mongodb:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-pdf:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-rtf:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-template:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-trello:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-twitter:5.2.0-SNAPSHOT"
 
-    compile "com.northconcepts:northconcepts-datapipeline-filesystems-amazons3:5.0.0"
+    compile "com.northconcepts:northconcepts-datapipeline-filesystems-amazons3:5.2.0-SNAPSHOT"
     
     compile "mysql:mysql-connector-java:8.0.15"
 

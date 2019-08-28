@@ -11,6 +11,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 
 import com.northconcepts.datapipeline.core.DataException;
+import com.northconcepts.datapipeline.internal.lang.Util;
 
 public class DB {
     
@@ -170,6 +171,9 @@ public class DB {
                 s.append(line);
                 
                 if (line.endsWith(";")) { // execute statement
+                    while(s.toString().endsWith(";")) {
+                        s.setLength(s.length()-1);
+                    }
                     System.out.println("    execute:  " + s);
                     execute(s.toString());
                     s.setLength(0);
