@@ -12,6 +12,7 @@ import com.northconcepts.datapipeline.eventbus.EventBus;
 import com.northconcepts.datapipeline.eventbus.EventBusLifecycleListener;
 import com.northconcepts.datapipeline.eventbus.EventBusReader;
 import com.northconcepts.datapipeline.eventbus.EventBusWriter;
+import com.northconcepts.datapipeline.eventbus.EventFilter;
 import com.northconcepts.datapipeline.eventbus.ExceptionListener;
 import com.northconcepts.datapipeline.eventbus.RecordListener;
 import com.northconcepts.datapipeline.eventbus.UntypedEventListener;
@@ -204,7 +205,7 @@ public class UsingEventBus {
       
       EventBus bus = EventBus.getSystemEventBus();
       
-      bus.addListener(null, new UntypedEventListener() {
+      bus.addListener((EventFilter)null, new UntypedEventListener() {
         
         @Override
         public void onEvent(Event<?> event) {
