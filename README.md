@@ -1,9 +1,8 @@
 # DataPipeline Examples
-This repo contains [DataPipeline's Java code examples](https://northconcepts.com/docs/examples/).  These are the same examples you get when you download DataPipeline.
+This repo contains [DataPipeline's Java code examples](https://northconcepts.com/docs/examples/).  These are the same examples you get when you download DataPipeline and requires a license to run.
 
 
 ## DataPipeline License
-The DataPipeline jar in the `lib` folder requires a license file to run.
 
 1. You can get your free trial license here: [https://northconcepts.com/contact/try/small-business/](https://northconcepts.com/contact/try/small-business/).
 2. Once you receive your license by email, place the attached `NorthConcepts-DataPipeline.license` file from the email into the `src/main/resources` folder.

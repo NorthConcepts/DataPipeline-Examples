@@ -2,6 +2,7 @@ package com.northconcepts.datapipeline.examples.cookbook;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
@@ -45,24 +46,20 @@ public class ProfilePerformance {
         log.info("running time: " + job.getRunningTimeAsString());
         log.info("records transferred: " + job.getRecordsTransferred());
         
-        for (DataReader reader : job.getReaders()) {
-            DataReader nestedReader = reader.getNestedReader();
-            if (nestedReader != null) {
-                log.info("    --> " + reader.getName() +  ":    " + new Interval((reader.getElapsedTime() - nestedReader.getElapsedTime()), 0).toString());
-            } else {
-                log.info("    --> " + reader.getName() +  ":    " + reader.getElapsedTimeAsString());
-            }
-        }
-
-        for (DataWriter writer : job.getWriters()) {
-            DataWriter nestedWriter = writer.getNestedWriter();
-            if (nestedWriter != null) {
-                log.info("    --> " + writer.getName() +  ":    " + new Interval((writer.getElapsedTime() - nestedWriter.getElapsedTime()), 0).toString());
-            } else {
-                log.info("    --> " + writer.getName() +  ":    " + writer.getElapsedTimeAsString());
-            }
-        }
+        logEndpoint("    --> ", job.getReaders());
+        logEndpoint("    <-- ", job.getWriters());
     }
+
+	private static void logEndpoint(String string, List<? extends DataEndpoint> endpoints) {
+		for (DataEndpoint endpoint : endpoints) {
+            DataEndpoint nestedEndpoint = endpoint.getNestedEndpoint();
+			if (nestedEndpoint != null) {
+                log.info(string + endpoint.getName() +  ":    " + new Interval((nestedEndpoint.getElapsedTime() - nestedEndpoint.getElapsedTime()), 0).toString());
+            } else {
+                log.info(string + endpoint.getName() +  ":    " + endpoint.getElapsedTimeAsString());
+            }
+        }
+	}
 
     // ==================================================
 

@@ -1,37 +1,38 @@
 plugins {
     id 'java'
-    id 'application'
 }
 
-// Define the main class for the application
-//mainClassName = classToExecute
-mainClassName = "com.northconcepts.datapipeline.examples.cookbook.AddASequenceNumberColumn"
+version = '5.2.0-SNAPSHOT'
+
 
 dependencies {
-    compile "com.northconcepts:northconcepts-datapipeline-small-business:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-small-business:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-foundations:${version}"
     
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-avro:5.2.0-SNAPSHOT"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-email:5.2.0-SNAPSHOT"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-google:5.2.0-SNAPSHOT"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-instagram:5.2.0-SNAPSHOT"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-jms:5.2.0-SNAPSHOT"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-kafka:5.2.0-SNAPSHOT"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-mailchimp:5.2.0-SNAPSHOT"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-mongodb:5.2.0-SNAPSHOT"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-pdf:5.2.0-SNAPSHOT"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-rtf:5.2.0-SNAPSHOT"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-template:5.2.0-SNAPSHOT"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-trello:5.2.0-SNAPSHOT"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-twitter:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-avro:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-email:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-google:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-instagram:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-jms:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-kafka:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-mailchimp:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-mongodb:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-pdf:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-rtf:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-template:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-trello:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-twitter:${version}"
 
-    compile "com.northconcepts:northconcepts-datapipeline-filesystems-amazons3:5.2.0-SNAPSHOT"
+    compile "com.northconcepts:northconcepts-datapipeline-filesystems-amazons3:${version}"
     
     compile "mysql:mysql-connector-java:8.0.15"
 
-    testCompile 'junit:junit:4.12'
+    compile 'log4j:log4j:1.2.17'
+    compile 'junit:junit:4.12'
 }
 
 repositories {
+    mavenLocal()
     jcenter()
     maven {
         url = 'https://maven.northconcepts.com/public/repositories/datapipeline'
