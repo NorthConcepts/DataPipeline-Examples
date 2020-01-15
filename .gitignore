@@ -15,3 +15,4 @@ NorthConcepts-DataPipeline.license
 Thumbs.db
 dist/
 src/main/java/com/northconcepts/datapipeline/examples/userguide/RunningJobs.java
+.settings/org.eclipse.jdt.core.prefs
