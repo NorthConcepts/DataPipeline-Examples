@@ -7,6 +7,7 @@ version = '5.2.0-SNAPSHOT'
 
 dependencies {
     compile "com.northconcepts:northconcepts-datapipeline-small-business:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-foundations:${version}"
     
     compile "com.northconcepts:northconcepts-datapipeline-integrations-avro:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-email:${version}"
@@ -31,6 +32,7 @@ dependencies {
 }
 
 repositories {
+    mavenLocal()
     jcenter()
     maven {
         url = 'https://maven.northconcepts.com/public/repositories/datapipeline'
