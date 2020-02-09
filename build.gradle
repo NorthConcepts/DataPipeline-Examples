@@ -4,6 +4,7 @@ plugins {
 }
 
 repositories {
+    mavenLocal()
     jcenter()
     maven {
         url = 'https://maven.northconcepts.com/public/repositories/datapipeline'
