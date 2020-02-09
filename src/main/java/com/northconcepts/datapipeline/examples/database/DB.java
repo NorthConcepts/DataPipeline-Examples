@@ -11,7 +11,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 
 import com.northconcepts.datapipeline.core.DataException;
-import com.northconcepts.datapipeline.internal.lang.Util;
 
 public class DB {
     

@@ -15,7 +15,6 @@ import com.northconcepts.datapipeline.core.RemoveDuplicatesReader;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.job.JobTemplate;
 
 public class RemoveDuplicates {
     

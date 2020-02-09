@@ -15,7 +15,6 @@ import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.core.RecordList;
 import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.job.JobTemplate;
 import com.northconcepts.datapipeline.memory.MemoryReader;
 
 public class ReadFromMemory {

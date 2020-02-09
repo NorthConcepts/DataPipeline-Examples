@@ -17,7 +17,6 @@ import com.northconcepts.datapipeline.core.FieldList;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.job.JobTemplate;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 import com.northconcepts.datapipeline.transform.lookup.CachedLookup;
 import com.northconcepts.datapipeline.transform.lookup.JdbcLookup;

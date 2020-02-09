@@ -2,18 +2,15 @@ package com.northconcepts.datapipeline.examples.cookbook;
 
 import java.io.File;
 
-import com.northconcepts.datapipeline.core.AsyncReader;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.FieldList;
-import com.northconcepts.datapipeline.core.LimitReader;
 import com.northconcepts.datapipeline.core.NullWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.excel.ExcelDocument;
 import com.northconcepts.datapipeline.excel.ExcelReader;
 import com.northconcepts.datapipeline.filter.FilterExpression;
-import com.northconcepts.datapipeline.filter.FilteringReader;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
 import com.northconcepts.datapipeline.transform.RemoveFields;

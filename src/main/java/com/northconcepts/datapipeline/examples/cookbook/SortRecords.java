@@ -14,7 +14,6 @@ import com.northconcepts.datapipeline.core.SortingReader;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.job.JobTemplate;
 
 public class SortRecords {
     

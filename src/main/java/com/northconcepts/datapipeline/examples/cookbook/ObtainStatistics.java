@@ -17,7 +17,6 @@ import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.excel.ExcelDocument;
 import com.northconcepts.datapipeline.excel.ExcelWriter;
 import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.job.JobTemplate;
 import com.northconcepts.datapipeline.meter.Meter;
 import com.northconcepts.datapipeline.meter.MeteredReader;
 
