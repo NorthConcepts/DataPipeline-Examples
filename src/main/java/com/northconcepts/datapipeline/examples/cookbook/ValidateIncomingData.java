@@ -24,7 +24,6 @@ import com.northconcepts.datapipeline.filter.rule.IsNotNull;
 import com.northconcepts.datapipeline.filter.rule.PatternMatch;
 import com.northconcepts.datapipeline.filter.rule.ValueMatch;
 import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.job.JobTemplate;
 import com.northconcepts.datapipeline.validate.ValidatingReader;
 
 public class ValidateIncomingData {

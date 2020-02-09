@@ -19,7 +19,6 @@ import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.excel.ExcelDocument;
 import com.northconcepts.datapipeline.excel.ExcelWriter;
 import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.job.JobTemplate;
 import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
 import com.northconcepts.datapipeline.transform.CopyField;
 import com.northconcepts.datapipeline.transform.MoveFieldAfter;

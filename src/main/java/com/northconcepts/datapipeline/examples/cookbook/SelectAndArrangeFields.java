@@ -13,7 +13,6 @@ import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.job.JobTemplate;
 import com.northconcepts.datapipeline.transform.SelectFields;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 

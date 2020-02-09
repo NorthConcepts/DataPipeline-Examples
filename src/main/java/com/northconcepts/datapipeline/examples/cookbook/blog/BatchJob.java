@@ -4,9 +4,6 @@ import java.io.File;
 
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
-import com.northconcepts.datapipeline.core.LimitReader;
-import com.northconcepts.datapipeline.core.SortingReader;
-import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.group.GroupByReader;
