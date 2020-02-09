@@ -6,7 +6,7 @@ import com.northconcepts.datapipeline.foundations.schema.EntityDef;
 import com.northconcepts.datapipeline.foundations.schema.NumericFieldDef;
 import com.northconcepts.datapipeline.foundations.schema.TextFieldDef;
 
-public class ValidateARecordsFields {
+public class ValidateRecordFields {
 
     public static void main(String[] args) {
         EntityDef entityDef = new EntityDef();
