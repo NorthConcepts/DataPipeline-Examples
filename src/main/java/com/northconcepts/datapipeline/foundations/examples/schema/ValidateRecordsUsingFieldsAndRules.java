@@ -13,8 +13,8 @@ public class ValidateRecordsUsingFieldsAndRules {
         EntityDef entityDef = new EntityDef()
                 .addField(new TextFieldDef("name", FieldType.STRING).setRequired(false).setAllowBlank(false).setMaximumLength(100))
                 .addField(new TextFieldDef("email", FieldType.STRING).setRequired(true).setAllowBlank(false).setMaximumLength(255))
-            .addField(new NumericFieldDef("age", FieldType.INT).setRequired(true).setMinimum(25).setMaximum(75))
-            .addValidation(new FilterExpression("!contains(email, '@example.com') && year(now()) >= 2019"));
+                .addField(new NumericFieldDef("age", FieldType.INT).setRequired(true).setMinimum(25).setMaximum(75))
+                .addValidation(new FilterExpression("!contains(email, '@example.com') && year(now()) >= 2019"));
         
         
         System.out.println(entityDef.validateRecord(new Record()
