@@ -1,6 +1,10 @@
 package com.northconcepts.datapipeline.foundations.examples.eventbus;
 
+import java.util.Arrays;
+
+import com.northconcepts.datapipeline.eventbus.Event;
 import com.northconcepts.datapipeline.eventbus.EventBus;
+import com.northconcepts.datapipeline.eventbus.UntypedEventListener;
 import com.northconcepts.datapipeline.examples.userguide.eventbus.IUserListener;
 import com.northconcepts.datapipeline.examples.userguide.eventbus.User;
 
@@ -9,23 +13,32 @@ public class UseAnEventBus {
     public static void main(String[] args) throws Throwable {
         EventBus bus = new EventBus();
 
-        // listener 1
-        bus.addListener(IUserListener.class, null, new IUserListener(){
+        // register type-specific event listener 1
+        bus.addListener(IUserListener.class, new IUserListener(){
             @Override
             public void userAdded(User user) {
                 System.out.println("1: user added " + user);
             }
         });
 
-        // listener 2
-        bus.addListener(IUserListener.class, null, new IUserListener(){
+        // register type-specific event listener 2
+        bus.addListener(IUserListener.class, new IUserListener(){
             @Override
             public void userAdded(User user) {
                 System.out.println("2: user added " + user);
             }
         });
 
-        // publisher
+        // register untyped event listener
+        bus.addListener(new UntypedEventListener() {
+            
+            @Override
+            public void onEvent(Event<?> event) {
+                System.out.println("3: " + event + " -- " + Arrays.asList(event.getArguments()));
+            }
+        });
+
+        // get event publisher
         IUserListener publisher = bus.getPublisher(bus, IUserListener.class);
 
         // publish
