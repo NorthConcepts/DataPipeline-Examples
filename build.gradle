@@ -58,12 +58,12 @@ dependencies {
     compile "com.northconcepts:northconcepts-datapipeline-integrations-mongodb:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-twitter:${version}"
  
-//    compile "com.northconcepts:northconcepts-datapipeline-filesystems-amazons3:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-filesystems-amazons3:${version}"
 
     compile "mysql:mysql-connector-java:8.0.15"
 
     compile 'log4j:log4j:1.2.17'
-    
-    testCompile 'junit:junit:4.12'
+
+    compile 'junit:junit:4.12'
 
 }
