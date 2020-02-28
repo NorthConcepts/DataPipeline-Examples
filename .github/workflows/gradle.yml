@@ -16,4 +16,4 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build -PmavenDataPipelineRepo=datapipeline -PmavenDataPipelineUrl=https://maven.northconcepts.com/repositories/datapipeline -PmavenDataPipelineGroupId=com.northconcepts -PmavenUser=${{ secrets.mavenUser }} -PmavenPassword=${{ secrets.mavenPassword }}
+      run: ./gradlew build
