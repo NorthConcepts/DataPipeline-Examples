@@ -7,7 +7,15 @@
  */
 package com.northconcepts.datapipeline.examples.twitter;
 
-import com.northconcepts.datapipeline.core.*;
+import java.io.File;
+
+import org.apache.log4j.Logger;
+
+import com.northconcepts.datapipeline.core.DataEndpoint;
+import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.core.DataWriter;
+import com.northconcepts.datapipeline.core.MultiWriter;
+import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.excel.ExcelDocument;
 import com.northconcepts.datapipeline.excel.ExcelWriter;
 import com.northconcepts.datapipeline.job.Job;
@@ -17,9 +25,6 @@ import com.northconcepts.datapipeline.transform.MoveFieldAfter;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 import com.northconcepts.datapipeline.twitter.ApiLimitPolicy;
 import com.northconcepts.datapipeline.twitter.TwitterSearchReader;
-import org.apache.log4j.Logger;
-
-import java.io.File;
 
 public class SearchTwitterForTweets {
     
