@@ -21,26 +21,26 @@ public class AddADecisionTreeToAPipeline {
 
                 .setRootNode(new DecisionTreeNode()
 
-                        .addBranch("Variant Price == null || variantPrice < 20", new DecisionTreeNode()
-                            .addOutcome(new DecisionTreeOutcome("Shipping", "0.00"))
-                            .addOutcome(new DecisionTreeOutcome("Total", "${variantPrice} + Shipping"))
+                        .addBranch("${Variant Price} == null || ${Variant Price} < 20", new DecisionTreeNode()
+                            .addOutcome("Shipping", "0.00")
+                            .addOutcome("Total", "${Variant Price} + Shipping")
                         )
 
-                        .addBranch("Variant Price < 50", new DecisionTreeNode()
-                                .addOutcome(new DecisionTreeOutcome("Shipping", "5.00"))
-                                .addOutcome(new DecisionTreeOutcome("Total", "${variantPrice} + Shipping"))
-
-                        )
-
-                        .addBranch("Variant Price < 100", new DecisionTreeNode()
-                                .addOutcome(new DecisionTreeOutcome("Shipping", "7.00"))
-                                .addOutcome(new DecisionTreeOutcome("Total", "${variantPrice} + Shipping"))
+                        .addBranch("${Variant Price} < 50", new DecisionTreeNode()
+                                .addOutcome("Shipping", "5.00")
+                                .addOutcome("Total", "${Variant Price} + Shipping")
 
                         )
 
-                        .addBranch("Variant Price >= 100", new DecisionTreeNode()
-                                .addOutcome(new DecisionTreeOutcome("Shipping", "${variantPrice} * 0.10"))
-                                .addOutcome(new DecisionTreeOutcome("Total", "${variantPrice} + Shipping"))
+                        .addBranch("${Variant Price} < 100", new DecisionTreeNode()
+                                .addOutcome("Shipping", "7.00")
+                                .addOutcome("Total", "${Variant Price} + Shipping")
+
+                        )
+
+                        .addBranch("${Variant Price} >= 100", new DecisionTreeNode()
+                                .addOutcome("Shipping", "${Variant Price} * 0.10")
+                                .addOutcome("Total", "${Variant Price} + Shipping")
                         )
                 );
 

@@ -1,13 +1,14 @@
 package com.northconcepts.datapipeline.foundations.examples.decisiontable;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTable;
-import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableCondition;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableOutcome;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableReader;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableRule;
@@ -20,28 +21,32 @@ public class AddADecisionTableToAPipeline {
 
     public static void main(String[] args) {
 
+        List<DecisionTableOutcome> outcomes = new ArrayList<>();
+        outcomes.add(new DecisionTableOutcome("Total", "${Variant Price} + Shipping"));
+        outcomes.add(new DecisionTableOutcome("Product Type", "Type"));
+        
         DecisionTable table = new DecisionTable()
                 .addField(new CalculatedField("Variant Price", "toBigDecimal(${Variant Price})"))
                 
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Variant Price", "? == null || ? < 20"))
-                        .addOutcome(new DecisionTableOutcome("Shipping", "0.00"))
-                        .addOutcome(new DecisionTableOutcome("Total", "${Variant Price} + Shipping"))
+                        .addCondition("Variant Price", "? == null || ? < 20")
+                        .addOutcome("Shipping", "0.00")
+                        .addOutcome(outcomes) // collection of outcomes and it can be reused if they are same for multiple rules.
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Variant Price", "? < 50"))
-                        .addOutcome(new DecisionTableOutcome("Shipping", "5.00"))
-                        .addOutcome(new DecisionTableOutcome("Total", "${Variant Price} + Shipping"))
+                        .addCondition("Variant Price", "? < 50")
+                        .addOutcome("Shipping", "5.00") // only provide variable & expression for outcome. 
+                        .addOutcome(outcomes)
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Variant Price", "? < 100"))
-                        .addOutcome(new DecisionTableOutcome("Shipping", "7.00"))
-                        .addOutcome(new DecisionTableOutcome("Total", "${Variant Price} + Shipping"))
+                        .addCondition("Variant Price", "? < 100")
+                        .addOutcome("Shipping", "7.00")
+                        .addOutcome(outcomes)
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Variant Price", "? >= 100"))
+                        .addCondition("Variant Price", "? >= 100")
                         .addOutcome(new DecisionTableOutcome("Shipping", "${Variant Price} * 0.10"))
-                        .addOutcome(new DecisionTableOutcome("Total", "${Variant Price} + Shipping"))
+                        .addOutcome(outcomes)
                         )
                 ;
         
@@ -52,7 +57,7 @@ public class AddADecisionTableToAPipeline {
         
         reader = new DecisionTableReader(reader, table);
         
-        reader = new TransformingReader(reader).add(new SelectFields("Title", "Handle", "Variant Price", "Shipping", "Total"));
+        reader = new TransformingReader(reader).add(new SelectFields("Title", "Handle", "Variant Price", "Shipping", "Total", "Type"));
         
         DataWriter writer = StreamWriter.newSystemOutWriter();
         

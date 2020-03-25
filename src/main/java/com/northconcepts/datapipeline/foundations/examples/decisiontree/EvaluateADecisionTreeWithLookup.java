@@ -4,7 +4,6 @@ import com.northconcepts.datapipeline.core.FieldList;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.foundations.decisiontree.DecisionTree;
 import com.northconcepts.datapipeline.foundations.decisiontree.DecisionTreeNode;
-import com.northconcepts.datapipeline.foundations.decisiontree.DecisionTreeOutcome;
 import com.northconcepts.datapipeline.foundations.decisiontree.DecisionTreeResult;
 import com.northconcepts.datapipeline.internal.expression.DefaultExpressionContext;
 import com.northconcepts.datapipeline.transform.lookup.BasicLookup;
@@ -29,23 +28,23 @@ public class EvaluateADecisionTreeWithLookup {
                 .setRootNode(new DecisionTreeNode()
 
                         .addBranch("Price == null || Price < 20", new DecisionTreeNode()
-                            .addOutcome(new DecisionTreeOutcome("Shipping", "0.00"))
-                            .addOutcome(new DecisionTreeOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))"))
+                            .addOutcome("Shipping", "0.00")
+                            .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))")
                         )
 
                         .addBranch("Price  < 50", new DecisionTreeNode()
-                                .addOutcome(new DecisionTreeOutcome("Shipping", "5.00"))
-                                .addOutcome(new DecisionTreeOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))"))
+                                .addOutcome("Shipping", "5.00")
+                                .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))")
                         )
 
                         .addBranch("Price  < 100", new DecisionTreeNode()
-                                .addOutcome(new DecisionTreeOutcome("Shipping", "7.00"))
-                                .addOutcome(new DecisionTreeOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))"))
+                                .addOutcome("Shipping", "7.00")
+                                .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))")
                         )
 
                         .addBranch("Price  >= 100", new DecisionTreeNode()
-                                .addOutcome(new DecisionTreeOutcome("Shipping", "${Price} * 0.10"))
-                                .addOutcome(new DecisionTreeOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))"))
+                                .addOutcome("Shipping", "${Price} * 0.10")
+                                .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))")
                         )
                 );
 

@@ -4,7 +4,6 @@ import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMapping;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMappingResult;
-import com.northconcepts.datapipeline.foundations.datamapping.FieldMapping;
 import com.northconcepts.datapipeline.foundations.schema.EntityDef;
 import com.northconcepts.datapipeline.foundations.schema.NumericFieldDef;
 import com.northconcepts.datapipeline.foundations.schema.SchemaDef;
@@ -29,8 +28,8 @@ public class MapDataWithSchemaBasedValidation {
 
         DataMapping mapping = new DataMapping()
                 .setEntity(customerEntity)  // set optional entity definition to validate against
-                .addFieldMapping(new FieldMapping("name", "source.fname + ' ' + source.lname"))
-                .addFieldMapping(new FieldMapping("age", "source.age"));
+                .addFieldMapping("name", "source.fname + ' ' + source.lname")
+                .addFieldMapping("age", "source.age");
         
         DataMappingResult result = mapping.map(input);
         Record target = result.getTarget();

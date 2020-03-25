@@ -11,7 +11,6 @@ import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.filter.FieldCount;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMapping;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMappingReader;
-import com.northconcepts.datapipeline.foundations.datamapping.FieldMapping;
 import com.northconcepts.datapipeline.foundations.schema.EntityDef;
 import com.northconcepts.datapipeline.foundations.schema.NumericFieldDef;
 import com.northconcepts.datapipeline.foundations.schema.SchemaDef;
@@ -32,9 +31,9 @@ public class MapDataFromSourceToTargetInAPipeline {
         DataMapping mapping = new DataMapping()
                 .setEntity(productEntity)   // set optional entity definition to validate against
                 .setValue("Markup", BigDecimal.valueOf(10.00))  // add a constant to be used in the mapping
-                .addFieldMapping(new FieldMapping("Title", "coalesce(source.Title, source.Handle)"))
-                .addFieldMapping(new FieldMapping("Cost", "${source.Variant Price}"))  // use ${} since field has space in name
-                .addFieldMapping(new FieldMapping("Price", "toBigDecimal(target.Cost) + Markup"));
+                .addFieldMapping("Title", "coalesce(source.Title, source.Handle)")
+                .addFieldMapping("Cost", "${source.Variant Price}")  // use ${} since field has space in name
+                .addFieldMapping("Price", "toBigDecimal(target.Cost) + Markup");
         
         DataReader reader = new CSVReader(new File("data/input/jewelry.csv"))
                 .setAllowMultiLineText(true)
