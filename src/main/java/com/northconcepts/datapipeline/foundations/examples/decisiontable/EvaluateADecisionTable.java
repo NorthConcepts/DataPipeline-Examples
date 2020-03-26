@@ -2,8 +2,6 @@ package com.northconcepts.datapipeline.foundations.examples.decisiontable;
 
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTable;
-import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableCondition;
-import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableOutcome;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableResult;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableRule;
 import com.northconcepts.datapipeline.internal.expression.DefaultExpressionContext;
@@ -18,31 +16,31 @@ public class EvaluateADecisionTable {
         
         DecisionTable table = new DecisionTable()
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Age", "? >= 40"))
-                        .addCondition(new DecisionTableCondition("House Owned", "? == true"))
-                        .addOutcome(new DecisionTableOutcome("Eligible", "true"))
+                        .addCondition("Age", "? >= 40")
+                        .addCondition("House Owned", "? == true")
+                        .addOutcome("Eligible", "true")
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Age", "? >= 40"))
-                        .addCondition(new DecisionTableCondition("House Owned", "? == false"))
-                        .addCondition(new DecisionTableCondition("Income", "? >= 2000"))
-                        .addOutcome(new DecisionTableOutcome("Eligible", "true"))
+                        .addCondition("Age", "? >= 40")
+                        .addCondition("House Owned", "? == false")
+                        .addCondition("Income", "? >= 2000")
+                        .addOutcome("Eligible", "true")
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Age", "? >= 40"))
-                        .addCondition(new DecisionTableCondition("House Owned", "? == false"))
-                        .addCondition(new DecisionTableCondition("Income", "? < 2000")) 
-                        .addOutcome(new DecisionTableOutcome("Eligible", "false"))
+                        .addCondition("Age", "? >= 40")
+                        .addCondition("House Owned", "? == false")
+                        .addCondition("Income", "? < 2000") 
+                        .addOutcome("Eligible", "false")
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Age", "? < 40"))
-                        .addCondition(new DecisionTableCondition("Income", "? >= 3000"))
-                        .addOutcome(new DecisionTableOutcome("Eligible", "true"))
+                        .addCondition("Age", "? < 40")
+                        .addCondition("Income", "? >= 3000")
+                        .addOutcome("Eligible", "true")
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Age", "? < 40"))
-                        .addCondition(new DecisionTableCondition("Income", "? < 3000"))
-                        .addOutcome(new DecisionTableOutcome("Eligible", "false"))
+                        .addCondition("Age", "? < 40")
+                        .addCondition("Income", "? < 3000")
+                        .addOutcome("Eligible", "false")
                         )
                 ;
         

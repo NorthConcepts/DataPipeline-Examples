@@ -4,7 +4,6 @@ import com.northconcepts.datapipeline.core.FieldList;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMapping;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMappingResult;
-import com.northconcepts.datapipeline.foundations.datamapping.FieldMapping;
 import com.northconcepts.datapipeline.internal.expression.DefaultExpressionContext;
 import com.northconcepts.datapipeline.transform.lookup.BasicLookup;
 import com.northconcepts.datapipeline.transform.lookup.Lookup;
@@ -27,8 +26,8 @@ public class MapDataFromSourceToTargetWithLookup {
         
         DataMapping mapping = new DataMapping()
                 .setValue("currencyLookup", currencyLookup)
-                .addFieldMapping(new FieldMapping("first_name", "source.fname"))
-                .addFieldMapping(new FieldMapping("currency", "lookup(0, currencyLookup, toUpperCase(source.currency_code))"))
+                .addFieldMapping("first_name", "source.fname")
+                .addFieldMapping("currency", "lookup(0, currencyLookup, toUpperCase(source.currency_code))")
                 ;
         
         DataMappingResult result = mapping.map(input);

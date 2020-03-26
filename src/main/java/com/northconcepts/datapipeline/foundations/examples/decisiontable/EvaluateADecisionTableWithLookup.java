@@ -3,8 +3,6 @@ package com.northconcepts.datapipeline.foundations.examples.decisiontable;
 import com.northconcepts.datapipeline.core.FieldList;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTable;
-import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableCondition;
-import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableOutcome;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableResult;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableRule;
 import com.northconcepts.datapipeline.internal.expression.DefaultExpressionContext;
@@ -29,24 +27,24 @@ public class EvaluateADecisionTableWithLookup {
         DecisionTable table = new DecisionTable()
                 .setValue("currencyLookup", currencyLookup)
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Price", "? == null || ? < 20"))
-                        .addOutcome(new DecisionTableOutcome("Shipping", "0.00"))
-                        .addOutcome(new DecisionTableOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))"))
+                        .addCondition("Price", "? == null || ? < 20")
+                        .addOutcome("Shipping", "0.00")
+                        .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code})")
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Price", "? < 50"))
-                        .addOutcome(new DecisionTableOutcome("Shipping", "5.00"))
-                        .addOutcome(new DecisionTableOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))"))
+                        .addCondition("Price", "? < 50")
+                        .addOutcome("Shipping", "5.00")
+                        .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code})")
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Price", "? < 100"))
-                        .addOutcome(new DecisionTableOutcome("Shipping", "7.00"))
-                        .addOutcome(new DecisionTableOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))"))
+                        .addCondition("Price", "? < 100")
+                        .addOutcome("Shipping", "7.00")
+                        .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code})")
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("Price", "? >= 100"))
-                        .addOutcome(new DecisionTableOutcome("Shipping", "${Price} * 0.10"))
-                        .addOutcome(new DecisionTableOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))"))
+                        .addCondition("Price", "? >= 100")
+                        .addOutcome("Shipping", "${Price} * 0.10")
+                        .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code})")
                         )
                 ;
         

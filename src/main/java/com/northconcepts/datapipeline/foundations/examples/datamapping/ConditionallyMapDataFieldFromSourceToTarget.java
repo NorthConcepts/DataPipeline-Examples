@@ -15,7 +15,7 @@ public class ConditionallyMapDataFieldFromSourceToTarget {
 
         DataMapping mapping = new DataMapping()
                 .addFieldMapping(new FieldMapping("first_name", "source.fname").setCondition("length(source.fname) > 3")) // don't map this field if fname is not greater than 3 characters
-                .addFieldMapping(new FieldMapping("last_name", "toUpperCase(source.lname)"));
+                .addFieldMapping("last_name", "toUpperCase(source.lname)");
         
         DataMappingResult result = mapping.map(input);
         Record target = result.getTarget();
