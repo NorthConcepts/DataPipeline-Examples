@@ -31,11 +31,11 @@ public class AddADecisionTableToAPipeline {
                 .addRule(new DecisionTableRule()
                         .addCondition("Variant Price", "? == null || ? < 20")
                         .addOutcome("Shipping", "0.00")
-                        .addOutcome(outcomes) // collection of outcomes and it can be reused if they are same for multiple rules.
+                        .addOutcome(outcomes)
                         )
                 .addRule(new DecisionTableRule()
                         .addCondition("Variant Price", "? < 50")
-                        .addOutcome("Shipping", "5.00") // only provide variable & expression for outcome. 
+                        .addOutcome("Shipping", "5.00") 
                         .addOutcome(outcomes)
                         )
                 .addRule(new DecisionTableRule()
