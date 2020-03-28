@@ -21,24 +21,28 @@ public class AddADecisionTreeToAPipeline {
 
                 .setRootNode(new DecisionTreeNode()
 
-                        .addBranch("${Variant Price} == null || ${Variant Price} < 20", new DecisionTreeNode()
-                            .addOutcome("Shipping", "0.00")
-                            .addOutcome("Total", "${Variant Price} + Shipping")
+                        .addNode(new DecisionTreeNode()
+                                .setCondition("${Variant Price} == null || ${Variant Price} < 20")
+                                .addOutcome("Shipping", "0.00")
+                                .addOutcome("Total", "${Variant Price} + Shipping")
                         )
 
-                        .addBranch("${Variant Price} < 50", new DecisionTreeNode()
+                        .addNode(new DecisionTreeNode()
+                                .setCondition("${Variant Price} < 50")
                                 .addOutcome("Shipping", "5.00")
                                 .addOutcome("Total", "${Variant Price} + Shipping")
 
                         )
 
-                        .addBranch("${Variant Price} < 100", new DecisionTreeNode()
+                        .addNode(new DecisionTreeNode()
+                                .setCondition("${Variant Price} < 100")
                                 .addOutcome("Shipping", "7.00")
                                 .addOutcome("Total", "${Variant Price} + Shipping")
 
                         )
 
-                        .addBranch("${Variant Price} >= 100", new DecisionTreeNode()
+                        .addNode(new DecisionTreeNode()
+                                .setCondition("${Variant Price} >= 100")
                                 .addOutcome("Shipping", "${Variant Price} * 0.10")
                                 .addOutcome("Total", "${Variant Price} + Shipping")
                         )
