@@ -21,18 +21,30 @@ public class AddCalculatedFieldsToADecisionTree {
 
                 .setRootNode(new DecisionTreeNode()
 
-                        .addBranch("overAgeThreshold == true", new DecisionTreeNode()
-                                .addBranch("houseOwned == true", new DecisionTreeNode().addOutcome("Eligible", "true"))
+                        .addNode(new DecisionTreeNode("overAgeThreshold == true")
+                                .addNode(new DecisionTreeNode("houseOwned == true")
+                                        .addOutcome("Eligible", "true")
+                                        )
 
-                                .addBranch("houseOwned == false", new DecisionTreeNode()
-                                        .addBranch("Income >= 2000", new DecisionTreeNode().addOutcome("Eligible", "true"))
-                                        .addBranch("Income < 2000", new DecisionTreeNode().addOutcome("Eligible", "false"))
+                                .addNode(new DecisionTreeNode()
+                                        .setCondition("houseOwned == false")
+                                        .addNode(new DecisionTreeNode("Income >= 2000")
+                                                .addOutcome("Eligible", "true")
+                                                )
+                                        .addNode(new DecisionTreeNode("Income < 2000")
+                                                .addOutcome("Eligible", "false")
+                                                )
                                 )
                         )
 
-                        .addBranch("overAgeThreshold == false", new DecisionTreeNode()
-                                .addBranch("Income >= 3000", new DecisionTreeNode().addOutcome("Eligible", "true"))
-                                .addBranch("Income < 3000", new DecisionTreeNode().addOutcome("Eligible", "false"))
+                        .addNode(new DecisionTreeNode()
+                                .setCondition("overAgeThreshold == false")
+                                .addNode(new DecisionTreeNode("Income >= 3000")
+                                        .addOutcome("Eligible", "true")
+                                        )
+                                .addNode(new DecisionTreeNode("Income < 3000")
+                                        .addOutcome("Eligible", "false")
+                                        )
                         )
                 );
 

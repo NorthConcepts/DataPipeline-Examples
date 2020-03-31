@@ -27,22 +27,22 @@ public class EvaluateADecisionTreeWithLookup {
                 .setValue("currencyLookup", currencyLookup)
                 .setRootNode(new DecisionTreeNode()
 
-                        .addBranch("Price == null || Price < 20", new DecisionTreeNode()
-                            .addOutcome("Shipping", "0.00")
-                            .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))")
+                        .addNode(new DecisionTreeNode("Price == null || Price < 20")
+                                .addOutcome("Shipping", "0.00")
+                                .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))")
                         )
 
-                        .addBranch("Price  < 50", new DecisionTreeNode()
+                        .addNode(new DecisionTreeNode("Price  < 50")
                                 .addOutcome("Shipping", "5.00")
                                 .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))")
                         )
 
-                        .addBranch("Price  < 100", new DecisionTreeNode()
+                        .addNode(new DecisionTreeNode("Price  < 100")
                                 .addOutcome("Shipping", "7.00")
                                 .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))")
                         )
 
-                        .addBranch("Price  >= 100", new DecisionTreeNode()
+                        .addNode(new DecisionTreeNode("Price  >= 100")
                                 .addOutcome("Shipping", "${Price} * 0.10")
                                 .addOutcome("Currency", "lookup(0, currencyLookup, toUpperCase(${Currency Code}))")
                         )
