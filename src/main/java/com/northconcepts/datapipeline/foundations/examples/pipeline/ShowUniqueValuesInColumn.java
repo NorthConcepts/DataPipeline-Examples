@@ -4,24 +4,22 @@ import com.northconcepts.datapipeline.foundations.file.LocalFile;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
-import com.northconcepts.datapipeline.foundations.pipeline.input.ExcelPipelineInput;
+import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.internal.lang.LongPointer;
 
 import java.util.Map;
 
-public class ShowColumnUniqueValuesStatistics {
+public class ShowUniqueValuesInColumn {
 
     public static void main(String[] args) {
 
         Pipeline pipeline = new Pipeline();
 
-        LocalFile inputFile = new LocalFile()
-                .setName("Input File")
-                .setPath("PATH_TO_INPUT_FILE.csv")
-                .detectFileType();
-
-        ExcelPipelineInput pipelineInput = new ExcelPipelineInput()
-                .setFileSource(inputFile)
+        CsvPipelineInput pipelineInput = new CsvPipelineInput()
+                .setFileSource(new LocalFile()
+                        .setName("Input File")
+                        .setPath("data/input/Listing.csv")
+                        .detectFileType())
                 .setFieldNamesInFirstRow(true);
 
         pipeline.setInput(pipelineInput);
