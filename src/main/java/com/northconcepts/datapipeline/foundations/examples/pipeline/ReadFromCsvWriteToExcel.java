@@ -7,7 +7,6 @@ import com.northconcepts.datapipeline.foundations.pipeline.action.transform.AddF
 import com.northconcepts.datapipeline.foundations.pipeline.action.transform.RenameFieldsCommand;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
-import com.northconcepts.datapipeline.job.Job;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -42,6 +41,6 @@ public class ReadFromCsvWriteToExcel {
 
         pipeline.addAction(addFieldsCommand);
 
-        Job.run(pipeline.createDataReader(true), pipeline.createDataWriter());
+        pipeline.run();
     }
 }

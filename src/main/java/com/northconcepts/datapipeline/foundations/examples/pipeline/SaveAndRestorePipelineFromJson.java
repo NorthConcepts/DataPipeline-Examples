@@ -48,6 +48,6 @@ public class SaveAndRestorePipelineFromJson {
         Pipeline pipeline2 = new Pipeline();
         pipeline2.fromRecord(pipelineRecord);
 
-        Job.run(pipeline2.createDataReader(true), pipeline2.createDataWriter());
+        pipeline2.run();
     }
 }

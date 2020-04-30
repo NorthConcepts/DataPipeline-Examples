@@ -1,19 +1,13 @@
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
-import com.northconcepts.datapipeline.core.Record;
-import com.northconcepts.datapipeline.examples.cookbook.SelectAndArrangeFields;
-import com.northconcepts.datapipeline.excel.ExcelDocument;
 import com.northconcepts.datapipeline.foundations.file.LocalFile;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.action.transform.SelectArrangeFieldsCommand;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
-import com.northconcepts.datapipeline.foundations.pipeline.input.ExcelPipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
-import com.northconcepts.datapipeline.job.Job;
 
-import java.io.File;
 
 public class FilterColumnsWithAllNullValues {
 
@@ -45,7 +39,7 @@ public class FilterColumnsWithAllNullValues {
 
         pipeline.addAction(action);
 
-        Job.run(pipeline.createDataReader(true), pipeline.createDataWriter());
+        pipeline.run();
 
         dataset.close();
     }
