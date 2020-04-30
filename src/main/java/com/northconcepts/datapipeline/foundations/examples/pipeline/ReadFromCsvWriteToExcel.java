@@ -19,16 +19,11 @@ public class ReadFromCsvWriteToExcel {
         Pipeline pipeline = new Pipeline();
 
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
-                .setFileSource(new LocalFile()
-                        .setName("Input File")
-                        .setPath("data/input/Listing.csv")
-                        .detectFileType())
+                .setFileSource(new LocalFile().setPath("data/input/Listing.csv"))
                 .setFieldNamesInFirstRow(true);
 
         ExcelPipelineOutput pipelineOutput = new ExcelPipelineOutput()
-                .setFileSink(new LocalFile()
-                        .setName("Output File")
-                        .setPath("data/output/output.xlsx"))
+                .setFileSink(new LocalFile().setPath("data/output/output.xlsx"))
                 .setFieldNamesInFirstRow(true);
 
         pipeline.setInput(pipelineInput);

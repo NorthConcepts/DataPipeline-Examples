@@ -21,21 +21,12 @@ public class FilterColumnsWithAllNullValues {
 
         Pipeline pipeline = new Pipeline();
 
-        LocalFile inputFile = new LocalFile()
-                .setName("Input File")
-                .setPath("data/input/Listing.csv")
-                .detectFileType();
-
-        LocalFile outputFile = new LocalFile()
-                .setName("Output File")
-                .setPath("data/output/NoNull.xlsx");
-
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
-                .setFileSource(inputFile)
+                .setFileSource(new LocalFile().setPath("data/input/Listing.csv"))
                 .setFieldNamesInFirstRow(true);
 
         ExcelPipelineOutput pipelineOutput = new ExcelPipelineOutput()
-                .setFileSink(outputFile)
+                .setFileSink(new LocalFile().setPath("data/output/NoNull.xlsx"))
                 .setFieldNamesInFirstRow(true);
 
         pipeline.setInput(pipelineInput);
@@ -55,5 +46,7 @@ public class FilterColumnsWithAllNullValues {
         pipeline.addAction(action);
 
         Job.run(pipeline.createDataReader(true), pipeline.createDataWriter());
+
+        dataset.close();
     }
 }

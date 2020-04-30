@@ -14,10 +14,7 @@ public class ShowColumnStatistics {
         Pipeline pipeline = new Pipeline();
 
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
-                .setFileSource(new LocalFile()
-                        .setName("Input File")
-                        .setPath("data/input/Listing.csv")
-                        .detectFileType())
+                .setFileSource(new LocalFile().setPath("data/input/Listing.csv"))
                 .setFieldNamesInFirstRow(true);
 
         pipeline.setInput(pipelineInput);
