@@ -2,7 +2,7 @@ package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
 import com.northconcepts.datapipeline.foundations.file.LocalFile;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
-import com.northconcepts.datapipeline.foundations.pipeline.action.transform.SelectArrangeFieldsCommand;
+import com.northconcepts.datapipeline.foundations.pipeline.action.transform.SelectArrangeFieldsAction;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
@@ -29,7 +29,7 @@ public class FilterColumnsWithAllNullValues {
         Dataset dataset = pipeline.getDataset();
         dataset.load().waitForRecordsToLoad();
 
-        SelectArrangeFieldsCommand action = new SelectArrangeFieldsCommand();
+        SelectArrangeFieldsAction action = new SelectArrangeFieldsAction();
 
         for(Column column : dataset.getColumns()) {
             if(column.getValueCount() != column.getNullCount()) {
