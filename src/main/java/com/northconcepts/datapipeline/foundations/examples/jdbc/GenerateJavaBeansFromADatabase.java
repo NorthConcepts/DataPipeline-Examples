@@ -3,12 +3,14 @@ package com.northconcepts.datapipeline.foundations.examples.jdbc;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcConnection;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcTable;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcTableColumn;
-import com.northconcepts.datapipeline.internal.lang.Util;
+import com.northconcepts.datapipeline.foundations.sourcecode.CodeWriter;
+import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 public class GenerateJavaBeansFromADatabase {
+
+    static JavaCodeBuilder code = new JavaCodeBuilder();
+    static CodeWriter sourceWriter = code.getSourceWriter();
 
     public static void main(String... args) {
 
@@ -18,128 +20,66 @@ public class GenerateJavaBeansFromADatabase {
                 .setUsername("username")
                 .setPlainTextPassword("password");
 
+
         for(JdbcTable table : connection.loadTables().getTables()) {
-
-            Catalog catalog = new Catalog();
-            Schema schema = new Schema();
-            Table dbTable = new Table();
-
-            if(!Util.isEmpty(table.getCatalogName())) {
-                catalog.getTables().add(dbTable);
-            }
-
-            if(!Util.isEmpty(table.getSchemaName())) {
-                schema.getTables().add(dbTable);
-            }
-
-            dbTable.setName(table.getName());
-
+            createTableClass(table);
             for(JdbcTableColumn column : table.getColumns()) {
-                dbTable.getColumns().add(new Column()
-                                            .setName(column.getName())
-                                            .setType(column.getJavaType()));
+                createColumnClass(column, table);
             }
         }
+
+        System.out.println(code.getSource());
     }
 
-    public static class Table {
-
-        private Set<Column> columns = new LinkedHashSet<>();
-        private String name;
-
-        public Table(){}
-
-        public Set<Column> getColumns() {
-            return columns;
-        }
-
-        public Table setColumns(Set<Column> columns) {
-            this.columns = columns;
-            return this;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public Table setName(String name) {
-            this.name = name;
-            return this;
-        }
+    public static void createTableClass(JdbcTable table) {
+        sourceWriter.println("public class %s {", table.getName());
+        sourceWriter.println();
+        sourceWriter.indent();
+        sourceWriter.println("private Set<Column> columns = new HashSet<>();");
+        sourceWriter.println();
+        sourceWriter.println("public Set<Column> getColumns() { return columns; }");
+        sourceWriter.println();
+        sourceWriter.println("public %s setColumns(Set<Column> columns) {", table.getName());
+        sourceWriter.indent();
+        sourceWriter.println("this.columns = columns;");
+        sourceWriter.println("return this;");
+        sourceWriter.outdent();
+        sourceWriter.println("}");
+        sourceWriter.println();
+        sourceWriter.println("public %s add(Column column) {", table.getName());
+        sourceWriter.indent();
+        sourceWriter.println("columns.add(column);");
+        sourceWriter.println("return this;");
+        sourceWriter.outdent();
+        sourceWriter.println("}");
+        sourceWriter.outdent();
+        sourceWriter.println("}");
+        sourceWriter.println();
     }
 
-    public static class Column {
-            private String name;
-            private Class<?> type;
-
-        public String getName() {
-            return name;
-        }
-
-        public Column setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Class<?> getType() {
-            return type;
-        }
-
-        public Column setType(Class<?> type) {
-            this.type = type;
-            return this;
-        }
-    }
-
-    public static class Catalog {
-
-        private String name;
-
-        private Set<Table> tables;
-
-        public Catalog(){}
-
-        public String getName() {
-            return name;
-        }
-
-        public Catalog setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Set<Table> getTables() {
-            return tables;
-        }
-
-        public void setTables(Set<Table> tables) {
-            this.tables = tables;
-        }
-    }
-
-    public static class Schema{
-
-        private String name;
-
-        private Set<Table> tables;
-
-        public Schema(){}
-
-        public String getName() {
-            return name;
-        }
-
-        public Schema setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Set<Table> getTables() {
-            return tables;
-        }
-
-        public void setTables(Set<Table> tables) {
-            this.tables = tables;
-        }
+    public static void createColumnClass(JdbcTableColumn column, JdbcTable table) {
+        sourceWriter.println("public class %s {", table.getName() + column.getName());
+        sourceWriter.println();
+        sourceWriter.indent();
+        sourceWriter.println("private String name;");
+        sourceWriter.println("private String type;");
+        sourceWriter.println();
+        sourceWriter.println("public String getName() { return name; }");
+        sourceWriter.println();
+        sourceWriter.println("public %s setName(String name) {", column.getName());
+        sourceWriter.indent();
+        sourceWriter.println("this.name = name;");
+        sourceWriter.println("return this;");
+        sourceWriter.outdent();
+        sourceWriter.println("}");
+        sourceWriter.println();
+        sourceWriter.println("public String getType() {", column.getName());
+        sourceWriter.indent();
+        sourceWriter.println("return \"%s\";", column.getMethodSuffix());
+        sourceWriter.outdent();
+        sourceWriter.println("}");
+        sourceWriter.outdent();
+        sourceWriter.println("}");
+        sourceWriter.println();
     }
 }
