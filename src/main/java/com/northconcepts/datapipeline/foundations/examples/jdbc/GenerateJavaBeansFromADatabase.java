@@ -23,9 +23,6 @@ public class GenerateJavaBeansFromADatabase {
 
         for(JdbcTable table : connection.loadTables().getTables()) {
             createTableClass(table);
-            for(JdbcTableColumn column : table.getColumns()) {
-                createColumnClass(column, table);
-            }
         }
 
         System.out.println(code.getSource());
@@ -33,49 +30,35 @@ public class GenerateJavaBeansFromADatabase {
 
     public static void createTableClass(JdbcTable table) {
         sourceWriter.println("public class %s {", table.getName());
-        sourceWriter.println();
         sourceWriter.indent();
-        sourceWriter.println("private Set<Column> columns = new HashSet<>();");
         sourceWriter.println();
-        sourceWriter.println("public Set<Column> getColumns() { return columns; }");
+        for(JdbcTableColumn column : table.getColumns()) {
+            sourceWriter.println("private %s %s;", column.getMethodSuffix(), column.getName());
+        }
         sourceWriter.println();
-        sourceWriter.println("public %s setColumns(Set<Column> columns) {", table.getName());
+        for(JdbcTableColumn column : table.getColumns()) {
+            sourceWriter.println("public %s set%s(%s %s){", table.getName(), column.getName(),
+                    column.getMethodSuffix(), column.getName());
+            sourceWriter.indent();
+            sourceWriter.println("this.%s = %s;", column.getName(), column.getName());
+            sourceWriter.println("return this;");
+            sourceWriter.outdent();
+            sourceWriter.println("}");
+            sourceWriter.println();
+            sourceWriter.println("public %s get%s(){", column.getMethodSuffix(),column.getName());
+            sourceWriter.indent();
+            sourceWriter.println("return %s;", column.getName());
+            sourceWriter.outdent();
+            sourceWriter.println("}");
+            sourceWriter.println();
+        }
+        sourceWriter.println("public %s read(ResultSet resultSet) {", table.getName());
         sourceWriter.indent();
-        sourceWriter.println("this.columns = columns;");
+        for(JdbcTableColumn column : table.getColumns()) {
+            sourceWriter.println("%s = resultSet.get%s(\"%s\");", column.getName(), column.getMethodSuffix(),
+                    column.getName());
+        }
         sourceWriter.println("return this;");
-        sourceWriter.outdent();
-        sourceWriter.println("}");
-        sourceWriter.println();
-        sourceWriter.println("public %s add(Column column) {", table.getName());
-        sourceWriter.indent();
-        sourceWriter.println("columns.add(column);");
-        sourceWriter.println("return this;");
-        sourceWriter.outdent();
-        sourceWriter.println("}");
-        sourceWriter.outdent();
-        sourceWriter.println("}");
-        sourceWriter.println();
-    }
-
-    public static void createColumnClass(JdbcTableColumn column, JdbcTable table) {
-        sourceWriter.println("public class %s {", table.getName() + column.getName());
-        sourceWriter.println();
-        sourceWriter.indent();
-        sourceWriter.println("private String name;");
-        sourceWriter.println("private String type;");
-        sourceWriter.println();
-        sourceWriter.println("public String getName() { return name; }");
-        sourceWriter.println();
-        sourceWriter.println("public %s setName(String name) {", column.getName());
-        sourceWriter.indent();
-        sourceWriter.println("this.name = name;");
-        sourceWriter.println("return this;");
-        sourceWriter.outdent();
-        sourceWriter.println("}");
-        sourceWriter.println();
-        sourceWriter.println("public String getType() {", column.getName());
-        sourceWriter.indent();
-        sourceWriter.println("return \"%s\";", column.getMethodSuffix());
         sourceWriter.outdent();
         sourceWriter.println("}");
         sourceWriter.outdent();
