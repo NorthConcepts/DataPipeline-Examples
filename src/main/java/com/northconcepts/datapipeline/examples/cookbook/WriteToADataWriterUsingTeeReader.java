@@ -11,7 +11,7 @@ import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.transform.SelectFields;
 import com.northconcepts.datapipeline.transform.TransformingWriter;
 
-public class WriteToMultipleWriterUsingTeeReader {
+public class WriteToADataWriterUsingTeeReader {
 	
 	private static final String INPUT = "example/data/input";
     private static final String OUTPUT = "example/data/output";
