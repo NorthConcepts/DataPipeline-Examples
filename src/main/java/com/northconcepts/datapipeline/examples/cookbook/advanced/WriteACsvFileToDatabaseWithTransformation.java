@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2006-2018 North Concepts Inc.  All rights reserved.
+ * Copyright (c) 2006-2020 North Concepts Inc.  All rights reserved.
  * Proprietary and Confidential.  Use is subject to license terms.
- *
- * http://northconcepts.com/data-pipeline/licensing/
- *
+ * 
+ * https://northconcepts.com/data-pipeline/licensing/
  */
 package com.northconcepts.datapipeline.examples.cookbook.advanced;
 
