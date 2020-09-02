@@ -12,7 +12,6 @@ import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.FieldList;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
-import com.northconcepts.datapipeline.examples.cookbook.customization.MyLookup;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 import com.northconcepts.datapipeline.transform.lookup.LookupTransformer;

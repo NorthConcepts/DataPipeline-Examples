@@ -8,8 +8,6 @@ package com.northconcepts.datapipeline.examples.core.cookbook.customization;
 
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.StreamWriter;
-import com.northconcepts.datapipeline.examples.cookbook.customization.MyDataReader;
-import com.northconcepts.datapipeline.examples.cookbook.customization.MyProxyReader;
 import com.northconcepts.datapipeline.job.Job;
 
 public class WriteMyOwnDataReader {

@@ -11,8 +11,6 @@ import java.io.File;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
-import com.northconcepts.datapipeline.examples.cookbook.customization.MyDataWriter;
-import com.northconcepts.datapipeline.examples.cookbook.customization.MyProxyWriter;
 import com.northconcepts.datapipeline.job.Job;
 
 public class WriteMyOwnDataWriter {

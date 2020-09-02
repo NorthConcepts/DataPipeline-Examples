@@ -22,8 +22,6 @@ import com.northconcepts.datapipeline.eventbus.EventFilter;
 import com.northconcepts.datapipeline.eventbus.ExceptionListener;
 import com.northconcepts.datapipeline.eventbus.RecordListener;
 import com.northconcepts.datapipeline.eventbus.UntypedEventListener;
-import com.northconcepts.datapipeline.examples.userguide.eventbus.IUserListener;
-import com.northconcepts.datapipeline.examples.userguide.eventbus.User;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.xml.SimpleXmlWriter;
 
