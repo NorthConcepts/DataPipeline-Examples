@@ -8,8 +8,6 @@ package com.northconcepts.datapipeline.examples.core.userguide.eventbus;
 
 import java.util.EventListener;
 
-import com.northconcepts.datapipeline.examples.userguide.eventbus.User;
-
 public interface IUserListener extends EventListener {
     
     void userAdded(User user);
