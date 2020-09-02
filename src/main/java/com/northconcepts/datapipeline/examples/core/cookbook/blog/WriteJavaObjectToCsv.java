@@ -12,7 +12,6 @@ import java.util.List;
 
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVWriter;
-import com.northconcepts.datapipeline.examples.cookbook.blog.Signal;
 import com.northconcepts.datapipeline.javabean.JavaBeanReader;
 import com.northconcepts.datapipeline.job.Job;
 
