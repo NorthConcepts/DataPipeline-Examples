@@ -4,7 +4,7 @@
  * 
  * https://northconcepts.com/data-pipeline/licensing/
  */
-package com.northconcepts.datapipeline.foundations.examples.pipeline;
+package com.northconcepts.datapipeline.examples.foundations.pipeline;
 
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.foundations.file.LocalFile;

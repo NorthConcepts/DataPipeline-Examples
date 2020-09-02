@@ -4,7 +4,7 @@
  * 
  * https://northconcepts.com/data-pipeline/licensing/
  */
-package com.northconcepts.datapipeline.foundations.examples.eventbus;
+package com.northconcepts.datapipeline.examples.foundations.eventbus;
 
 import java.util.Arrays;
 

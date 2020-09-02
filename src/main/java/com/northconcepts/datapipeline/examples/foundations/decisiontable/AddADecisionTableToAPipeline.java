@@ -4,7 +4,7 @@
  * 
  * https://northconcepts.com/data-pipeline/licensing/
  */
-package com.northconcepts.datapipeline.foundations.examples.decisiontable;
+package com.northconcepts.datapipeline.examples.foundations.decisiontable;
 
 import java.io.File;
 import java.util.ArrayList;

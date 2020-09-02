@@ -4,7 +4,7 @@
  * 
  * https://northconcepts.com/data-pipeline/licensing/
  */
-package com.northconcepts.datapipeline.foundations.examples.jdbc;
+package com.northconcepts.datapipeline.examples.foundations.jdbc;
 
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcConnection;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcTable;

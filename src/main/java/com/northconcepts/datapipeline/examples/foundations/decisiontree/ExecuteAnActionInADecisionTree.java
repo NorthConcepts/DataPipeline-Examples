@@ -4,7 +4,7 @@
  * 
  * https://northconcepts.com/data-pipeline/licensing/
  */
-package com.northconcepts.datapipeline.foundations.examples.decisiontree;
+package com.northconcepts.datapipeline.examples.foundations.decisiontree;
 
 import com.northconcepts.datapipeline.core.Functions;
 import com.northconcepts.datapipeline.core.Record;
