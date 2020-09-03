@@ -27,7 +27,7 @@ public class AddMyOwnFunctions {
     
     public static void main(String[] args) throws Throwable {
         // register new function 'initials'
-        Functions.add("initials", "com.northconcepts.datapipeline.examples.cookbook.customization.AddMyOwnFunctions.initials");
+        Functions.add("initials", "com.northconcepts.datapipeline.examples.core.cookbook.customization.AddMyOwnFunctions.initials");
         
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-01.csv"))
             .setFieldNamesInFirstRow(true);
