@@ -17,7 +17,7 @@ import java.io.File;
 public class ReadBigDecimalInJSON {
 
     public static void main(String[] args) {
-        DataReader reader = new JsonRecordReader(new File("example/data/output/simple-json-to-file-with-bigdecimal.json"))
+        DataReader reader = new JsonRecordReader(new File("example/data/input/simple-json-to-file-with-bigdecimal.json"))
                 .addRecordBreak("/array/object").setUseBigDecimal(true);
         
         DataWriter writer = StreamWriter.newSystemOutWriter();
