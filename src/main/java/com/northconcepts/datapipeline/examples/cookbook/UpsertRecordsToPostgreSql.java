@@ -31,11 +31,12 @@ public class UpsertRecordsToPostgreSql {
         final String PRIMARY_KEY = "Account";
 
         Class.forName(DATABASE_DRIVER);
-		Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+        Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 
-		createTable(connection);
+        createTable(connection);
 
-        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02.csv")).setFieldNamesInFirstRow(true);
+        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02.csv"))
+                .setFieldNamesInFirstRow(true);
         DataWriter writer = new JdbcUpsertWriter(connection, DATABASE_TABLE, new PostgreSqlUpsert(), PRIMARY_KEY);
 
         Job.run(reader, writer);
@@ -50,16 +51,16 @@ public class UpsertRecordsToPostgreSql {
     public static void createTable(Connection connection) throws Throwable {
         PreparedStatement preparedStatement;
         String dropTableQuery = "DROP TABLE IF EXISTS CreditBalance";
-        String createTableQuery = "CREATE TABLE CreditBalance ("
-                + "Account INTEGER, "
-                + "LastName VARCHAR(256), "
-                + "FirstName VARCHAR(256), "
-                + "Balance double precision, "
-                + "CreditLimit double precision, "
-                + "AccountCreated DATE, "
-                + "Rating CHAR, "
-                + "PRIMARY KEY (Account)"
-                + ")";
+        String createTableQuery = "CREATE TABLE CreditBalance (" 
+                                    + "Account INTEGER, " 
+                                    + "LastName VARCHAR(256), " 
+                                    + "FirstName VARCHAR(256), "
+                                    + "Balance double precision, " 
+                                    + "CreditLimit double precision, " 
+                                    + "AccountCreated DATE, " 
+                                    + "Rating CHAR, "
+                                    + "PRIMARY KEY (Account)"
+                                    + ")";
 
         preparedStatement = connection.prepareStatement(dropTableQuery);
         preparedStatement.execute();
