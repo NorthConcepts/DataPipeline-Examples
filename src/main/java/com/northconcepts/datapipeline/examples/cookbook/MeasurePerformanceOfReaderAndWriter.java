@@ -20,7 +20,7 @@ import com.northconcepts.datapipeline.transform.RenameField;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 import com.northconcepts.datapipeline.transform.TransformingWriter;
 
-public class MeasurePeformanceOfReaderAndWriter {
+public class MeasurePerformanceOfReaderAndWriter {
 
 	public static void main(String[] args) {
 		//set flag - captureElapsedTime to measure performance.
