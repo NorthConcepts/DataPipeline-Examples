@@ -11,7 +11,6 @@ import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
-import com.northconcepts.datapipeline.foundations.pipeline.input.ExcelPipelineInput;
 
 public class ShowColumnStatistics {
 

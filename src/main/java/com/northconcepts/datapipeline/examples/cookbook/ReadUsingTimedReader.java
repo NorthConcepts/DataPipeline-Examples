@@ -16,21 +16,21 @@ import com.northconcepts.datapipeline.job.Job;
 
 public class ReadUsingTimedReader {
 
-	public static void main(String[] args) {
-		//Create a CardReader to retrieve records with specified delay in read.
-		DataReader reader = new CardReader()
-        		.setMaxRecords(10000)
-        		.setReadPeriod(TimeUnit.SECONDS.toMillis(1))
-				.setStartingDate("2016-01-14 09:00:00.000")
-				.setDateIncrement(500);
-		
+    public static void main(String[] args) {
+        // Create a CardReader to retrieve records with specified delay in read.
+        DataReader reader = new CardReader()
+                .setMaxRecords(10000)
+                .setReadPeriod(TimeUnit.SECONDS.toMillis(1))
+                .setStartingDate("2016-01-14 09:00:00.000")
+                .setDateIncrement(500);
+
         // Use TimedReader to read for limited time.
         reader = new TimedReader(reader, TimeUnit.SECONDS.toMillis(10)); // Read only for 10 seconds.
-        
+
         Job job = Job.run(reader, new NullWriter());
-        
+
         System.out.println("Total Records retrieved :- " + job.getRecordsTransferred());
         System.out.println("Running Time in milli seconds :- " + job.getRunningTimeAsString());
-        
-	}
+
+    }
 }

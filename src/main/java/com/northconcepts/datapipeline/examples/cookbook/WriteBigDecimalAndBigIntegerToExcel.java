@@ -21,8 +21,8 @@ import com.northconcepts.datapipeline.memory.MemoryReader;
 
 public class WriteBigDecimalAndBigIntegerToExcel {
 
-	public static void main(String[] args) {
-		Record record1 = new Record();
+    public static void main(String[] args) {
+        Record record1 = new Record();
         record1.setField("name", "John Wayne");
         record1.setField("balance", new BigDecimal("1234567890.0987654321"));
         record1.setField("creditLimit", new BigInteger("98765432109876543210"));
@@ -31,14 +31,14 @@ public class WriteBigDecimalAndBigIntegerToExcel {
         record2.setField("name", "Peter Parker");
         record2.setField("balance", new BigDecimal("987654321.123456789"));
         record2.setField("creditLimit", new BigInteger("12345678901234567890"));
-        
+
         DataReader reader = new MemoryReader(new RecordList(record1, record2));
-        
-		ExcelDocument document = new ExcelDocument();
-		DataWriter writer = new ExcelWriter(document).setSheetName("balance");
 
-		Job.run(reader, writer);
+        ExcelDocument document = new ExcelDocument();
+        DataWriter writer = new ExcelWriter(document).setSheetName("balance");
 
-		document.save(new File("example/data/output/WriteBigDecimalAndBigIntegerToExcel-credit-balance.xls"));
-	}
+        Job.run(reader, writer);
+
+        document.save(new File("example/data/output/WriteBigDecimalAndBigIntegerToExcel-credit-balance.xls"));
+    }
 }
