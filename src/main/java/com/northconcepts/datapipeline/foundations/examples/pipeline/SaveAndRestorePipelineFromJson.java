@@ -14,10 +14,6 @@ import com.northconcepts.datapipeline.foundations.pipeline.action.transform.AddF
 import com.northconcepts.datapipeline.foundations.pipeline.action.transform.RenameFieldsAction;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
-import com.northconcepts.datapipeline.job.Job;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class SaveAndRestorePipelineFromJson {
 
