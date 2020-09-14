@@ -1,0 +1,16 @@
+[
+  {
+    "country":"Philippines"
+    ,"capital":"Manila"
+    ,"language":"Filipino"
+    ,"x-coodrinates" : 14.583331
+    ,"y-coodrinates" : 121.0
+  }
+  ,{
+    "country":"Japan"
+    ,"capital":"Tokyo"
+    ,"language":"Japanese"
+    ,"x-coodrinates" : 35.652832
+    ,"y-coodrinates" : 139.839478
+  }
+]
