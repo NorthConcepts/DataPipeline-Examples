@@ -1,12 +1,15 @@
+/*
+ * Copyright (c) 2006-2020 North Concepts Inc.  All rights reserved.
+ * Proprietary and Confidential.  Use is subject to license terms.
+ * 
+ * https://northconcepts.com/data-pipeline/licensing/
+ */
 package com.northconcepts.datapipeline.foundations.examples.decisiontable;
 
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTable;
-import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableCondition;
-import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableOutcome;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableResult;
 import com.northconcepts.datapipeline.foundations.decisiontable.DecisionTableRule;
-import com.northconcepts.datapipeline.foundations.expression.CalculatedField;
 import com.northconcepts.datapipeline.internal.expression.DefaultExpressionContext;
 
 public class AddCalculatedFieldsToADecisionTable {
@@ -19,35 +22,35 @@ public class AddCalculatedFieldsToADecisionTable {
         
         DecisionTable table = new DecisionTable()
         		
-                .addField(new CalculatedField("ageThreshold", "40"))
-                .addField(new CalculatedField("overAgeThreshold", "Age >= ageThreshold"))
+                .addField("ageThreshold", "40")
+                .addField("overAgeThreshold", "Age >= ageThreshold")
                 
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("overAgeThreshold", "? == true"))
-                        .addCondition(new DecisionTableCondition("House Owned", "? == true"))
-                        .addOutcome(new DecisionTableOutcome("Eligible", "true"))
+                        .addCondition("overAgeThreshold", "? == true")
+                        .addCondition("House Owned", "? == true")
+                        .addOutcome("Eligible", "true")
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("overAgeThreshold", "? == true"))
-                        .addCondition(new DecisionTableCondition("House Owned", "? == false"))
-                        .addCondition(new DecisionTableCondition("Income", "? >= 2000"))
-                        .addOutcome(new DecisionTableOutcome("Eligible", "true"))
+                        .addCondition("overAgeThreshold", "? == true")
+                        .addCondition("House Owned", "? == false")
+                        .addCondition("Income", "? >= 2000")
+                        .addOutcome("Eligible", "true")
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("overAgeThreshold", "? == true"))
-                        .addCondition(new DecisionTableCondition("House Owned", "? == false"))
-                        .addCondition(new DecisionTableCondition("Income", "? < 2000")) 
-                        .addOutcome(new DecisionTableOutcome("Eligible", "false"))
+                        .addCondition("overAgeThreshold", "? == true")
+                        .addCondition("House Owned", "? == false")
+                        .addCondition("Income", "? < 2000")
+                        .addOutcome("Eligible", "false")
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("overAgeThreshold", "? == false"))
-                        .addCondition(new DecisionTableCondition("Income", "? >= 3000"))
-                        .addOutcome(new DecisionTableOutcome("Eligible", "true"))
+                        .addCondition("overAgeThreshold", "? == false")
+                        .addCondition("Income", "? >= 3000")
+                        .addOutcome("Eligible", "true")
                         )
                 .addRule(new DecisionTableRule()
-                        .addCondition(new DecisionTableCondition("overAgeThreshold", "? == false"))
-                        .addCondition(new DecisionTableCondition("Income", "? < 3000"))
-                        .addOutcome(new DecisionTableOutcome("Eligible", "false"))
+                        .addCondition("overAgeThreshold", "? == false")
+                        .addCondition("Income", "? < 3000")
+                        .addOutcome("Eligible", "false")
                         )
                 ;
         
