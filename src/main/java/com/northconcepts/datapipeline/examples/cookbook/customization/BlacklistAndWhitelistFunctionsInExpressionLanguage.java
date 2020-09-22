@@ -32,9 +32,9 @@ public class BlacklistAndWhitelistFunctionsInExpressionLanguage {
 
             TransformingReader transformingReader = new TransformingReader(reader);
 
-            // adding new field which will display current time in milliseconds.
-            // java.lang package is blacklisted by default and this will throw an exception
-            transformingReader.add(new SetCalculatedField("currentTime", "java.lang.System.currentTimeMillis()"));
+            // adding new field which should exit the program immediately..
+            // but java.lang package is blacklisted by default, so this will throw an exception
+            transformingReader.add(new SetCalculatedField("exitProgram", "java.lang.System.exit(0)"));
 
             Job.run(transformingReader, new StreamWriter(System.out));
         } catch (Throwable e) {
