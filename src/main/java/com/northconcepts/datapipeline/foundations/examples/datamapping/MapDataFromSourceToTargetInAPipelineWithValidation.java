@@ -37,7 +37,7 @@ public class MapDataFromSourceToTargetInAPipelineWithValidation {
         EntityDef productEntity = schema.getEntity("Product");
         
         DataMapping mapping = new DataMapping()
-                .setEntity(productEntity)   // set optional entity definition to validate against
+                .setTargetValidationEntity(productEntity)   // set optional entity definition to validate against
                 .setValue("Markup", BigDecimal.valueOf(10.00))  // add a constant to be used in the mapping
                 .addFieldMapping(new FieldMapping("Title", "coalesce(source.Title, source.Handle)"))
                 .addFieldMapping(new FieldMapping("Cost", "${source.Variant Price}"))  // use ${} since field has space in name
