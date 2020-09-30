@@ -33,7 +33,7 @@ public class MapDataWithSchemaBasedValidation {
         input.setValue("age", 15);
 
         DataMapping mapping = new DataMapping()
-                .setEntity(customerEntity)  // set optional entity definition to validate against
+                .setTargetValidationEntity(customerEntity)  // set optional entity definition to validate against
                 .addFieldMapping("name", "source.fname + ' ' + source.lname")
                 .addFieldMapping("age", "source.age");
         

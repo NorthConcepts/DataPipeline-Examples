@@ -21,7 +21,6 @@ import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.filter.FilterExpression;
 import com.northconcepts.datapipeline.filter.FilteringReader;
-import com.northconcepts.datapipeline.internal.lang.Interval;
 import com.northconcepts.datapipeline.internal.lang.Moment;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.transform.SetCalculatedField;
@@ -58,12 +57,7 @@ public class ProfilePerformance {
 
 	private static void logEndpoint(String string, List<? extends DataEndpoint> endpoints) {
 		for (DataEndpoint endpoint : endpoints) {
-            DataEndpoint nestedEndpoint = endpoint.getNestedEndpoint();
-			if (nestedEndpoint != null) {
-                log.info(string + endpoint.getName() +  ":    " + new Interval((nestedEndpoint.getElapsedTime() - nestedEndpoint.getElapsedTime()), 0).toString());
-            } else {
-                log.info(string + endpoint.getName() +  ":    " + endpoint.getElapsedTimeAsString());
-            }
+            log.info(string + endpoint.getName() +  ":    " + endpoint.getSelfTimeAsString());
         }
 	}
 

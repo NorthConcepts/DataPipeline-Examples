@@ -39,7 +39,7 @@ public class SaveAndLoadDataMappingToXML {
                             .setMaximumLength(2))
                 .addField(new BooleanFieldDef("isActiveOrder", FieldType.BOOLEAN));
 
-        mapping.setEntity(entityDef);
+        mapping.setTargetValidationEntity(entityDef);
 
         mapping.toXml(new FileWriter("example/data/output/customer-details-data-mapping.xml"), true);
         
