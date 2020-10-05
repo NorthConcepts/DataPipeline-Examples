@@ -6,7 +6,6 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
-import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.foundations.file.LocalFile;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.action.convert.ConvertStringToNumberAction;
@@ -43,10 +42,10 @@ public class SaveAndRestorePipelineFromJson {
 
         pipeline.addAction(addFieldsAction);
 
-        Record pipelineRecord = pipeline.toRecord();
+        String json = pipeline.toJsonString();
 
         Pipeline pipeline2 = new Pipeline();
-        pipeline2.fromRecord(pipelineRecord);
+        pipeline2.fromJsonString(json);
 
         pipeline2.run();
     }
