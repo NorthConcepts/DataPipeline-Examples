@@ -7,12 +7,6 @@ import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
-import com.northconcepts.datapipeline.filter.FieldFilter;
-import com.northconcepts.datapipeline.filter.FilterExpression;
-import com.northconcepts.datapipeline.filter.FilteringReader;
-import com.northconcepts.datapipeline.filter.rule.IsJavaType;
-import com.northconcepts.datapipeline.filter.rule.IsNotNull;
-import com.northconcepts.datapipeline.filter.rule.ValueMatch;
 import com.northconcepts.datapipeline.foundations.schema.BooleanFieldDef;
 import com.northconcepts.datapipeline.foundations.schema.EntityDef;
 import com.northconcepts.datapipeline.foundations.schema.NumericFieldDef;
@@ -22,15 +16,20 @@ import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
 import com.northconcepts.datapipeline.transform.SelectFields;
 import com.northconcepts.datapipeline.transform.TransformingReader;
+import com.northconcepts.datapipeline.validate.ValidatingReader;
 
 public class UseSchemaFilterToValidateRecordsInAPipeline {
 
     public static void main(String[] args) {
         
         EntityDef entityDef = new EntityDef().setName("Jewelry")
-                .addField(new NumericFieldDef("Variant Price", FieldType.DOUBLE))
+                .addField(new NumericFieldDef("Variant Price", FieldType.DOUBLE)
+                        .setMaximum(5)
+                        .setMaximum(500)
+                        .setRequired(true))
                 .addField(new BooleanFieldDef("Variant Taxable", FieldType.BOOLEAN))
-                .addField(new TextFieldDef("Title", FieldType.STRING))
+                .addField(new TextFieldDef("Title", FieldType.STRING)
+                        .setMaximumLength(256))
                 .addField(new TextFieldDef("Option1 Value", FieldType.STRING));
         
         SchemaFilter schemaFilter = new SchemaFilter(entityDef);
@@ -40,24 +39,11 @@ public class UseSchemaFilterToValidateRecordsInAPipeline {
                 .setFieldNamesInFirstRow(true);
         
         reader = new TransformingReader(reader)
-                .add(new BasicFieldTransformer("Variant Price").stringToDouble(),
+                .add(new BasicFieldTransformer("Variant Price").nullToValue(100d).stringToDouble(),
                     new BasicFieldTransformer("Variant Taxable").stringToBoolean())
-                .add(new SelectFields("Variant Price", "Variant Taxable", "Title", "Option1 Value"));
+                .add(new SelectFields("Title", "Variant Price", "Variant Taxable", "Option1 Value"));
         
-        reader = new FilteringReader(reader)
-                
-                .add(new FieldFilter("Variant Price")
-                    .addRule(new IsNotNull())
-                    .addRule(new IsJavaType(Double.class)))
-                
-                .add(new FilterExpression("${Variant Price} >= 5 && ${Variant Price} <= 50"))
-        
-                .add(new FieldFilter("Option1 Value")
-                        .addRule(new IsJavaType(String.class))
-                        .addRule(new ValueMatch<String>("Blue", "Black", "Gold", "Silver", "Purple")))
-                
-                .add(schemaFilter);
-        
+        reader = new ValidatingReader(reader).add(schemaFilter);
         
         DataWriter writer = StreamWriter.newSystemOutWriter();
         
