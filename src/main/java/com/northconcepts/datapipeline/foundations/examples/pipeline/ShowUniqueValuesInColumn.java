@@ -33,7 +33,7 @@ public class ShowUniqueValuesInColumn {
         for(Column column : dataset.getColumns()) {
             System.out.println("Column Name: " + column.getName());
             for(Map.Entry<Object, LongPointer> entry : column.getUniqueValuesByCount()) {
-                System.out.println(entry.getKey() + " : " + entry.getValue());
+                System.out.println("  " + entry.getKey() + ": " + entry.getValue());
             }
             System.out.println("===============================");
         }

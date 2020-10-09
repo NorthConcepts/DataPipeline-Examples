@@ -16,15 +16,16 @@ public class ShowColumnStatistics {
 
     public static void main(String[] args) {
 
-        Pipeline pipeline = new Pipeline();
-
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
                 .setFileSource(new LocalFile().setPath("data/input/Listing.csv"))
                 .setFieldNamesInFirstRow(true);
 
+        Pipeline pipeline = new Pipeline();
+
         pipeline.setInput(pipelineInput);
 
         Dataset dataset = pipeline.getDataset();
+        
         dataset.load().waitForRecordsToLoad();
 
         for(Column column : dataset.getColumns()) {
@@ -33,7 +34,7 @@ public class ShowColumnStatistics {
             System.out.println("Null Count: " + column.getNullCount());
             System.out.println("Blank Count: " + column.getBlankCount());
             System.out.println("Unique Value Count " + column.getUniqueValueCount());
-            System.out.println("Is Numerical Column: " + column.getNumerical());
+            System.out.println("Is Numeric Column: " + column.getNumeric());
             System.out.println("Is Temporal Column: " + column.getTemporal());
             System.out.println("Is Boolean Column: " + column.getBoolean());
             System.out.println("Minimum Length: " + column.getMinimumLength());
