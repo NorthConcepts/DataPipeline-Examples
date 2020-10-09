@@ -15,48 +15,32 @@ import com.northconcepts.datapipeline.foundations.decisiontree.DecisionTreeNode;
 public class SaveAndLoadDecisionTreeToXML {
 
     public static void main(String[] args) throws Throwable {
-        
+
         DecisionTree tree = new DecisionTree()
 
-                .addField("ageThreshold", "40")
-                .addField("overAgeThreshold", "Age >= ageThreshold")
+            .addField("ageThreshold", "40")
+            .addField("overAgeThreshold", "Age >= ageThreshold")
 
-                .setRootNode(new DecisionTreeNode()
+            .setRootNode(new DecisionTreeNode()
 
-                        .addNode(new DecisionTreeNode("overAgeThreshold == true")
-                                .addNode(new DecisionTreeNode("houseOwned == true")
-                                        .addOutcome("Eligible", "true")
-                                        )
+                .addNode(new DecisionTreeNode("overAgeThreshold == true")
+                    .addNode(new DecisionTreeNode("houseOwned == true").addOutcome("Eligible", "true"))
 
-                                .addNode(new DecisionTreeNode()
-                                        .setCondition("houseOwned == false")
-                                        .addNode(new DecisionTreeNode("Income >= 2000")
-                                                .addOutcome("Eligible", "true")
-                                                )
-                                        .addNode(new DecisionTreeNode("Income < 2000")
-                                                .addOutcome("Eligible", "false")
-                                                )
-                                )
-                        )
+                    .addNode(new DecisionTreeNode().setCondition("houseOwned == false")
+                        .addNode(new DecisionTreeNode("Income >= 2000").addOutcome("Eligible", "true"))
+                        .addNode(new DecisionTreeNode("Income < 2000").addOutcome("Eligible", "false"))))
 
-                        .addNode(new DecisionTreeNode()
-                                .setCondition("overAgeThreshold == false")
-                                .addNode(new DecisionTreeNode("Income >= 3000")
-                                        .addOutcome("Eligible", "true")
-                                        )
-                                .addNode(new DecisionTreeNode("Income < 3000")
-                                        .addOutcome("Eligible", "false")
-                                        )
-                        )
-                );
-        
-        //Save this DecisionTree to XML
+                .addNode(new DecisionTreeNode().setCondition("overAgeThreshold == false")
+                    .addNode(new DecisionTreeNode("Income >= 3000").addOutcome("Eligible", "true"))
+                    .addNode(new DecisionTreeNode("Income < 3000").addOutcome("Eligible", "false"))));
+
+        // Save this DecisionTree to XML
         tree.toXml(new FileWriter("example/data/output/decision-tree.xml"), true);
 
-        //Load DecisionTree from XML.
+        // Load DecisionTree from XML.
         DecisionTree decisionTree = new DecisionTree()
-                .fromXml(new FileInputStream("example/data/output/decision-tree.xml"));
-        
+            .fromXml(new FileInputStream("example/data/output/decision-tree.xml"));
+
         System.out.println("DecisionTree loaded from XML:-\n" + decisionTree);
     }
 }

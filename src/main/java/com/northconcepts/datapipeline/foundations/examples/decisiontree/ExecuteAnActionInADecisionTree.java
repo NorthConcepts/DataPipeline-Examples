@@ -32,48 +32,37 @@ public class ExecuteAnActionInADecisionTree {
         input.setValue("houseOwned", true);
         input.setValue("Income", 1000.0);
 
-        DecisionTree tree = new DecisionTree()
-                .setRootNode(new DecisionTreeNode()
+        DecisionTree tree = new DecisionTree().setRootNode(new DecisionTreeNode()
 
-                    .addNode(new DecisionTreeNode("Age >= 40")
+            .addNode(new DecisionTreeNode("Age >= 40")
 
-                        .addNode(new DecisionTreeNode("houseOwned == true")
-                            .addOutcome("Eligible", "true")
-                            .addOutcome("Action1", "com.northconcepts.datapipeline.foundations.examples.decisiontree.ExecuteAnActionInADecisionTree.action1()")
-                            .addOutcome("Action2", "action2(Age, Income)")
-                        )
+                .addNode(new DecisionTreeNode("houseOwned == true").addOutcome("Eligible", "true")
+                    .addOutcome("Action1", "com.northconcepts.datapipeline.foundations.examples.decisiontree.ExecuteAnActionInADecisionTree.action1()")
+                    .addOutcome("Action2", "action2(Age, Income)"))
 
-                        .addNode(new DecisionTreeNode("houseOwned == false")
+                .addNode(new DecisionTreeNode("houseOwned == false")
 
-                            .addNode(new DecisionTreeNode("Income >= 2000")
-                                .addOutcome("Eligible", "true")
-                                .addOutcome("Action1", "com.northconcepts.datapipeline.foundations.examples.decisiontree.ExecuteAnActionInADecisionTree.action1()")
-                                .addOutcome("Action2", "action2(Age, Income)")
-                            )
+                    .addNode(new DecisionTreeNode("Income >= 2000")
+                        .addOutcome("Eligible", "true")
+                        .addOutcome("Action1", "com.northconcepts.datapipeline.foundations.examples.decisiontree.ExecuteAnActionInADecisionTree.action1()")
+                        .addOutcome("Action2", "action2(Age, Income)"))
 
-                            .addNode(new DecisionTreeNode("Income < 2000")
-                                .addOutcome("Eligible", "false")
-                                .addOutcome("Action1", "com.northconcepts.datapipeline.foundations.examples.decisiontree.ExecuteAnActionInADecisionTree.action1()")
-                                .addOutcome("Action2", "action2(Age, Income)")
-                            )
-                        )
-                    )
+                    .addNode(new DecisionTreeNode("Income < 2000")
+                        .addOutcome("Eligible", "false")
+                        .addOutcome("Action1", "com.northconcepts.datapipeline.foundations.examples.decisiontree.ExecuteAnActionInADecisionTree.action1()")
+                        .addOutcome("Action2", "action2(Age, Income)"))))
 
-                    .addNode(new DecisionTreeNode("Age < 40")
+            .addNode(new DecisionTreeNode("Age < 40")
 
-                        .addNode(new DecisionTreeNode("Income >= 3000")
-                                .addOutcome("Eligible", "true")
-                                .addOutcome("Action1", "com.northconcepts.datapipeline.foundations.examples.decisiontree.ExecuteAnActionInADecisionTree.action1()")
-                                .addOutcome("Action2", "action2(Age, Income)")
-                        )
+                .addNode(new DecisionTreeNode("Income >= 3000")
+                    .addOutcome("Eligible", "true")
+                    .addOutcome("Action1", "com.northconcepts.datapipeline.foundations.examples.decisiontree.ExecuteAnActionInADecisionTree.action1()")
+                    .addOutcome("Action2", "action2(Age, Income)"))
 
-                        .addNode(new DecisionTreeNode("Income < 3000")
-                                .addOutcome("Eligible", "false")
-                                .addOutcome("Action1", "com.northconcepts.datapipeline.foundations.examples.decisiontree.ExecuteAnActionInADecisionTree.action1()")
-                                .addOutcome("Action2", "action2(Age, Income)")
-                        )
-                    )
-                );
+                .addNode(new DecisionTreeNode("Income < 3000")
+                    .addOutcome("Eligible", "false")
+                    .addOutcome("Action1", "com.northconcepts.datapipeline.foundations.examples.decisiontree.ExecuteAnActionInADecisionTree.action1()")
+                    .addOutcome("Action2", "action2(Age, Income)"))));
 
         DecisionTreeResult result = tree.evaluate(input);
         Record outcome = result.getOutcome();

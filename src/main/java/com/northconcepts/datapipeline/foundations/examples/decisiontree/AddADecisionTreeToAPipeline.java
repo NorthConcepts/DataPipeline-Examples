@@ -23,39 +23,34 @@ public class AddADecisionTreeToAPipeline {
     public static void main(String[] args) {
 
         DecisionTree tree = new DecisionTree()
-                .addField(new CalculatedField("Variant Price", "toBigDecimal(${Variant Price})"))
+            .addField(new CalculatedField("Variant Price", "toBigDecimal(${Variant Price})"))
 
-                .setRootNode(new DecisionTreeNode()
+            .setRootNode(new DecisionTreeNode()
 
-                        .addNode(new DecisionTreeNode("${Variant Price} == null || ${Variant Price} < 20")
-                                .addOutcome("Shipping", "0.00")
-                                .addOutcome("Total", "${Variant Price} + Shipping")
-                        )
+                .addNode(new DecisionTreeNode("${Variant Price} == null || ${Variant Price} < 20")
+                    .addOutcome("Shipping", "0.00")
+                    .addOutcome("Total", "${Variant Price} + Shipping"))
 
-                        .addNode(new DecisionTreeNode("${Variant Price} < 50")
-                                .addOutcome("Shipping", "5.00")
-                                .addOutcome("Total", "${Variant Price} + Shipping")
+                .addNode(new DecisionTreeNode("${Variant Price} < 50")
+                    .addOutcome("Shipping", "5.00")
+                    .addOutcome("Total", "${Variant Price} + Shipping"))
 
-                        )
+                .addNode(new DecisionTreeNode("${Variant Price} < 100")
+                    .addOutcome("Shipping", "7.00")
+                    .addOutcome("Total", "${Variant Price} + Shipping"))
 
-                        .addNode(new DecisionTreeNode("${Variant Price} < 100")
-                                .addOutcome("Shipping", "7.00")
-                                .addOutcome("Total", "${Variant Price} + Shipping")
-                        )
-
-                        .addNode(new DecisionTreeNode("${Variant Price} >= 100")
-                                .addOutcome("Shipping", "${Variant Price} * 0.10")
-                                .addOutcome("Total", "${Variant Price} + Shipping")
-                        )
-                );
+                .addNode(new DecisionTreeNode("${Variant Price} >= 100")
+                    .addOutcome("Shipping", "${Variant Price} * 0.10")
+                    .addOutcome("Total", "${Variant Price} + Shipping")));
 
         DataReader reader = new CSVReader(new File("data/input/jewelry.csv"))
-                .setAllowMultiLineText(true)
-                .setFieldNamesInFirstRow(true);
+            .setAllowMultiLineText(true)
+            .setFieldNamesInFirstRow(true);
 
         reader = new DecisionTreeReader(reader, tree);
 
-        reader = new TransformingReader(reader).add(new SelectFields("Title", "Handle", "Variant Price", "Shipping", "Total"));
+        reader = new TransformingReader(reader)
+            .add(new SelectFields("Title", "Handle", "Variant Price", "Shipping", "Total"));
 
         DataWriter writer = StreamWriter.newSystemOutWriter();
 

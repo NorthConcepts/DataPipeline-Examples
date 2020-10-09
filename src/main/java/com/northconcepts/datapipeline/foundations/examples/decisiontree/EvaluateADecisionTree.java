@@ -20,33 +20,18 @@ public class EvaluateADecisionTree {
         input.setValue("houseOwned", true);
         input.setValue("Income", 1000.0);
 
-        DecisionTree tree = new DecisionTree()
-                .setRootNode(new DecisionTreeNode()
+        DecisionTree tree = new DecisionTree().setRootNode(new DecisionTreeNode()
 
-                        .addNode(new DecisionTreeNode("Age >= 40")
-                                .addNode(new DecisionTreeNode("houseOwned == true")
-                                        .addOutcome("Eligible", "true")
-                                        )
+            .addNode(new DecisionTreeNode("Age >= 40")
+                .addNode(new DecisionTreeNode("houseOwned == true").addOutcome("Eligible", "true"))
 
-                                .addNode(new DecisionTreeNode("houseOwned == false")
-                                        .addNode(new DecisionTreeNode("Income >= 2000")
-                                                .addOutcome("Eligible", "true")
-                                                )
-                                        .addNode(new DecisionTreeNode("Income < 2000")
-                                                .addOutcome("Eligible", "false")
-                                                )
-                                )
-                        )
+                .addNode(new DecisionTreeNode("houseOwned == false")
+                    .addNode(new DecisionTreeNode("Income >= 2000").addOutcome("Eligible", "true"))
+                    .addNode(new DecisionTreeNode("Income < 2000").addOutcome("Eligible", "false"))))
 
-                        .addNode(new DecisionTreeNode("Age < 40")
-                                .addNode(new DecisionTreeNode("Income >= 3000")
-                                        .addOutcome("Eligible", "true")
-                                        )
-                                .addNode(new DecisionTreeNode("Income < 3000")
-                                        .addOutcome("Eligible", "false")
-                                        )
-                        )
-                );
+            .addNode(new DecisionTreeNode("Age < 40")
+                .addNode(new DecisionTreeNode("Income >= 3000").addOutcome("Eligible", "true"))
+                .addNode(new DecisionTreeNode("Income < 3000").addOutcome("Eligible", "false"))));
 
         DecisionTreeResult result = tree.evaluate(input);
         Record outcome = result.getOutcome();
