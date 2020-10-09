@@ -19,8 +19,6 @@ public class FilterColumnsWithAllNullValues {
 
     public static void main(String[] args) {
 
-        Pipeline pipeline = new Pipeline();
-
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
                 .setFileSource(new LocalFile().setPath("data/input/Listing.csv"))
                 .setFieldNamesInFirstRow(true);
@@ -29,8 +27,9 @@ public class FilterColumnsWithAllNullValues {
                 .setFileSink(new LocalFile().setPath("data/output/NoNull.xlsx"))
                 .setFieldNamesInFirstRow(true);
 
-        pipeline.setInput(pipelineInput);
-        pipeline.setOutput(pipelineOutput);
+        Pipeline pipeline = new Pipeline()
+            .setInput(pipelineInput)
+            .setOutput(pipelineOutput);
 
         Dataset dataset = pipeline.getDataset();
         dataset.load().waitForRecordsToLoad();

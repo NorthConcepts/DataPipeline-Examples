@@ -16,11 +16,11 @@ import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInpu
 public class LoadSnapshotOfDataset {
 
     public static void main(String[] args) {
-        Pipeline pipeline = new Pipeline();
-
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
                 .setFileSource(new LocalFile().setPath("example/data/input/trades.csv"))
                 .setFieldNamesInFirstRow(true);
+
+        Pipeline pipeline = new Pipeline();
 
         pipeline.setInput(pipelineInput);
         
