@@ -39,6 +39,8 @@ public class SaveAndRestorePipelineFromJson {
 
         String json = pipeline.toJsonString();
 
+        System.out.println(json);
+        
         Pipeline pipeline2 = new Pipeline();
         pipeline2.fromJsonString(json);
 
