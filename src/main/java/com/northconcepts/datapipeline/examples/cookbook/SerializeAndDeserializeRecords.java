@@ -25,18 +25,21 @@ public class SerializeAndDeserializeRecords {
         record2.setField("name", "Peter Parker");
         record2.setField("balance", new BigInteger("98765432109876543210"));
 
+        System.out.println(record1);
+        System.out.println(record2);
+
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream outputStream = new ObjectOutputStream(byteArrayOutputStream);
         outputStream.writeObject(record1);
         outputStream.writeObject(record2);
         outputStream.close();
 
-        System.out.println("Serialization of records completed..!!");
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        System.out.println("Bytes written: " + bytes.length);
 
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        System.out.println("Bytes written :- " + byteArray.length);
+        System.out.println("Serialization of records completed");
 
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArray);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
         ObjectInputStream inputStream = new ObjectInputStream(byteArrayInputStream);
         record1 = (Record) inputStream.readObject();
         record2 = (Record) inputStream.readObject();
@@ -45,7 +48,7 @@ public class SerializeAndDeserializeRecords {
         System.out.println(record1);
         System.out.println(record2);
 
-        System.out.println("Deserialization of records completed..!!");
+        System.out.println("Deserialization of records completed");
     }
 
 }
