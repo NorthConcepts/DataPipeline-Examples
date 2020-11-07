@@ -41,7 +41,7 @@ class UpcaseFieldsAction extends PipelineAction {
     private final List<String> fieldNameList;
 
     protected UpcaseFieldsAction() {
-        super("transform-rename-fields", "Upper Case Fields");
+        super("transform-upcase-fields", "Upper Case Fields");
         fieldNameList = new ArrayList<>();
     }
 
