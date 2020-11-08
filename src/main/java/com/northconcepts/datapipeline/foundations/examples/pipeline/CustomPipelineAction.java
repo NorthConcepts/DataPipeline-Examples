@@ -1,18 +1,26 @@
+/*
+ * Copyright (c) 2006-2020 North Concepts Inc.  All rights reserved.
+ * Proprietary and Confidential.  Use is subject to license terms.
+ * 
+ * https://northconcepts.com/data-pipeline/licensing/
+ */
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.northconcepts.datapipeline.core.ArrayValue;
 import com.northconcepts.datapipeline.core.DataReader;
-import com.northconcepts.datapipeline.core.Field;
-import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.foundations.file.LocalFile;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.action.PipelineAction;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
-import com.northconcepts.datapipeline.transform.FieldTransformer;
+import com.northconcepts.datapipeline.foundations.sourcecode.CodeWriter;
+import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
+import com.northconcepts.datapipeline.internal.lang.Util;
+import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 
 public class CustomPipelineAction {
@@ -32,56 +40,75 @@ public class CustomPipelineAction {
             .addAction(new UpcaseFieldsAction().addField("Country"));
         
         pipeline.run();
+        
+        System.out.println("Generated Code:" + System.lineSeparator());
+        System.out.println(pipeline.getJavaCode().getSource());
+    }
+    
+    static class UpcaseFieldsAction extends PipelineAction {
+
+        private final List<String> fieldNameList;
+
+        protected UpcaseFieldsAction() {
+            super("transform-upcase-fields", "Upper Case Fields");
+            fieldNameList = new ArrayList<>();
+        }
+
+        @Override
+        public DataReader apply(DataReader reader) throws Throwable {
+            TransformingReader transformingReader = new TransformingReader(reader)
+                    .add(new BasicFieldTransformer(fieldNameList.toArray(new String[fieldNameList.size()])).upperCase());
+            return transformingReader;
+        }
+
+        public UpcaseFieldsAction addField(String fieldName) {
+            fieldNameList.add(fieldName);
+            return this;
+        }
+
+        @Override
+        public void fromRecord(Record source) {
+            if(source.containsField("fieldNameList")) {
+                ArrayValue array = source.getField("fieldNameList").getValueAsArray();
+                for (int i = 0; i < array.size(); i++) {
+                    addField(array.getValueAsRecord(i).getValueAsString());
+                }
+            }
+        }
+
+        @Override
+        public Record toRecord() {
+            Record record = new Record();
+
+            if (Util.isNotEmpty(fieldNameList)) {
+                ArrayValue array = new ArrayValue();
+                for (String fieldName : fieldNameList) {
+                    array.addValue(fieldName);
+                }
+                record.setField("fieldNameList", array);
+            }
+            return record;
+        }
+        
+        @Override
+        public void generateJavaCode(JavaCodeBuilder code) {
+            super.generateJavaCode(code);
+
+            CodeWriter writer = code.getSourceWriter();
+
+            writer.println("reader = new TransformingReader(reader)");
+            writer.indent();
+            
+            if (Util.isNotEmpty(fieldNameList)) {
+                for (String fieldName : fieldNameList) {
+                    writer.println(".add(new UpcaseFieldsAction().addField(\"%s\"))", escapeJavaString(fieldName));
+                }
+            }
+            writer.println(";");
+            writer.outdent();
+        }
+
     }
     
 }
 
-class UpcaseFieldsAction extends PipelineAction {
-
-    private final List<String> fieldNameList;
-
-    protected UpcaseFieldsAction() {
-        super("transform-upcase-fields", "Upper Case Fields");
-        fieldNameList = new ArrayList<>();
-    }
-
-    @Override
-    public DataReader apply(DataReader reader) throws Throwable {
-        TransformingReader transformingReader = new TransformingReader(reader)
-                .add(new UpcaseField(fieldNameList));
-        return transformingReader;
-    }
-
-    public UpcaseFieldsAction addField(String fieldName) {
-        fieldNameList.add(fieldName);
-        return this;
-    }
-
-    @Override
-    public void fromRecord(Record source) {
-    }
-
-    @Override
-    public Record toRecord() {
-        return null;
-    }
-
-}
-
-class UpcaseField extends FieldTransformer {
-
-    private final List<String> fieldNameList;
-
-    public UpcaseField(List<String> fieldNameList) {
-        super(fieldNameList.toArray(new String[fieldNameList.size()]));
-        this.fieldNameList = fieldNameList;
-    }
-
-    @Override
-    protected void transformField(Field field) throws Throwable {
-        if (fieldNameList.contains(field.getName()) && FieldType.STRING.equals(field.getType()) && field.isNotNull()) {
-            field.setValue(field.getValueAsString().toUpperCase());
-        }
-    }
-
-}
