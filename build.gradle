@@ -44,7 +44,7 @@ configurations.all {
 }
 
 dependencies {
-    compile "com.northconcepts:northconcepts-datapipeline-small-business:{version}"
+    compile "com.northconcepts:northconcepts-datapipeline-small-business:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-foundations:${version}"
     
     compile "com.northconcepts:northconcepts-datapipeline-integrations-avro:${version}"
