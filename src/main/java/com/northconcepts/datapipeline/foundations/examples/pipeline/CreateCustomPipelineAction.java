@@ -23,35 +23,52 @@ import com.northconcepts.datapipeline.internal.lang.Util;
 import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 
-public class CustomPipelineAction {
+public class CreateCustomPipelineAction {
 
     public static void main(String[] args) {
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
                 .setFileSource(new LocalFile().setPath("example/data/input/countries_with_country-code.csv"))
                 .setFieldNamesInFirstRow(true);
- 
+
         ExcelPipelineOutput pipelineOutput = new ExcelPipelineOutput()
                 .setFileSink(new LocalFile().setPath("example/data/output/countries_with_country-code.xlsx"))
                 .setFieldNamesInFirstRow(true);
- 
+
         Pipeline pipeline = new Pipeline()
-            .setInput(pipelineInput)
-            .setOutput(pipelineOutput)
-            .addAction(new UpcaseFieldsAction().addField("Country"));
-        
+                .setInput(pipelineInput)
+                .setOutput(pipelineOutput)
+                .addAction(new UpcaseFieldsAction().addField("Country"));
+
         pipeline.run();
-        
+
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+
         System.out.println("Generated Code:" + System.lineSeparator());
         System.out.println(pipeline.getJavaCode().getSource());
+
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+
+        Record record = pipeline.toRecord();
+        System.out.println(record);
+
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+
+        Pipeline pipeline2 = new Pipeline().fromRecord(record);
+        pipeline2.run();
+
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+
+        System.out.println("Pipeline as JSON:");
+        System.out.println(Util.formatJson(pipeline.toJsonString()));
+
     }
-    
-    static class UpcaseFieldsAction extends PipelineAction {
 
-        private final List<String> fieldNameList;
+    public static class UpcaseFieldsAction extends PipelineAction {
 
-        protected UpcaseFieldsAction() {
+        private final List<String> fieldNameList = new ArrayList<>();
+
+        public UpcaseFieldsAction() {
             super("transform-upcase-fields", "Upper Case Fields");
-            fieldNameList = new ArrayList<>();
         }
 
         @Override
@@ -67,48 +84,45 @@ public class CustomPipelineAction {
         }
 
         @Override
-        public void fromRecord(Record source) {
-            if(source.containsField("fieldNameList")) {
-                ArrayValue array = source.getField("fieldNameList").getValueAsArray();
-                for (int i = 0; i < array.size(); i++) {
-                    addField(array.getValueAsRecord(i).getValueAsString());
-                }
-            }
-        }
-
-        @Override
         public Record toRecord() {
             Record record = new Record();
 
-            if (Util.isNotEmpty(fieldNameList)) {
-                ArrayValue array = new ArrayValue();
-                for (String fieldName : fieldNameList) {
-                    array.addValue(fieldName);
-                }
-                record.setField("fieldNameList", array);
+            ArrayValue array = new ArrayValue();
+            for (String fieldName : fieldNameList) {
+                array.addValue(fieldName);
             }
+            record.setField("fieldNameList", array);
             return record;
         }
-        
+
+        @Override
+        public void fromRecord(Record source) {
+            if (source.containsField("fieldNameList")) {
+                ArrayValue array = source.getField("fieldNameList").getValueAsArray();
+                for (int i = 0; i < array.size(); i++) {
+                    addField(array.getValueAsString(i));
+                }
+            }
+        }
+
         @Override
         public void generateJavaCode(JavaCodeBuilder code) {
             super.generateJavaCode(code);
+
+            code.addImport("com.northconcepts.datapipeline.transform.TransformingReader");
+            code.addImport("com.northconcepts.datapipeline.transform.BasicFieldTransformer");
 
             CodeWriter writer = code.getSourceWriter();
 
             writer.println("reader = new TransformingReader(reader)");
             writer.indent();
-            
-            if (Util.isNotEmpty(fieldNameList)) {
-                for (String fieldName : fieldNameList) {
-                    writer.println(".add(new UpcaseFieldsAction().addField(\"%s\"))", escapeJavaString(fieldName));
-                }
-            }
+
+            writer.println(".add(new BasicFieldTransformer(\"%s\").upperCase());", escapeJavaString(String.join("\",\"", fieldNameList)));
+
             writer.println(";");
             writer.outdent();
         }
 
     }
-    
-}
 
+}

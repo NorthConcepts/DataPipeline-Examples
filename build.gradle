@@ -13,7 +13,7 @@ repositories {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-version = '6.0.0'
+version = '6.1.0-SNAPSHOT'
 
 sourceSets {
     examples {
@@ -44,7 +44,7 @@ configurations.all {
 }
 
 dependencies {
-    compile "com.northconcepts:northconcepts-datapipeline-small-business:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-small-business:{version}"
     compile "com.northconcepts:northconcepts-datapipeline-foundations:${version}"
     
     compile "com.northconcepts:northconcepts-datapipeline-integrations-avro:${version}"
