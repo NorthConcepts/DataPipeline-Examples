@@ -27,7 +27,7 @@ public class CreateCustomPipelineOutput {
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        System.out.println("Generated Code:" + System.lineSeparator());
+        System.out.println("Generated Code:");
         System.out.println(pipeline.getJavaCode().getSource());
 
         System.out.println("---------------------------------------------------------------------------------------------------------");

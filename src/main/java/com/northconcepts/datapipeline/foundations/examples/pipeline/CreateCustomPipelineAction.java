@@ -43,7 +43,7 @@ public class CreateCustomPipelineAction {
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        System.out.println("Generated Code:" + System.lineSeparator());
+        System.out.println("Generated Code:");
         System.out.println(pipeline.getJavaCode().getSource());
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
@@ -68,7 +68,7 @@ public class CreateCustomPipelineAction {
         private final List<String> fieldNameList = new ArrayList<>();
 
         public UpcaseFieldsAction() {
-            super("transform-upcase-fields", "Upper Case Fields");
+            super("transform-upcase-fields", "UpperCase Fields");
         }
 
         @Override
