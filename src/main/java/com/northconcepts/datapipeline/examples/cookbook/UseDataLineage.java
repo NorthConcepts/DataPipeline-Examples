@@ -26,22 +26,26 @@ public class UseDataLineage {
 
         @Override
         protected void writeImpl(Record record) throws Throwable {
-            
             System.out.println(record);
             
+            RecordLineage recordLineage = new RecordLineage().setRecord(record);
+            
             System.out.println("Record Session Properties: ");
-            System.out.println("Record Number: " + record.getSessionProperty(RecordLineage.RECORD_NUMBER));
-            System.out.println("File Name: " + record.getSessionProperty(RecordLineage.FILE));
-            System.out.println("Line Number: " + record.getSessionProperty(RecordLineage.LINE_NUMBER));
-            System.out.println("Column Number: " + record.getSessionProperty(RecordLineage.COLUMN_NUMBER));
+            System.out.println("Record Number: " + recordLineage.getRecordNumber());
+            System.out.println("File Name: " + recordLineage.getFile());
+            System.out.println("Line Number: " + recordLineage.getLineNumber());
+            System.out.println("Column Number: " + recordLineage.getColumnNumber());
             
             System.out.println();
+            
+            FieldLineage fieldLineage = new FieldLineage();
             
             System.out.println("Field Session Properties: ");
             for (int i=0; i < record.getFieldCount(); i++) {
                 Field field = record.getField(i);
-                System.out.println("Field Index: " + field.getSessionProperty(FieldLineage.FIELD_INDEX));
-                System.out.println("Field Name: " + field.getSessionProperty(FieldLineage.FIELD_NAME));
+                fieldLineage.setField(field);
+                System.out.println("Field Index: " + fieldLineage.getFieldIndex());
+                System.out.println("Field Name: " + fieldLineage.getFieldName());
             }
             System.out.println("---------------------------------------------------------");
             System.out.println();
