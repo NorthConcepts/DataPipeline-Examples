@@ -46,7 +46,7 @@ public class CreateCustomPipelineOutput {
         System.out.println(Util.formatJson(pipeline.toJsonString()));
     }
 
-    public static class CustomPipelineOutput implements PipelineOutput {
+    public static class CustomPipelineOutput extends PipelineOutput {
 
         @Override
         public DataWriter createDataWriter() {

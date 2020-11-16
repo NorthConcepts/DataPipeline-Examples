@@ -96,13 +96,14 @@ public class CreateCustomPipelineAction {
         }
 
         @Override
-        public void fromRecord(Record source) {
+        public UpcaseFieldsAction fromRecord(Record source) {
             if (source.containsField("fieldNameList")) {
                 ArrayValue array = source.getField("fieldNameList").getValueAsArray();
                 for (int i = 0; i < array.size(); i++) {
                     addField(array.getValueAsString(i));
                 }
             }
+            return this;
         }
 
         @Override
