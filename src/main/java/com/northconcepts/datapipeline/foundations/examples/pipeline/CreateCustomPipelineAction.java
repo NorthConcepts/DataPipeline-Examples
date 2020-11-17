@@ -74,7 +74,7 @@ public class CreateCustomPipelineAction {
         @Override
         public DataReader apply(DataReader reader) throws Throwable {
             TransformingReader transformingReader = new TransformingReader(reader)
-                    .add(new BasicFieldTransformer(fieldNameList.toArray(new String[fieldNameList.size()])).upperCase());
+                    .add(new BasicFieldTransformer(fieldNameList).upperCase());
             return transformingReader;
         }
 
