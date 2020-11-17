@@ -46,7 +46,7 @@ public class CreateCustomPipelineInput {
         System.out.println(Util.formatJson(pipeline.toJsonString()));
     }
 
-    public static class CustomPipelineInput implements PipelineInput {
+    public static class CustomPipelineInput extends PipelineInput {
 
         private static final int MAX_TRUCKS = 10;
         private static final long MAX_PACKAGES = 20;
