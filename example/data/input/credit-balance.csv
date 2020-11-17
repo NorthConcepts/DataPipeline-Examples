@@ -1,0 +1,7 @@
+Account,LastName,FirstName,Balance,CreditLimit,AccountCreated,Rating
+101,Reeves,Keanu,9315.45,10000,17-01-1998,A
+312,Butler,Gerard,90,1000,06-08-2003,B
+101,Hewitt,Jennifer Love,0,17000,25-05-1985,B
+312,Pinkett-Smith,Jada,49654.87,100000,05-12-2006,A
+317,Murray,Bill,789.65,5000,05-02-2007,C
+317,Murray,Bill,1,5000,05-02-2007,D
