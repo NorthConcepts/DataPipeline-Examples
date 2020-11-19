@@ -36,7 +36,7 @@ public class CaptureDataNotJoinedInLookup {
         MemoryWriter discardWriter = new MemoryWriter();
         
         reader = new TransformingReader(reader, discardWriter)
-                .add(new LookupTransformer2(new FieldList("Rating"), lookup)
+                .add(new DiscardLookupTransformer(new FieldList("Rating"), lookup)
                         .setAllowNoResults(true));
 
         Job.run(reader, new StreamWriter(System.out));
@@ -45,9 +45,9 @@ public class CaptureDataNotJoinedInLookup {
         System.out.println("Not Joined Records: " + discardWriter.getRecordList());
     }
 
-    private static class LookupTransformer2 extends LookupTransformer {
+    private static class DiscardLookupTransformer extends LookupTransformer {
 
-        public LookupTransformer2(FieldList fields, Lookup lookup) {
+        public DiscardLookupTransformer(FieldList fields, Lookup lookup) {
             super(fields, lookup);
         }
         
