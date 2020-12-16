@@ -30,22 +30,27 @@ public class UseDataLineage {
             
             RecordLineage recordLineage = new RecordLineage().setRecord(record);
             
-            System.out.println("Record Session Properties: ");
-            System.out.println("Record Number: " + recordLineage.getRecordNumber());
-            System.out.println("File Name: " + recordLineage.getFile());
-            System.out.println("Line Number: " + recordLineage.getLineNumber());
-            System.out.println("Column Number: " + recordLineage.getColumnNumber());
+            System.out.println("Record Lineage");
+            System.out.println("    File: " + recordLineage.getFile());
+            System.out.println("    File Line: " + recordLineage.getFileLineNumber());
+            System.out.println("    File Column: " + recordLineage.getFileColumnNumber());
+            System.out.println("    Record: " + recordLineage.getRecordNumber());
             
             System.out.println();
             
             FieldLineage fieldLineage = new FieldLineage();
             
-            System.out.println("Field Session Properties: ");
+            System.out.println("Field Lineage");
             for (int i=0; i < record.getFieldCount(); i++) {
                 Field field = record.getField(i);
                 fieldLineage.setField(field);
-                System.out.println("Field Index: " + fieldLineage.getFieldIndex());
-                System.out.println("Field Name: " + fieldLineage.getFieldName());
+                System.out.println("    " + field.getName());
+                System.out.println("        File: " + fieldLineage.getFile());
+                System.out.println("        File Line: " + fieldLineage.getFileLineNumber());
+                System.out.println("        File Column: " + fieldLineage.getFileColumnNumber());
+                System.out.println("        Record: " + fieldLineage.getRecordNumber());
+                System.out.println("        Field Index: " + fieldLineage.getOriginalFieldIndex());
+                System.out.println("        Field Name: " + fieldLineage.getOriginalFieldName());
             }
             System.out.println("---------------------------------------------------------");
             System.out.println();
