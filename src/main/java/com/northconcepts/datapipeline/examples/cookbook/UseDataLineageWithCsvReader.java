@@ -17,7 +17,7 @@ import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.lineage.FieldLineage;
 import com.northconcepts.datapipeline.lineage.RecordLineage;
 
-public class UseDataLineage {
+public class UseDataLineageWithCsvReader {
 
     public static void main(String[] args) {
         DataReader reader = new CSVReader(new File("example/data/input/rating-table-01.csv"))
