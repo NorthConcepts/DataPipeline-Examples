@@ -57,6 +57,7 @@ dependencies {
     compile "com.northconcepts:northconcepts-datapipeline-integrations-trello:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-twitter:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-pdf:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-rtf:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-template:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-mongodb:${version}"
