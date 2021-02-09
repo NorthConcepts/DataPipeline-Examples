@@ -59,11 +59,6 @@ public class CreateCustomPipelineInput {
         private static final int RECORD_DELAY_MILLISECONDS = 250;
 
         @Override
-        public DataReader createDataReader() {
-            return new FakePackageReader(MAX_TRUCKS, MAX_PACKAGES, RECORD_DELAY_MILLISECONDS);
-        }
-
-        @Override
         public void generateJavaCode(JavaCodeBuilder code) {
             code.addImport("com.northconcepts.datapipeline.core.DataReader");
             code.addImport("com.northconcepts.datapipeline.job.Job");
@@ -86,6 +81,11 @@ public class CreateCustomPipelineInput {
         @Override
         public PipelineInput fromRecord(Record source) {
             return this;
+        }
+
+        @Override
+        protected DataReader createDataReaderImpl() {
+            return new FakePackageReader(MAX_TRUCKS, MAX_PACKAGES, RECORD_DELAY_MILLISECONDS);
         }
     }
 
