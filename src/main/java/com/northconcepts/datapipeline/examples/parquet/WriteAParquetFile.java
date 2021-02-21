@@ -7,6 +7,8 @@ import java.sql.Time;
 import java.util.Arrays;
 import java.util.Date;
 
+import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.core.DebugReader;
 import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.core.RecordList;
@@ -19,31 +21,29 @@ import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
 
 public class WriteAParquetFile {
 
+    private static final File PARQUET_FILE = new File("WriteAParquetFile.parquet");
+
     public static void main(String[] args) {
-        RecordList recordList = createRecordList();
         System.out.println("============================================================");
-        System.out.println("Writing following records to a parquet file");
+        System.out.println("Write records to a parquet file");
         System.out.println("============================================================");
-        System.out.println(recordList);
-
-        File file = new File("WriteAParquetFile.parquet");
-
-        // Write records to a parquet file
-        ParquetDataWriter writer = new ParquetDataWriter(file);
-        Job.run(new MemoryReader(recordList), writer);
+        
+        DataReader reader = new MemoryReader(createRecordList());
+        reader = new DebugReader(reader);
+        ParquetDataWriter writer = new ParquetDataWriter(PARQUET_FILE);
+        Job.run(reader, writer);
 
         System.out.println("============================================================");
         System.out.println("Prepared Schema");
         System.out.println("============================================================");
-
+        
         System.out.println(writer.getSchema());
 
         System.out.println("============================================================");
-        System.out.println("Reading the same parquet file");
+        System.out.println("Read the parquet file");
         System.out.println("============================================================");
-
-        // Read the same parquet file
-        Job.run(new ParquetDataReader(file), new StreamWriter(System.out));
+        
+        Job.run(new ParquetDataReader(PARQUET_FILE), new StreamWriter(System.out));
 
     }
 
@@ -96,26 +96,24 @@ public class WriteAParquetFile {
         record2.setField("Array-1", Arrays.asList("J", 123, new BigDecimal("123.123"), "A"));
         record2.setField("Array-2", new String[] { "A", "B", "C", "D" });
         record2.setField("Array-3", new Double[] { 888.6, 453.12, 897.456, 342.678 });
-
-        Record record = new Record()
-            .setField("RECORD",
+        record2
+            .setField("RECORD", new Record[] {
                     new Record()
-                        .setField("STRING", "2nd Record...")
-                        .setField("DOUBLE", 345.123D));
-        record
-            .addField("RECORD",
+                        .setField("RECORD",
+                                new Record()
+                                    .setField("STRING", "A 1st basic numeric constant is considered an integer.")
+                                    .setField("DOUBLE", 123.456)),
                     new Record()
-                        .setField("STRING", "This is an array...")
-                        .setField("DOUBLE", 567.234D),
-                    true);
-
-        record.addField("RECORD",
+                        .setField("RECORD",
+                                new Record()
+                                    .setField("STRING", "A 2nd basic numeric constant is considered an integer.")
+                                    .setField("DOUBLE", 23.4567)),
                     new Record()
-                        .setField("STRING", "3rd element in a record array...")
-                        .setField("DOUBLE", 23456.2234D),
-                    true);
-
-        record2.setField("RECORD", record);
+                        .setField("RECORD",
+                                new Record()
+                                    .setField("STRING", "A 3rd basic numeric constant is considered an integer.")
+                                    .setField("DOUBLE", 3.45678))
+            });
 
         // Record with null values.
         Record record3 = new Record();
@@ -134,10 +132,10 @@ public class WriteAParquetFile {
         record3.setFieldNull("BIG_INTEGER", FieldType.BIG_INTEGER);
         record3.setFieldNull("STRING", FieldType.STRING);
         record3.setFieldNull("TIME", FieldType.TIME);
-        record3.setFieldNull("Array-1", FieldType.RECORD);
-        record3.setFieldNull("Array-2", FieldType.RECORD);
-        record3.setFieldNull("Array-3", FieldType.RECORD);
-        record3.setFieldNull("Array-3", FieldType.RECORD);
+        record3.setFieldNull("Array-1", FieldType.UNDEFINED);
+        record3.setFieldNull("Array-2", FieldType.STRING);
+        record3.setFieldNull("Array-3", FieldType.DOUBLE);
+        record3.setFieldNull("RECORD", FieldType.RECORD);
 
         recordList.add(record1, record2, record3);
         return recordList;
