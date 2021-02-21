@@ -17,3 +17,5 @@ dist/
 src/main/java/com/northconcepts/datapipeline/examples/userguide/RunningJobs.java
 .settings/org.eclipse.jdt.core.prefs
 temp/
+WriteAParquetFile.parquet
+.WriteAParquetFile.parquet.crc
