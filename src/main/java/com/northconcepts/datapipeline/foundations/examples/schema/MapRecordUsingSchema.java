@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2020 North Concepts Inc.  All rights reserved.
+ * Copyright (c) 2006-2021 North Concepts Inc.  All rights reserved.
  * Proprietary and Confidential.  Use is subject to license terms.
  * 
  * https://northconcepts.com/data-pipeline/licensing/
@@ -14,7 +14,7 @@ import com.northconcepts.datapipeline.foundations.schema.NumericFieldDef;
 import com.northconcepts.datapipeline.foundations.schema.TemporalFieldDef;
 import com.northconcepts.datapipeline.foundations.schema.TextFieldDef;
 
-public class MapRecordFieldsUsingSchema {
+public class MapRecordUsingSchema {
 
     public static void main(String[] args) {
         Record record = new Record();

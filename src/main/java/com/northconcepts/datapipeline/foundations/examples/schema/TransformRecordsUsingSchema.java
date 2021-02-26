@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2020 North Concepts Inc.  All rights reserved.
+ * Copyright (c) 2006-2021 North Concepts Inc.  All rights reserved.
  * Proprietary and Confidential.  Use is subject to license terms.
  * 
  * https://northconcepts.com/data-pipeline/licensing/
@@ -22,7 +22,7 @@ import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.memory.MemoryReader;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 
-public class TransformRecordFieldsUsingSchema {
+public class TransformRecordsUsingSchema {
 
     public static void main(String[] args) {
         EntityDef entityDef = new EntityDef();
