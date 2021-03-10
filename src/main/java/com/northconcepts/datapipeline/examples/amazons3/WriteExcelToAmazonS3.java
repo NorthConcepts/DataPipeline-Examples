@@ -38,7 +38,6 @@ public class WriteExcelToAmazonS3 {
 
             DataWriter writer = new ExcelWriter(document).setSheetName("inbound-calls");
 
-            
             Job.run(reader, writer);
 
             document.save(outputStream);
