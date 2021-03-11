@@ -23,24 +23,26 @@ public class WriteParquetToAmazonS3UsingATemporaryFile {
         s3.open();
 
         try {
-            File PARQUET_FILE = File.createTempFile("credit-balance", ".parquet");
-            PARQUET_FILE.deleteOnExit();
+            File parquetFile = File.createTempFile("credit-balance", ".parquet");
+            parquetFile.deleteOnExit();
 
-            DataReader reader = new CSVReader(new File("example/data/input/credit-balance.csv"))
-                    .setFieldNamesInFirstRow(true);
-            ParquetDataWriter writer = new ParquetDataWriter(PARQUET_FILE);
+            try {
+                DataReader reader = new CSVReader(new File("example/data/input/credit-balance.csv"))
+                        .setFieldNamesInFirstRow(true);
+                ParquetDataWriter writer = new ParquetDataWriter(parquetFile);
 
-            Job.run(reader, writer);
+                Job.run(reader, writer);
 
-            OutputStream out = s3.writeMultipartFile("datapipeline-test-01", "output/credit-balance.parquet");
-            InputStream in = new BufferedInputStream(
-                    new FileInputStream(PARQUET_FILE));
+                OutputStream out = s3.writeMultipartFile("datapipeline-test-01", "output/credit-balance.parquet");
+                InputStream in = new BufferedInputStream(new FileInputStream(parquetFile));
 
-            byte[] buffer = new byte[1024];
-            int lengthRead;
-            while ((lengthRead = in.read(buffer)) > 0) {
-                out.write(buffer, 0, lengthRead);
-                out.flush();
+                byte[] buffer = new byte[1024];
+                int lengthRead;
+                while ((lengthRead = in.read(buffer)) > 0) {
+                    out.write(buffer, 0, lengthRead);
+                }
+            } finally {
+                parquetFile.delete();
             }
         } finally {
             s3.close();
