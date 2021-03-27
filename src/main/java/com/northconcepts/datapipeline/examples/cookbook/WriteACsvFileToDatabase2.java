@@ -31,7 +31,8 @@ public class WriteACsvFileToDatabase2 {
             .setFieldNamesInFirstRow(true);
         
         DataWriter writer = new  JdbcWriter(connection, "dp_credit_balance")
-            .setAutoCloseConnection(true);
+            .setAutoCloseConnection(true)
+            .setBatchSize(100);
 
         reader.open();
         writer.open();

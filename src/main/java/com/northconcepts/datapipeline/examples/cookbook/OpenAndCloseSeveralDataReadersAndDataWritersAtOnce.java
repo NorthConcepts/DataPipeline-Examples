@@ -32,7 +32,8 @@ public class OpenAndCloseSeveralDataReadersAndDataWritersAtOnce {
             .setFieldNamesInFirstRow(true);
         
         DataWriter writer = new  JdbcWriter(connection, "dp_credit_balance")
-            .setAutoCloseConnection(true);
+            .setAutoCloseConnection(true)
+            .setBatchSize(100);
         
         DataEndpointGroup group = new DataEndpointGroup()
             .add(reader)

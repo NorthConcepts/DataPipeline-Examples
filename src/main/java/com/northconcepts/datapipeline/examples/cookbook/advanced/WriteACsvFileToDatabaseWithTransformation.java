@@ -38,7 +38,8 @@ public class WriteACsvFileToDatabaseWithTransformation {
             .add(new RemoveFields("CreditLimit", "Balance"));
         
         DataWriter writer = new  JdbcWriter(getJdbcConnection(), "dp_credit_balance")
-            .setAutoCloseConnection(true);
+            .setAutoCloseConnection(true)
+            .setBatchSize(100);
         
         Job.run(reader, writer);
     }
