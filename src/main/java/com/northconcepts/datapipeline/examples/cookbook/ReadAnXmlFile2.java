@@ -43,7 +43,8 @@ public class ReadAnXmlFile2 {
                 .stringToDouble());
 
         DataWriter writer = new  JdbcWriter(connection , targetTable)
-            .setAutoCloseConnection(true);
+            .setAutoCloseConnection(true)
+            .setBatchSize(100);
    
         Job.run(reader, writer);
     }
