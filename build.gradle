@@ -9,14 +9,6 @@ repositories {
     maven {
         url = 'https://maven.northconcepts.com/public/repositories/datapipeline'
     }
-    maven {
-        name = 'twttr.com'
-        url = 'https://maven.twttr.com' // for Parquet LZO compression
-    }
-    maven {
-        name = 'jitpack.io'
-        url = 'https://jitpack.io' // for Parquet BROTLI compression
-    }
 }
 
 sourceCompatibility = 1.8
