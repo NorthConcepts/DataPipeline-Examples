@@ -16,12 +16,12 @@ import java.io.InputStream;
 public class DeclarativeDataMapping {
 
     public static void main(String... args) throws Throwable {
+        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02.csv"))
+            .setFieldNamesInFirstRow(true);
+
         File schemaXmlFile = new File("example/data/input/account-schema-definition.xml");
         SchemaDef schema = new SchemaDef().fromXml(new FileInputStream(schemaXmlFile));
         EntityDef entityDef = schema.getEntity("Account");
-
-        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02.csv"))
-            .setFieldNamesInFirstRow(true);
 
         InputStream stream = new FileInputStream("example/data/input/credit-balance-mapping.xml");
 
