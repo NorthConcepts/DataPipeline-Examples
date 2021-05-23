@@ -1,6 +1,10 @@
 package com.northconcepts.datapipeline.foundations.examples.datamapping;
 
+import java.io.File;
+import java.io.FileInputStream;
+
 import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.FieldList;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
@@ -14,22 +18,13 @@ import com.northconcepts.datapipeline.transform.TransformingReader;
 import com.northconcepts.datapipeline.transform.lookup.BasicLookup;
 import com.northconcepts.datapipeline.transform.lookup.Lookup;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-
-public class DeclarativeDataMapping {
+public class DeclarativelyMapData {
 
     public static void main(String... args) throws Throwable {
-        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02.csv"))
-            .setFieldNamesInFirstRow(true);
-
-        File schemaXmlFile = new File("example/data/input/datamapping/account-schema-definition.xml");
-        SchemaDef schema = new SchemaDef().fromXml(new FileInputStream(schemaXmlFile));
+        SchemaDef schema = new SchemaDef()
+                .fromXml(new FileInputStream(new File("example/data/input/datamapping/account-schema-definition.xml")));
         EntityDef sourceAccountEntity = schema.getEntity("SourceAccountEntity");
         EntityDef targetAccountEntity = schema.getEntity("TargetAccountEntity");
-
-        InputStream stream = new FileInputStream("example/data/input/datamapping/credit-balance-mapping.xml");
 
         Lookup statusLookup = new BasicLookup(new FieldList("status"))
             .add("A", "Updated")
@@ -37,14 +32,20 @@ public class DeclarativeDataMapping {
             .add("C", "Overdue")
             .add("D", "Default");
 
-        DataMapping mapping = new DataMapping();
-        mapping.fromXml(stream);
+        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02.csv"))
+                .setFieldNamesInFirstRow(true);
+        
+        reader = new TransformingReader(reader).add(new SchemaTransformer(sourceAccountEntity));
+        
+        DataMapping mapping = new DataMapping()
+                .fromXml(new FileInputStream("example/data/input/datamapping/credit-balance-mapping.xml"));
         mapping.setTargetValidationEntity(targetAccountEntity);
         mapping.setValue("statusLookup", statusLookup);
 
-        reader = new TransformingReader(reader).add(new SchemaTransformer(sourceAccountEntity));
         reader = new DataMappingReader(reader, mapping);
 
-        Job.run(reader, StreamWriter.newSystemOutWriter());
+        DataWriter writer = StreamWriter.newSystemOutWriter();
+        
+        Job.run(reader, writer);
     }
 }
