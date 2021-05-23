@@ -12,8 +12,8 @@ import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.excel.ExcelDocument;
 import com.northconcepts.datapipeline.excel.ExcelDocument.ProviderType;
-import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.excel.ExcelReader;
+import com.northconcepts.datapipeline.job.Job;
 
 public class UseStreamingExcelReading {
     

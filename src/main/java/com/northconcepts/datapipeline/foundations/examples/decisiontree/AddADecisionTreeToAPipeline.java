@@ -6,17 +6,19 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.decisiontree;
 
+import java.io.File;
+
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
-import com.northconcepts.datapipeline.foundations.decisiontree.*;
+import com.northconcepts.datapipeline.foundations.decisiontree.DecisionTree;
+import com.northconcepts.datapipeline.foundations.decisiontree.DecisionTreeNode;
+import com.northconcepts.datapipeline.foundations.decisiontree.DecisionTreeReader;
 import com.northconcepts.datapipeline.foundations.expression.CalculatedField;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.transform.SelectFields;
 import com.northconcepts.datapipeline.transform.TransformingReader;
-
-import java.io.File;
 
 public class AddADecisionTreeToAPipeline {
 

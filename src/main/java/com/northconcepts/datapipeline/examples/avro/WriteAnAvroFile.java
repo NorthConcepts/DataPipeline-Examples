@@ -6,6 +6,9 @@
  */
 package com.northconcepts.datapipeline.examples.avro;
 
+import java.io.File;
+import java.util.Arrays;
+
 import com.northconcepts.datapipeline.avro.AvroWriter;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
@@ -13,9 +16,6 @@ import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.core.RecordList;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.memory.MemoryReader;
-
-import java.io.File;
-import java.util.Arrays;
 
 public class WriteAnAvroFile {
     

@@ -37,7 +37,7 @@ public class UseDataLineageWithParquetReader {
             System.out.println("Record Lineage");
             System.out.println("    File: " + recordLineage.getFile());
             System.out.println("    Record: " + recordLineage.getRecordNumber());
-            System.out.println("    Schema: " + recordLineage.getParquetSchema());
+            System.out.println("    Schema: " + recordLineage.getRecordSchema());
             System.out.println();
 
             FieldLineage fieldLineage = new FieldLineage();
@@ -51,7 +51,7 @@ public class UseDataLineageWithParquetReader {
                 System.out.println("        Record: " + fieldLineage.getRecordNumber());
                 System.out.println("        Field Index: " + fieldLineage.getOriginalFieldIndex());
                 System.out.println("        Field Name: " + fieldLineage.getOriginalFieldName());
-                System.out.println("        Field Schema: " + fieldLineage.getParquetFieldSchema());
+                System.out.println("        Field Schema: " + fieldLineage.getFieldSchema());
             }
             System.out.println("---------------------------------------------------------");
             System.out.println();

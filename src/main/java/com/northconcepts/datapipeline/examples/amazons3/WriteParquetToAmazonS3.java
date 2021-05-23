@@ -1,14 +1,15 @@
 package com.northconcepts.datapipeline.examples.amazons3;
 
-import com.northconcepts.datapipeline.core.DataReader;
-import com.northconcepts.datapipeline.csv.CSVReader;
-import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
+import java.io.File;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.parquet.hadoop.util.HadoopOutputFile;
 
-import java.io.File;
+import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.csv.CSVReader;
+import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
 
 public class WriteParquetToAmazonS3 {
 

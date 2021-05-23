@@ -6,13 +6,13 @@
  */
 package com.northconcepts.datapipeline.examples.mongodb;
 
+import java.io.OutputStreamWriter;
+
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.mongodb.MongoReader;
-
-import java.io.OutputStreamWriter;
 
 public class ReadFromMongoDb {
     

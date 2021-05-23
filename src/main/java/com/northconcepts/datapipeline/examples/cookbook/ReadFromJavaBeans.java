@@ -17,7 +17,6 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.northconcepts.datapipeline.core.DataEndpoint;
-import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.javabean.JavaBeanReader;
 import com.northconcepts.datapipeline.job.Job;
