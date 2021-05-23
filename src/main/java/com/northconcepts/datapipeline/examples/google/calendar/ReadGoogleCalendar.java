@@ -6,6 +6,12 @@
  */
 package com.northconcepts.datapipeline.examples.google.calendar;
 
+import java.io.File;
+import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -15,7 +21,6 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.DateTime;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.calendar.CalendarScopes;
 import com.northconcepts.datapipeline.core.DataReader;
@@ -24,12 +29,6 @@ import com.northconcepts.datapipeline.core.LimitReader;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.google.calendar.GoogleCalendarReader;
 import com.northconcepts.datapipeline.job.Job;
-
-import java.io.File;
-import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 public class ReadGoogleCalendar {
 

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<data-mapping>
+  <field-mappings>
+    <field-mapping fieldName="Account_ID" sourceExpression="'A' + source.Account"/>
+    <field-mapping fieldName="Account_LastName" sourceExpression="source.LastName"/>
+    <field-mapping fieldName="Account_FirstName" sourceExpression="source.FirstName"/>
+    <field-mapping fieldName="Account_Balance" sourceExpression="source.Balance"/>
+    <field-mapping fieldName="Account_CreditLimit" sourceExpression="source.CreditLimit * 1.10"/>
+    <field-mapping fieldName="Account_CreatedDate" sourceExpression="source.AccountCreated"/>
+    <field-mapping fieldName="Account_Rating" sourceExpression="source.Rating"/>
+    <field-mapping fieldName="Account_Status" sourceExpression="lookup(0, statusLookup, source.Rating)"/>
+  </field-mappings>
+</data-mapping>

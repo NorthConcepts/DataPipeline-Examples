@@ -6,6 +6,9 @@
  */
 package com.northconcepts.datapipeline.examples.amazons3;
 
+import java.io.File;
+import java.io.OutputStream;
+
 import com.northconcepts.datapipeline.amazons3.AmazonS3FileSystem;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
@@ -13,9 +16,6 @@ import com.northconcepts.datapipeline.excel.ExcelDocument;
 import com.northconcepts.datapipeline.excel.ExcelReader;
 import com.northconcepts.datapipeline.excel.ExcelWriter;
 import com.northconcepts.datapipeline.job.Job;
-
-import java.io.File;
-import java.io.OutputStream;
 
 public class WriteExcelToAmazonS3 {
     

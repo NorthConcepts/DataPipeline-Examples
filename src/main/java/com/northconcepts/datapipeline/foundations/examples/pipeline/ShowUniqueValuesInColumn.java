@@ -6,14 +6,14 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
+import java.util.Map;
+
 import com.northconcepts.datapipeline.foundations.file.LocalFile;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.internal.lang.LongPointer;
-
-import java.util.Map;
 
 public class ShowUniqueValuesInColumn {
 
