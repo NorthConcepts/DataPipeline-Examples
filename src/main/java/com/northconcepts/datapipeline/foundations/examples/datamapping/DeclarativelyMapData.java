@@ -3,9 +3,11 @@ package com.northconcepts.datapipeline.foundations.examples.datamapping;
 import java.io.File;
 import java.io.FileInputStream;
 
+import com.northconcepts.datapipeline.core.AsyncReader;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.FieldList;
+import com.northconcepts.datapipeline.core.NullWriter;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMapping;
@@ -21,31 +23,43 @@ import com.northconcepts.datapipeline.transform.lookup.Lookup;
 public class DeclarativelyMapData {
 
     public static void main(String... args) throws Throwable {
+        // Load source & target schema
         SchemaDef schema = new SchemaDef()
                 .fromXml(new FileInputStream(new File("example/data/input/datamapping/account-schema-definition.xml")));
         EntityDef sourceAccountEntity = schema.getEntity("SourceAccountEntity");
         EntityDef targetAccountEntity = schema.getEntity("TargetAccountEntity");
 
+        // Create hard-coded lookup
         Lookup statusLookup = new BasicLookup(new FieldList("status"))
             .add("A", "Updated")
             .add("B", "Late")
             .add("C", "Overdue")
             .add("D", "Default");
 
-        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02.csv"))
+        // Define job
+        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02b.csv"))
                 .setFieldNamesInFirstRow(true);
         
-        reader = new TransformingReader(reader).add(new SchemaTransformer(sourceAccountEntity));
+        reader = new TransformingReader(reader)
+                .add(new SchemaTransformer(sourceAccountEntity));
+        
+//        reader = new AsyncReader(reader);  // Threading
         
         DataMapping mapping = new DataMapping()
                 .fromXml(new FileInputStream("example/data/input/datamapping/credit-balance-mapping.xml"));
-        mapping.setTargetValidationEntity(targetAccountEntity);
         mapping.setValue("statusLookup", statusLookup);
-
         reader = new DataMappingReader(reader, mapping);
 
-        DataWriter writer = StreamWriter.newSystemOutWriter();
+//        reader = new AsyncReader(reader);  // Threading
         
-        Job.run(reader, writer);
+        reader = new TransformingReader(reader)
+                .add(new SchemaTransformer(targetAccountEntity));
+        
+        DataWriter writer = new NullWriter();
+//        DataWriter writer = StreamWriter.newSystemOutWriter();
+        
+        Job job = Job.run(reader, writer);
+        System.out.println("Records Transferred: " + job.getRecordsTransferred());
+        System.out.println("Running Time: " + job.getRunningTimeAsString());
     }
 }

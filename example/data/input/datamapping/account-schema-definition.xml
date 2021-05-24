@@ -6,8 +6,8 @@
         <field name="Account" type="LONG" required="true"/>
         <field name="LastName" type="STRING" required="true" minimumLength="0" maximumLength="50" allowBlank="false"/>
         <field name="FirstName" type="STRING" required="true" minimumLength="0" maximumLength="50" allowBlank="false"/>
-        <field name="Balance" type="DOUBLE" required="true" minimum="0" maximum="100000"/>
-        <field name="CreditLimit" type="BIG_DECIMAL" required="true" minimum="0" maximum="1000000"/>
+        <field name="Balance" type="DOUBLE" required="false" minimum="0" maximum="100000"/>
+        <field name="CreditLimit" type="BIG_DECIMAL" required="false" minimum="0" maximum="1000000"/>
         <field name="AccountCreated" type="DATE" required="true"/>
         <field name="Rating" type="STRING" required="true" allowBlank="false"/>
       </fields>
