@@ -37,7 +37,7 @@ public class DeclarativelyMapData {
             .add("D", "Default");
 
         // Define job
-        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02b.csv"))
+        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02-100000.csv"))  // 1mm -> credit-balance-02-1000000.csv
                 .setFieldNamesInFirstRow(true);
         
         reader = new TransformingReader(reader)
@@ -55,6 +55,8 @@ public class DeclarativelyMapData {
         reader = new TransformingReader(reader)
                 .add(new SchemaTransformer(targetAccountEntity));
         
+//        reader = new AsyncReader(reader);  // Threading
+
         DataWriter writer = new NullWriter();
 //        DataWriter writer = StreamWriter.newSystemOutWriter();
         
