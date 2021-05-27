@@ -3,6 +3,7 @@ package com.northconcepts.datapipeline.examples.twitter2;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.twitter2.TwitterFilterStreamReader;
 
 
 public class FilterTwitterInRealTime {

@@ -40,7 +40,7 @@ sourceSets {
 configurations.all {
     // Check for updates every 30 minutes (0 for every build)
     //resolutionStrategy.cacheChangingModulesFor 30, 'minutes'
-    //resolutionStrategy.cacheChangingModulesFor 0, 'minutes'
+    resolutionStrategy.cacheChangingModulesFor 0, 'minutes'
 }
 
 dependencies {

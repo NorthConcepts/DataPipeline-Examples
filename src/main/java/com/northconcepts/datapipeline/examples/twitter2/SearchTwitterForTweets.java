@@ -4,6 +4,7 @@ import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.twitter2.TwitterSearchReader;
 
 
 public class SearchTwitterForTweets {
