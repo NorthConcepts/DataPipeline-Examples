@@ -62,7 +62,8 @@ dependencies {
     compile "com.northconcepts:northconcepts-datapipeline-integrations-template:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-trello:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-twitter:${version}"
- 
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-twitter2:${version}"
+
     compile "com.northconcepts:northconcepts-datapipeline-filesystems-amazons3:${version}"
 
     compile "mysql:mysql-connector-java:8.0.15"
