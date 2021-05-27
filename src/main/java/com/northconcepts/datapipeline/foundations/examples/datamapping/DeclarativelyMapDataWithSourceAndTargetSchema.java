@@ -7,6 +7,7 @@ import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.FieldList;
 import com.northconcepts.datapipeline.core.NullWriter;
+import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMapping;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMappingReader;
@@ -16,7 +17,7 @@ import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.transform.lookup.BasicLookup;
 import com.northconcepts.datapipeline.transform.lookup.Lookup;
 
-public class MapDataWithSourceAndTargetEntities {
+public class DeclarativelyMapDataWithSourceAndTargetSchema {
 
     public static void main(String... args) throws Throwable {
         // Load source & target schema
@@ -32,15 +33,14 @@ public class MapDataWithSourceAndTargetEntities {
             .add("C", "Overdue")
             .add("D", "Default");
 
-        // Define job
-        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02-100000.csv"))  // 1mm -> credit-balance-02-1000000.csv
-                .setFieldNamesInFirstRow(true);
-        
         DataMapping mapping = new DataMapping()
                 .fromXml(new FileInputStream("example/data/input/datamapping/credit-balance-mapping.xml"))
                 .setSourceEntity(sourceAccountEntity)
                 .setTargetEntity(targetAccountEntity)
                 .setValue("statusLookup", statusLookup);
+        
+        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02-100000.csv"))  // 1mm -> credit-balance-02-1000000.csv
+                .setFieldNamesInFirstRow(true);
         
         reader = new DataMappingReader(reader, mapping);
 
