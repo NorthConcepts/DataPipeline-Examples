@@ -15,13 +15,12 @@ import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.lineage.FieldLineage;
 import com.northconcepts.datapipeline.lineage.RecordLineage;
-import com.northconcepts.datapipeline.parquet.ParquetDataReader;
+import com.northconcepts.datapipeline.orc.OrcDataReader;
 
-public class UseDataLineageWithParquetReader {
+public class UseDataLineageWithOrcReader {
 
     public static void main(String[] args) {
-
-        DataReader reader = new ParquetDataReader(new File("example/data/input/read_parquet_file.parquet"))
+        DataReader reader = new OrcDataReader(new File("example/data/input/input_orc_file.orc"))
                                 .setSaveLineage(true); // Enable lineage support. (By default, it is disabled.)
         Job.run(reader, new LineageWriter());
     }

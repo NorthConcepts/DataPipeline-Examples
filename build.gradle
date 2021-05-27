@@ -57,6 +57,7 @@ dependencies {
     compile "com.northconcepts:northconcepts-datapipeline-integrations-mailchimp:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-mongodb:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-orc:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-pdf:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-rtf:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-template:${version}"
