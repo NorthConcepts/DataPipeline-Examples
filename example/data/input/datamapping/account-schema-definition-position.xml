@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<schema name="Account_Schema" description="This is test schema.">
+  <entities>
+    <entity name="SourceAccountEntity" allowExtraFieldsInValidation="true">
+      <fields>
+        <field name="Balance" type="DOUBLE" required="false" minimum="0" maximum="100000" position="3"/>
+        <field name="Rating" type="STRING" required="true" allowBlank="false" position="6"/>
+        <field name="LastName" type="STRING" required="true" minimumLength="0" maximumLength="50" allowBlank="false" position="1"/>
+        <field name="FirstName" type="STRING" required="true" minimumLength="0" maximumLength="50" allowBlank="false" position="2"/>
+        <field name="CreditLimit" type="BIG_DECIMAL" required="false" minimum="0" maximum="1000000"/>
+        <field name="AccountCreated" type="DATE" required="true"/>
+        <field name="Account" type="LONG" required="true" position="0"/>
+      </fields>
+    </entity>
+  </entities>
+</schema>
