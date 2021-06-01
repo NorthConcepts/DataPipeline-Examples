@@ -1,9 +1,8 @@
-package com.northconcepts.datapipeline.examples.parquet;
+package com.northconcepts.datapipeline.examples.orc;
 
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Arrays;
 
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DebugReader;
@@ -14,34 +13,34 @@ import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.internal.lang.Moment;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.memory.MemoryReader;
-import com.northconcepts.datapipeline.parquet.ParquetDataReader;
-import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
+import com.northconcepts.datapipeline.orc.OrcDataReader;
+import com.northconcepts.datapipeline.orc.OrcDataWriter;
 
-public class WriteAParquetFile {
+public class WriteAnOrcFile {
 
-    private static final File PARQUET_FILE = new File("example/data/output/WriteAParquetFile.parquet");
+    private static final File ORC_FILE = new File("example/data/output/WriteAnOrcFile.orc");
 
     public static void main(String[] args) {
         System.out.println("============================================================");
         System.out.println("Write records to a parquet file");
         System.out.println("============================================================");
-        
+
         DataReader reader = new MemoryReader(createRecordList());
         reader = new DebugReader(reader);
-        ParquetDataWriter writer = new ParquetDataWriter(PARQUET_FILE);
+        OrcDataWriter writer = new OrcDataWriter(ORC_FILE);
         Job.run(reader, writer);
 
         System.out.println("============================================================");
         System.out.println("Prepared Schema");
         System.out.println("============================================================");
-        
-        System.out.println(writer.getSchema());
+
+        // System.out.println(writer.getSchema()); //TODO this shows compile time exception!!!
 
         System.out.println("============================================================");
         System.out.println("Read the parquet file");
         System.out.println("============================================================");
-        
-        Job.run(new ParquetDataReader(PARQUET_FILE), new StreamWriter(System.out));
+
+        Job.run(new OrcDataReader(ORC_FILE), new StreamWriter(System.out));
 
     }
 
@@ -64,7 +63,6 @@ public class WriteAParquetFile {
         record1.setField("BIG_INTEGER", BigInteger.valueOf(123456L));
         record1.setField("STRING", "A basic numeric constant is considered an integer.");
         record1.setField("TIME", Moment.parseMoment("13:41:57").getTimePart());
-        record1.setField("Array-1", Arrays.asList("J", 234, new BigDecimal("456.789"), "A"));
         record1.setField("Array-2", new String[] { "J", "A", "V", "A" });
         record1.setField("Array-3", new Double[] { 123.123, 345.345, 456.456, 555.678 });
         record1
@@ -74,7 +72,6 @@ public class WriteAParquetFile {
                                 new Record()
                                     .setField("STRING", "A basic numeric constant is considered an integer.")
                                     .setField("DOUBLE", 1234.12345D)));
-
 
         // Record with null values.
         Record record2 = new Record();
@@ -93,7 +90,6 @@ public class WriteAParquetFile {
         record2.setFieldNull("BIG_INTEGER", FieldType.BIG_INTEGER);
         record2.setFieldNull("STRING", FieldType.STRING);
         record2.setFieldNull("TIME", FieldType.TIME);
-        record2.setFieldNull("Array-1", FieldType.UNDEFINED);
         record2.setFieldNull("Array-2", FieldType.STRING);
         record2.setFieldNull("Array-3", FieldType.DOUBLE);
         record2.setFieldNull("RECORD", FieldType.RECORD);
