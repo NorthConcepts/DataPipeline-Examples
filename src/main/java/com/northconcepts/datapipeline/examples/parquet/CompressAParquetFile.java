@@ -1,19 +1,25 @@
 package com.northconcepts.datapipeline.examples.parquet;
 
-import com.northconcepts.datapipeline.core.*;
-import com.northconcepts.datapipeline.internal.lang.Moment;
-import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.memory.MemoryReader;
-import com.northconcepts.datapipeline.parquet.ParquetDataReader;
-import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
-import org.apache.parquet.hadoop.metadata.CompressionCodecName;
-
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Time;
 import java.util.Arrays;
 import java.util.Date;
+
+import org.apache.parquet.hadoop.metadata.CompressionCodecName;
+
+import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.core.DebugReader;
+import com.northconcepts.datapipeline.core.FieldType;
+import com.northconcepts.datapipeline.core.Record;
+import com.northconcepts.datapipeline.core.RecordList;
+import com.northconcepts.datapipeline.core.StreamWriter;
+import com.northconcepts.datapipeline.internal.lang.Moment;
+import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.memory.MemoryReader;
+import com.northconcepts.datapipeline.parquet.ParquetDataReader;
+import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
 
 public class CompressAParquetFile {
 

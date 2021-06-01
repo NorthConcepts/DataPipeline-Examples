@@ -6,12 +6,12 @@
  */
 package com.northconcepts.datapipeline.examples.avro;
 
+import java.io.File;
+
 import com.northconcepts.datapipeline.avro.AvroReader;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.job.Job;
-
-import java.io.File;
 
 public class ReadAnAvroFile {
     

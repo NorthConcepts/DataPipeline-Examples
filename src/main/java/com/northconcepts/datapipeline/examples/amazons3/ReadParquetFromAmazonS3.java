@@ -1,13 +1,14 @@
 package com.northconcepts.datapipeline.examples.amazons3;
 
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.parquet.hadoop.util.HadoopInputFile;
+
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.parquet.ParquetDataReader;
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.Path;
-import org.apache.parquet.hadoop.util.HadoopInputFile;
 
 public class ReadParquetFromAmazonS3 {
 

@@ -1,0 +1,10 @@
+example/data/input/patient-visits-raw-10000.csv filter=lfs diff=lfs merge=lfs -text
+example/data/input/patient-visits-raw-100000.csv filter=lfs diff=lfs merge=lfs -text
+example/data/input/patient-visits-raw-1000000.csv filter=lfs diff=lfs merge=lfs -text
+example/data/input/patient-visits-raw-500000.csv filter=lfs diff=lfs merge=lfs -text
+example/data/input/patient-visits-raw-500000.csv filter=lfs diff=lfs merge=lfs -text
+example/data/input/trades.csv filter=lfs diff=lfs merge=lfs -text
+example/data/input/credit-balance-02c.csv filter=lfs diff=lfs merge=lfs -text
+example/data/input/credit-balance-02-100000.csv filter=lfs diff=lfs merge=lfs -text
+example/data/input/credit-balance-02-1000000.csv filter=lfs diff=lfs merge=lfs -text
+example/data/input/credit-balance-02-100000-no-header.csv filter=lfs diff=lfs merge=lfs -text

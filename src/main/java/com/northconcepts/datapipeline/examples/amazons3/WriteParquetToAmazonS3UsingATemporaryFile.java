@@ -1,16 +1,16 @@
 package com.northconcepts.datapipeline.examples.amazons3;
 
-import com.northconcepts.datapipeline.amazons3.AmazonS3FileSystem;
-import com.northconcepts.datapipeline.core.DataReader;
-import com.northconcepts.datapipeline.csv.CSVReader;
-import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import com.northconcepts.datapipeline.amazons3.AmazonS3FileSystem;
+import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.csv.CSVReader;
+import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
 
 public class WriteParquetToAmazonS3UsingATemporaryFile {
 

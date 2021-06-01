@@ -6,15 +6,15 @@
  */
 package com.northconcepts.datapipeline.examples.cookbook;
 
+import java.io.File;
+import java.math.BigDecimal;
+
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.transform.SetGroupSequenceNumberField;
 import com.northconcepts.datapipeline.transform.TransformingReader;
-
-import java.io.File;
-import java.math.BigDecimal;
 
 public class AddASequenceNumberColumnForRepeatedValues {
 

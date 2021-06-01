@@ -6,14 +6,14 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.jdbc;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcConnection;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcExportedKey;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcImportedKey;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcTable;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcTableColumn;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class ShowTheColumnsAndTablesOfASchema {
 
