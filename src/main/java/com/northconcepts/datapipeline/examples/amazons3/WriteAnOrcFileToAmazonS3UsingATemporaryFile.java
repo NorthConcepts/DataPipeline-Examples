@@ -18,31 +18,35 @@ public class WriteAnOrcFileToAmazonS3UsingATemporaryFile {
     private static final String SECRET_KEY = "YOUR SECRET KEY";
 
     public static void main(String[] args) throws Throwable {
-        AmazonS3FileSystem s3 = new AmazonS3FileSystem();
-        s3.setBasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
-        s3.open();
+        File orcFile = File.createTempFile("credit-balance", ".orc");
+        orcFile.deleteOnExit();
 
         try {
-            File orcFile = File.createTempFile("credit-balance", ".orc");
-            orcFile.deleteOnExit();
+            DataReader reader = new CSVReader(new File("example/data/input/credit-balance.csv"))
+                .setFieldNamesInFirstRow(true);
+            OrcDataWriter writer = new OrcDataWriter(orcFile);
 
-            try {
-                DataReader reader = new CSVReader(new File("example/data/input/credit-balance.csv"))
-                        .setFieldNamesInFirstRow(true);
-                OrcDataWriter writer = new OrcDataWriter(orcFile);
+            Job.run(reader, writer);
 
-                Job.run(reader, writer);
+            uploadFileToS3(orcFile);
+        } finally {
+            orcFile.delete();
+        }
+    }
 
-                OutputStream out = s3.writeMultipartFile("bucket-name", "output/credit-balance.orc");
-                InputStream in = new BufferedInputStream(new FileInputStream(orcFile));
+    private static void uploadFileToS3(File orcFile) throws Throwable {
+        AmazonS3FileSystem s3 = new AmazonS3FileSystem();
+        try {
+            s3.setBasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
+            s3.open();
 
-                byte[] buffer = new byte[1024];
-                int lengthRead;
-                while ((lengthRead = in.read(buffer)) > 0) {
-                    out.write(buffer, 0, lengthRead);
-                }
-            } finally {
-                orcFile.delete();
+            OutputStream out = s3.writeMultipartFile("bucket-name", "output/credit-balance.orc");
+            InputStream in = new BufferedInputStream(new FileInputStream(orcFile));
+
+            byte[] buffer = new byte[1024];
+            int lengthRead;
+            while ((lengthRead = in.read(buffer)) > 0) {
+                out.write(buffer, 0, lengthRead);
             }
         } finally {
             s3.close();
