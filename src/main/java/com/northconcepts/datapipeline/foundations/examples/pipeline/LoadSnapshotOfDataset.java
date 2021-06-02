@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import com.northconcepts.datapipeline.foundations.file.LocalFile;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
+import com.northconcepts.datapipeline.foundations.pipeline.dataset.MemoryDataset;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 
 public class LoadSnapshotOfDataset {
@@ -24,7 +25,7 @@ public class LoadSnapshotOfDataset {
 
         pipeline.setInput(pipelineInput);
         
-        Dataset dataset = pipeline.getDataset();
+        Dataset dataset = new MemoryDataset(pipeline);
         dataset.load().waitForRecordsToLoad(10000, TimeUnit.SECONDS.toMillis(4));
 
         System.out.println("Total Records:- " + dataset.getRecordCount());
