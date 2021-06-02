@@ -37,7 +37,7 @@ public class ReadSelectedFieldsFromAParquetFile {
 */
         
         ParquetDataReader reader = new ParquetDataReader(new File("example/data/input/read_parquet_file.parquet"))
-                .setSchema(schema)  // remove this line to see all fields (and in original arrangement)
+                .setSchema(schema)  // Remove this line to see all fields (and in original arrangement)
                 ;
         Job.run(reader, new StreamWriter(System.out));
 

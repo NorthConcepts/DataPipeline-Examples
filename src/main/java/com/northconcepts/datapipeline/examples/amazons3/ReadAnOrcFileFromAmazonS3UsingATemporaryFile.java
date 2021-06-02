@@ -11,25 +11,24 @@ import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.parquet.ParquetDataReader;
+import com.northconcepts.datapipeline.orc.OrcDataReader;
 
-public class ReadParquetFromAmazonS3UsingATemporaryFile {
+public class ReadAnOrcFileFromAmazonS3UsingATemporaryFile {
 
     private static final String ACCESS_KEY = "YOUR ACCESS KEY";
     private static final String SECRET_KEY = "YOUR SECRET KEY";
 
-    private static File parquetFile;
+    private static File orcFile;
 
     public static void main(String[] args) throws Throwable {
         downloadS3File();
         try {
-
-            DataReader reader = new ParquetDataReader(parquetFile);
+            DataReader reader = new OrcDataReader(orcFile);
             DataWriter writer = new StreamWriter(System.out);
 
             Job.run(reader, writer);
         } finally {
-            parquetFile.delete();
+            orcFile.delete();
         }
     }
 
@@ -39,11 +38,11 @@ public class ReadParquetFromAmazonS3UsingATemporaryFile {
             s3.setBasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
             s3.open();
 
-            parquetFile = File.createTempFile("output", ".parquet");
-            parquetFile.deleteOnExit();
+            orcFile = File.createTempFile("output", ".orc");
+            orcFile.deleteOnExit();
 
-            InputStream in = s3.readFile("bucket", "input.parquet");
-            OutputStream out = new BufferedOutputStream(new FileOutputStream(parquetFile));
+            InputStream in = s3.readFile("bucket", "input.orc");
+            OutputStream out = new BufferedOutputStream(new FileOutputStream(orcFile));
 
             byte[] buffer = new byte[1024];
             int lengthRead;
