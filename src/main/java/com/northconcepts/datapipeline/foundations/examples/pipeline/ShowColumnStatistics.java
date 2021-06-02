@@ -10,6 +10,7 @@ import com.northconcepts.datapipeline.foundations.file.LocalFile;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
+import com.northconcepts.datapipeline.foundations.pipeline.dataset.MemoryDataset;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 
 public class ShowColumnStatistics {
@@ -24,7 +25,7 @@ public class ShowColumnStatistics {
 
         pipeline.setInput(pipelineInput);
 
-        Dataset dataset = pipeline.getDataset();
+        Dataset dataset = new MemoryDataset(pipeline);
         
         dataset.load().waitForRecordsToLoad();
 

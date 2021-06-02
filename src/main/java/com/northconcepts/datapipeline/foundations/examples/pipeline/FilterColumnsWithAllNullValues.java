@@ -11,6 +11,7 @@ import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.action.transform.SelectArrangeFieldsAction;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
+import com.northconcepts.datapipeline.foundations.pipeline.dataset.MemoryDataset;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
 
@@ -31,7 +32,7 @@ public class FilterColumnsWithAllNullValues {
             .setInput(pipelineInput)
             .setOutput(pipelineOutput);
 
-        Dataset dataset = pipeline.getDataset();
+        Dataset dataset = new MemoryDataset(pipeline);
         dataset.load().waitForRecordsToLoad();
 
         SelectArrangeFieldsAction action = new SelectArrangeFieldsAction();

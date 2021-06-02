@@ -11,6 +11,8 @@ import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.foundations.file.LocalFile;
+import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
+import com.northconcepts.datapipeline.foundations.pipeline.dataset.MemoryDataset;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.foundations.schema.BooleanFieldDef;
 import com.northconcepts.datapipeline.foundations.schema.EntityDef;
@@ -21,6 +23,12 @@ import com.northconcepts.datapipeline.job.Job;
 public class MapRecordsInPipelineUsingSchema {
 
     public static void main(String[] args) {
+        
+        CsvPipelineInput pipelineInput = new CsvPipelineInput()
+                .setFieldNamesInFirstRow(true)
+                .setAllowMultiLineText(true);
+
+        pipelineInput.setFileSource(new LocalFile().setPath("data/input/jewelry.csv"));  // can be set late with actual file
 
         EntityDef entityDef = new EntityDef().setName("Jewelry")
                 .addField(new NumericFieldDef("Variant Price", FieldType.DOUBLE))
@@ -35,15 +43,13 @@ public class MapRecordsInPipelineUsingSchema {
                 .addField(new TextFieldDef("Title", FieldType.STRING).setMaximumLength(256))
                 .addField(new TextFieldDef("Option1 Value", FieldType.STRING))
                 .setAllowExtraFieldsInMapping(true);
-
-        CsvPipelineInput pipelineInput = new CsvPipelineInput()
-                .setFieldNamesInFirstRow(true)
-                .setAllowMultiLineText(true)
-                .setEntityDef(entityDef);
         
-        pipelineInput.setFileSource(new LocalFile().setPath("data/input/jewelry.csv"));  // can be set late with actual file
+        Pipeline pipeline = new Pipeline(); 
+        pipeline.setInput(pipelineInput);
+        pipeline.setSourceEntity(entityDef);
+        
 
-        DataReader reader = pipelineInput.createDataReader();
+        DataReader reader = pipeline.createDataReader();
         DataWriter writer = StreamWriter.newSystemOutWriter();
 
         Job.run(reader, writer);

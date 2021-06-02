@@ -82,9 +82,9 @@ public class CreateCustomPipelineInput {
         public PipelineInput fromRecord(Record source) {
             return this;
         }
-
+        
         @Override
-        protected DataReader createDataReaderImpl() {
+        public DataReader createDataReader() {
             return new FakePackageReader(MAX_TRUCKS, MAX_PACKAGES, RECORD_DELAY_MILLISECONDS);
         }
     }
