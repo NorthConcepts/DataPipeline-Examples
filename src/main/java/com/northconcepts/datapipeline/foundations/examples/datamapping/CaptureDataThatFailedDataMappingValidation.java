@@ -36,7 +36,7 @@ public class CaptureDataThatFailedDataMappingValidation {
 
         MemoryWriter discardWriter = new MemoryWriter();
 
-        reader = new DataMappingReader(reader, mapping, discardWriter, "PriceLessThanMinimum");
+        reader = new DataMappingReader(reader, mapping, discardWriter, "ErrorMessage");
 
         Job.run(reader, new NullWriter()); //run mapping
         Job.run(new MemoryReader(discardWriter.getRecordList()), StreamWriter.newSystemOutWriter()); //print discarded records
