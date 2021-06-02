@@ -18,32 +18,37 @@ public class ReadAnOrcFileFromAmazonS3UsingATemporaryFile {
     private static final String ACCESS_KEY = "YOUR ACCESS KEY";
     private static final String SECRET_KEY = "YOUR SECRET KEY";
 
-    public static void main(String[] args) throws Throwable {
-        AmazonS3FileSystem s3 = new AmazonS3FileSystem();
-        s3.setBasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
-        s3.open();
+    private static File orcFile;
 
+    public static void main(String[] args) throws Throwable {
+        downloadS3File();
         try {
-            File orcFile = File.createTempFile("output", ".orc");
+            DataReader reader = new OrcDataReader(orcFile);
+            DataWriter writer = new StreamWriter(System.out);
+
+            Job.run(reader, writer);
+        } finally {
+            orcFile.delete();
+        }
+    }
+
+    private static void downloadS3File() throws Throwable {
+        AmazonS3FileSystem s3 = new AmazonS3FileSystem();
+        try {
+            s3.setBasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
+            s3.open();
+
+            orcFile = File.createTempFile("output", ".orc");
             orcFile.deleteOnExit();
 
-            try {
-                InputStream in = s3.readFile("bucket", "input.orc");
-                OutputStream out = new BufferedOutputStream(new FileOutputStream(orcFile));
+            InputStream in = s3.readFile("bucket", "input.orc");
+            OutputStream out = new BufferedOutputStream(new FileOutputStream(orcFile));
 
-                byte[] buffer = new byte[1024];
-                int lengthRead;
-                while ((lengthRead = in.read(buffer)) > 0) {
-                    out.write(buffer, 0, lengthRead);
-                    out.flush();
-                }
-
-                DataReader reader = new OrcDataReader(orcFile);
-                DataWriter writer = new StreamWriter(System.out);
-
-                Job.run(reader, writer);
-            } finally {
-                orcFile.delete();
+            byte[] buffer = new byte[1024];
+            int lengthRead;
+            while ((lengthRead = in.read(buffer)) > 0) {
+                out.write(buffer, 0, lengthRead);
+                out.flush();
             }
         } finally {
             s3.close();

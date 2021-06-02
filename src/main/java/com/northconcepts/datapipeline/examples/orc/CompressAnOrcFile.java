@@ -26,7 +26,7 @@ public class CompressAnOrcFile {
 
     public static void main(String[] args) {
         System.out.println("============================================================");
-        System.out.println("Write records to a parquet file");
+        System.out.println("Write records to an ORC file");
         System.out.println("============================================================");
         
         DataReader reader = new MemoryReader(createRecordList());
@@ -45,7 +45,7 @@ public class CompressAnOrcFile {
         System.out.println(writer.getSchema());
 
         System.out.println("============================================================");
-        System.out.println("Read the parquet file");
+        System.out.println("Read the ORC file");
         System.out.println("============================================================");
         
         Job.run(new OrcDataReader(ORC_FILE), new StreamWriter(System.out));

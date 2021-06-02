@@ -18,31 +18,36 @@ public class WriteParquetToAmazonS3UsingATemporaryFile {
     private static final String SECRET_KEY = "YOUR SECRET KEY";
 
     public static void main(String[] args) throws Throwable {
-        AmazonS3FileSystem s3 = new AmazonS3FileSystem();
-        s3.setBasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
-        s3.open();
+
+        File parquetFile = File.createTempFile("credit-balance", ".parquet");
+        parquetFile.deleteOnExit();
 
         try {
-            File parquetFile = File.createTempFile("credit-balance", ".parquet");
-            parquetFile.deleteOnExit();
+            DataReader reader = new CSVReader(new File("example/data/input/credit-balance.csv"))
+                .setFieldNamesInFirstRow(true);
+            ParquetDataWriter writer = new ParquetDataWriter(parquetFile);
 
-            try {
-                DataReader reader = new CSVReader(new File("example/data/input/credit-balance.csv"))
-                        .setFieldNamesInFirstRow(true);
-                ParquetDataWriter writer = new ParquetDataWriter(parquetFile);
+            Job.run(reader, writer);
 
-                Job.run(reader, writer);
+            uploadFileToS3(parquetFile);
+        } finally {
+            parquetFile.delete();
+        }
+    }
 
-                OutputStream out = s3.writeMultipartFile("datapipeline-test-01", "output/credit-balance.parquet");
-                InputStream in = new BufferedInputStream(new FileInputStream(parquetFile));
+    private static void uploadFileToS3(File parquetFile) throws Throwable {
+        AmazonS3FileSystem s3 = new AmazonS3FileSystem();
+        try {
+            s3.setBasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
+            s3.open();
 
-                byte[] buffer = new byte[1024];
-                int lengthRead;
-                while ((lengthRead = in.read(buffer)) > 0) {
-                    out.write(buffer, 0, lengthRead);
-                }
-            } finally {
-                parquetFile.delete();
+            OutputStream out = s3.writeMultipartFile("datapipeline-test-01", "output/credit-balance.parquet");
+            InputStream in = new BufferedInputStream(new FileInputStream(parquetFile));
+
+            byte[] buffer = new byte[1024];
+            int lengthRead;
+            while ((lengthRead = in.read(buffer)) > 0) {
+                out.write(buffer, 0, lengthRead);
             }
         } finally {
             s3.close();

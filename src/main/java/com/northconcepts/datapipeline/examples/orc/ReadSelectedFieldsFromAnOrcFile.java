@@ -13,7 +13,7 @@ public class ReadSelectedFieldsFromAnOrcFile {
         FieldList columns = new FieldList("list", "double1", "short1", "string1");
 
         OrcDataReader reader = new OrcDataReader(new File("example/data/input/input_orc_file.orc"))
-                .setColumns(columns) // Comment this line to read all columns.
+                .setColumns(columns) // Remove this line to read all columns.
                 ;
         Job.run(reader, new StreamWriter(System.out));
 

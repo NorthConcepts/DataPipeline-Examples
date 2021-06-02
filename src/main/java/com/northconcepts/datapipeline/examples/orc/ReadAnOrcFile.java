@@ -12,6 +12,10 @@ public class ReadAnOrcFile {
         OrcDataReader reader = new OrcDataReader(new File("example/data/input/input_orc_file.orc"));
         Job.run(reader, new StreamWriter(System.out));
 
+        System.out.println("============================================================");
+        System.out.println("ORC Schema");
+        System.out.println("============================================================");
+        
         System.out.println(reader.getSchema());
     }
 
