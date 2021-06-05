@@ -6,7 +6,7 @@ import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.twitter2.TwitterFilterStreamReader;
 
 
-public class FilterTwitterInRealTime {
+public class FilterTwitterInRealTimeUsingV2 {
 
     private static final String API_KEY = "YOUR_API_KEY";
     private static final String API_SECRET = "YOUR_API_SECRET";
