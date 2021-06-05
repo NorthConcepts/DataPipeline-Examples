@@ -7,7 +7,7 @@ import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.twitter2.TwitterFollowerReader;
 
 
-public class SearchFollowersOfATwitterUser {
+public class SearchFollowersOfATwitterUserUsingV2 {
 
     private static final String API_KEY = "YOUR_API_KEY";
     private static final String API_SECRET = "YOUR_API_SECRET";
