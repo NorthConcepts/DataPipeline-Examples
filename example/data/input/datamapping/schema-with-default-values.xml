@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<schema name="Schema" description="This is test schema.">
+  <entities>
+    <entity name="Entity" allowExtraFieldsInValidation="true">
+      <fields>
+        <field name="ID" type="INT" defaultValueExpression="0"/>
+        <field name="BOOLEAN1" type="BOOLEAN" defaultValueExpression="false"/>
+        <field name="STRING1" type="STRING" defaultValueExpression="'DEFAULT STRING VALUE'"/>
+        <field name="BYTE1" type="BYTE" defaultValueExpression="toByte(88)"/>
+        <field name="CHAR1" type="CHAR" defaultValueExpression="com.northconcepts.datapipeline.internal.lang.Util.toChar('z')"/>
+        <field name="DATE1" type="DATE" defaultValueExpression="toDate(now())"/>
+        <field name="DATETIME1" type="DATETIME" defaultValueExpression="now()"/>
+        <field name="TIME1" type="TIME" defaultValueExpression="toTime(now())"/>
+        <field name="INT1" type="INT" defaultValueExpression="toInt(9)"/>
+        <field name="LONG1" type="LONG" defaultValueExpression="currentTimeMillis()"/>
+        <field name="DOUBLE1" type="DOUBLE" defaultValueExpression="10.0"/>
+        <field name="FLOAT1" type="FLOAT" defaultValueExpression="99"/>
+        <field name="SHORT1" type="SHORT" defaultValueExpression="toShort(99)"/>
+      </fields>
+    </entity>
+  </entities>
+</schema>
