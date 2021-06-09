@@ -15,6 +15,8 @@ import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineO
 import com.northconcepts.datapipeline.foundations.sourcecode.CodeWriter;
 import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
 import com.northconcepts.datapipeline.internal.lang.Util;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class CreateCustomPipelineInput {
 
@@ -82,7 +84,12 @@ public class CreateCustomPipelineInput {
         public PipelineInput fromRecord(Record source) {
             return this;
         }
-        
+
+        @Override
+        protected void toXmlImpl(Document document, Element pipelineInputElement) {
+
+        }
+
         @Override
         public DataReader createDataReader() {
             return new FakePackageReader(MAX_TRUCKS, MAX_PACKAGES, RECORD_DELAY_MILLISECONDS);
