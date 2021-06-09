@@ -15,6 +15,8 @@ import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInpu
 import com.northconcepts.datapipeline.foundations.sourcecode.CodeWriter;
 import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
 import com.northconcepts.datapipeline.internal.lang.Util;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class CreateCustomPipelineOutput {
 
@@ -86,6 +88,11 @@ public class CreateCustomPipelineOutput {
         @Override
         public PipelineOutput fromRecord(Record source) {
             return this;
+        }
+
+        @Override
+        protected void toXmlImpl(Document document, Element pipelineOutputElement) throws Throwable {
+
         }
 
     }
