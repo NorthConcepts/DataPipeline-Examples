@@ -18,11 +18,11 @@ import java.io.FileInputStream;
 public class DeclarativelySetDefaultValuesFoMissingData {
 
     public static void main(String... args) throws Throwable {
-        DataReader reader = new CSVReader(new File("example/data/input/datamapping/csv-with-null-values.csv"))
+        DataReader reader = new CSVReader(new File("example/data/input/schema/csv-with-null-values.csv"))
                 .setFieldNamesInFirstRow(true);
         
         SchemaDef schema = new SchemaDef()
-                .fromXml(new FileInputStream(new File("example/data/input/datamapping/schema-with-default-values.xml")));
+                .fromXml(new FileInputStream(new File("example/data/input/schema/schema-with-default-values.xml")));
         EntityDef sourceAccountEntity = schema.getEntity("Entity");
         reader = new TransformingReader(reader)
                 .add(new SchemaTransformer(sourceAccountEntity));

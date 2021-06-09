@@ -20,36 +20,42 @@ import java.io.File;
 public class SetDefaultValuesFoMissingData {
 
     public static void main(String... args) throws Throwable {
-        DataReader reader = new CSVReader(new File("example/data/input/datamapping/csv-with-null-values.csv"))
+        DataReader reader = new CSVReader(new File("example/data/input/schema/csv-with-null-values.csv"))
                 .setFieldNamesInFirstRow(true);
         
         SchemaDef schema = new SchemaDef()
             .addEntity(new EntityDef().setName("Entity")
-                .addField(new TextFieldDef().setName("ID").setType(FieldType.STRING).setRequired(true))
-                .addField(new BooleanFieldDef().setName("BOOLEAN1").setType(FieldType.BOOLEAN)
+                .addField(new NumericFieldDef().setName("ID").setType(FieldType.INT)
+                    .setDefaultValueExpression("0"))
+                .addField(new BooleanFieldDef().setName("BOOLEAN1")
                     .setDefaultValueExpression("false"))
                 .addField(new TextFieldDef().setName("STRING1").setType(FieldType.STRING)
-                    .setDefaultValueExpression("'Default String Value'"))
+                    .setDefaultValueExpression("'DEFAULT STRING VALUE'"))
                 .addField(new NumericFieldDef().setName("BYTE1").setType(FieldType.BYTE)
-                    .setDefaultValueExpression("toByte(88)"))
+                    .setDefaultValueExpression("88"))
                 .addField(new TextFieldDef().setName("CHAR1").setType(FieldType.CHAR)
-                    .setDefaultValueExpression("com.northconcepts.datapipeline.internal.lang.Util.toChar('z')"))
+                    .setDefaultValueExpression("'z'"))
                 .addField(new TemporalFieldDef().setName("DATE1").setType(FieldType.DATE)
-                    .setDefaultValueExpression("toDate(now())"))
+                    .setDefaultValueExpression("toDate('1999-08-21T15:31:50.000Z')"))
                 .addField(new TemporalFieldDef().setName("DATETIME1").setType(FieldType.DATETIME)
-                    .setDefaultValueExpression("now()"))
+                    .setDefaultValueExpression("toDatetime('1999-08-21T15:31:50.000Z')"))
                 .addField(new TemporalFieldDef().setName("TIME1").setType(FieldType.TIME)
-                    .setDefaultValueExpression("toTime(now())"))
+                    .setDefaultValueExpression("toDatetime('1999-08-21T15:31:50.000Z')"))
                 .addField(new NumericFieldDef().setName("INT1").setType(FieldType.INT)
-                    .setDefaultValueExpression("toInt(9)"))
+                    .setDefaultValueExpression("99"))
                 .addField(new NumericFieldDef().setName("LONG1").setType(FieldType.LONG)
-                    .setDefaultValueExpression("currentTimeMillis()"))
+                    .setDefaultValueExpression("1152921504606846976"))
                 .addField(new NumericFieldDef().setName("DOUBLE1").setType(FieldType.DOUBLE)
-                    .setDefaultValueExpression("999.99"))
+                    .setDefaultValueExpression("10.0"))
                 .addField(new NumericFieldDef().setName("FLOAT1").setType(FieldType.FLOAT)
                     .setDefaultValueExpression("99"))
                 .addField(new NumericFieldDef().setName("SHORT1").setType(FieldType.SHORT)
-                    .setDefaultValueExpression("toShort(99)")));
+                    .setDefaultValueExpression("99"))
+                .addField(new NumericFieldDef().setName("BIGDECIMAL1").setType(FieldType.BIG_DECIMAL)
+                    .setDefaultValueExpression("'111111111111111111111111111111111111111.111111111111111111111111111111111111111'"))
+                .addField(new NumericFieldDef().setName("BIGINTEGER1").setType(FieldType.BIG_INTEGER)
+                    .setDefaultValueExpression("'99999999999999999999999999999999999999'"))
+            );
 
 
         EntityDef entity = schema.getEntity("Entity");
