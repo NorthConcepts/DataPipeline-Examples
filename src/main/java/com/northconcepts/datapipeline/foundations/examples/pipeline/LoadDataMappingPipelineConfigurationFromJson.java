@@ -14,7 +14,7 @@ import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.output.DataWriterPipelineOutput;
 
-public class MapDataWithDataMappingPipelineFromJson {
+public class LoadDataMappingPipelineConfigurationFromJson {
 
     public static void main(String[] args) throws Throwable {
         String jsonString = new String(Files.readAllBytes(Paths.get("example/data/input/pipeline/datamappingpipeline.json")));
