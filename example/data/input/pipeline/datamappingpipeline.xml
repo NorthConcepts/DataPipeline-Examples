@@ -1,44 +1,41 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<document>
-    <data-mapping-pipeline class="com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline" multithreaded="true">
-        <pipeline-input allowMultiLineText="false" allowQuoteInField="false" class="com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput" endingQuote="&quot;" fieldNamesInFirstRow="true" fieldSeparator="," lineSeparators="\n,\r\n,\r" skipEmptyRows="false" startingQuote="&quot;" trimFields="true">
-            <file-source class="com.northconcepts.datapipeline.foundations.file.LocalFileSource" path="example/data/input/call-center-inbound-call.csv"/>
-        </pipeline-input>
-        <source-entity addMissingOptionalFields="false" allowExtraFieldsInMapping="true" allowExtraFieldsInValidation="true" name="Raw">
-            <fields>
-                <field allowBlank="false" maximumLength="25" name="event_type" required="true" type="STRING"/>
-                <field allowBlank="false" name="id" required="true" type="STRING"/>
-                <field allowBlank="false" name="agent_id" required="true" type="STRING"/>
-                <field allowBlank="false" minimumLength="9" name="phone_number" required="true" type="STRING"/>
-                <field allowBlank="false" name="start_time" required="true" type="STRING"/>
-                <field allowBlank="false" name="end_time" required="false" type="STRING"/>
-                <field allowBlank="false" name="disposition" required="false" type="STRING"/>
-            </fields>
-        </source-entity>
-        <target-entity addMissingOptionalFields="false" allowExtraFieldsInMapping="true" allowExtraFieldsInValidation="true" name="Processed">
-            <fields>
-                <field allowBlank="false" maximumLength="25" name="Event" required="true" type="STRING"/>
-                <field name="Call ID" required="true" type="INT"/>
-                <field name="Agent ID" required="true" type="INT"/>
-                <field allowBlank="false" minimumLength="9" name="Caller Number" required="true" type="STRING"/>
-                <field name="Call Start Time" required="true" type="TIME"/>
-                <field name="Call End Time" required="true" type="DATE"/>
-                <field allowBlank="false" defaultValueExpression="'UNKNOWN'" name="Disposition" required="true" type="STRING"/>
-            </fields>
-        </target-entity>
-        <pipeline-output autoFilterColumns="false" autofitColumns="false" class="com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput" fieldNamesInFirstRow="true" firstColumnIndex="0" firstRowIndex="0" providerType="POI_XSSF" sheetIndex="-1">
-            <file-sink append="false" class="com.northconcepts.datapipeline.foundations.file.LocalFileSink" path="data/output/test.xlsx"/>
-        </pipeline-output>
-        <data-mapping>
-            <field-mappings>
-                <field-mapping fieldName="Event" sourceExpression="source.event_type"/>
-                <field-mapping fieldName="Call ID" sourceExpression="source.id"/>
-                <field-mapping fieldName="Agent ID" sourceExpression="toInt(source.agent_id)"/>
-                <field-mapping fieldName="Caller Number" sourceExpression="source.phone_number"/>
-                <field-mapping fieldName="Call Start Time" sourceExpression="toTime(parseDate(source.start_time, 'yyyy-MM-dd HH:mm'))"/>
-                <field-mapping defaultValueExpression="${target.Call Start Time}" fieldName="Call End Time" sourceExpression="toTime(parseDate(source.end_time, 'yyyy-MM-dd HH:mm'))"/>
-                <field-mapping fieldName="Disposition" sourceExpression="source.disposition"/>
-            </field-mappings>
-        </data-mapping>
-    </data-mapping-pipeline>
-</document>
+<data-mapping-pipeline class="com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline" multithreaded="true">
+    <pipeline-input allowMultiLineText="false" allowQuoteInField="false" class="com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput" endingQuote="&quot;" fieldNamesInFirstRow="true" fieldSeparator="," lineSeparators="\n,\r\n,\r" skipEmptyRows="false" startingQuote="&quot;" trimFields="true">
+        <file-source class="com.northconcepts.datapipeline.foundations.file.LocalFileSource" path="example/data/input/call-center-inbound-call.csv"/>
+    </pipeline-input>
+    <source-entity addMissingOptionalFields="false" allowExtraFieldsInMapping="true" allowExtraFieldsInValidation="true" name="Raw">
+        <fields>
+            <field allowBlank="false" maximumLength="25" name="event_type" required="true" type="STRING"/>
+            <field allowBlank="false" name="id" required="true" type="STRING"/>
+            <field allowBlank="false" name="agent_id" required="true" type="STRING"/>
+            <field allowBlank="false" minimumLength="9" name="phone_number" required="true" type="STRING"/>
+            <field allowBlank="false" name="start_time" required="true" type="STRING"/>
+            <field allowBlank="false" name="end_time" required="false" type="STRING"/>
+            <field allowBlank="false" name="disposition" required="false" type="STRING"/>
+        </fields>
+    </source-entity>
+    <target-entity addMissingOptionalFields="false" allowExtraFieldsInMapping="true" allowExtraFieldsInValidation="true" name="Processed">
+        <fields>
+            <field allowBlank="false" maximumLength="25" name="Event" required="true" type="STRING"/>
+            <field name="Call ID" required="true" type="INT"/>
+            <field name="Agent ID" required="true" type="INT"/>
+            <field allowBlank="false" minimumLength="9" name="Caller Number" required="true" type="STRING"/>
+            <field name="Call Start Time" required="true" type="TIME"/>
+            <field name="Call End Time" required="true" type="DATE"/>
+            <field allowBlank="false" defaultValueExpression="'UNKNOWN'" name="Disposition" required="true" type="STRING"/>
+        </fields>
+    </target-entity>
+    <pipeline-output autoFilterColumns="false" autofitColumns="false" class="com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput" fieldNamesInFirstRow="true" firstColumnIndex="0" firstRowIndex="0" providerType="POI_XSSF" sheetIndex="-1">
+        <file-sink append="false" class="com.northconcepts.datapipeline.foundations.file.LocalFileSink" path="data/output/test.xlsx"/>
+    </pipeline-output>
+    <data-mapping>
+        <field-mappings>
+            <field-mapping fieldName="Event" sourceExpression="source.event_type"/>
+            <field-mapping fieldName="Call ID" sourceExpression="source.id"/>
+            <field-mapping fieldName="Agent ID" sourceExpression="toInt(source.agent_id)"/>
+            <field-mapping fieldName="Caller Number" sourceExpression="source.phone_number"/>
+            <field-mapping fieldName="Call Start Time" sourceExpression="toTime(parseDate(source.start_time, 'yyyy-MM-dd HH:mm'))"/>
+            <field-mapping defaultValueExpression="${target.Call Start Time}" fieldName="Call End Time" sourceExpression="toTime(parseDate(source.end_time, 'yyyy-MM-dd HH:mm'))"/>
+            <field-mapping fieldName="Disposition" sourceExpression="source.disposition"/>
+        </field-mappings>
+    </data-mapping>
+</data-mapping-pipeline>
