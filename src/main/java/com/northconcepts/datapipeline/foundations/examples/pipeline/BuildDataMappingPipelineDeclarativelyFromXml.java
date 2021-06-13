@@ -9,14 +9,12 @@ package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
 import com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.FileInputStream;
 
 public class BuildDataMappingPipelineDeclarativelyFromXml {
 
     public static void main(String[] args) throws Throwable {
-        String xmlString = new String(Files.readAllBytes(Paths.get("example/data/input/pipeline/datamappingpipeline.xml")));
-        DataMappingPipeline pipeline = (DataMappingPipeline) new DataMappingPipeline().fromXml(xmlString);
+        DataMappingPipeline pipeline = new DataMappingPipeline().fromXml(new FileInputStream("example/data/input/pipeline/datamappingpipeline.xml"));
 
         //Run pipeline
         pipeline.run();

@@ -7,16 +7,14 @@
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.FileInputStream;
 
 import com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline;
 
 public class BuildDataMappingPipelineDeclarativelyFromJson {
 
     public static void main(String[] args) throws Throwable {
-        String jsonString = new String(Files.readAllBytes(Paths.get("example/data/input/pipeline/datamappingpipeline.json")));
-        DataMappingPipeline pipeline = new DataMappingPipeline().fromJson(jsonString);
+        DataMappingPipeline pipeline = new DataMappingPipeline().fromJson(new FileInputStream("example/data/input/pipeline/datamappingpipeline.json"));
 
         //Run pipeline
         pipeline.run();
