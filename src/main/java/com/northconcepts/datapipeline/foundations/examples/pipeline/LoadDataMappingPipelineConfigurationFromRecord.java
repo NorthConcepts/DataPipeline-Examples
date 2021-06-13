@@ -10,7 +10,8 @@ import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMapping;
 import com.northconcepts.datapipeline.foundations.datamapping.FieldMapping;
-import com.northconcepts.datapipeline.foundations.file.LocalFile;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSink;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
 import com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
@@ -34,8 +35,8 @@ public class LoadDataMappingPipelineConfigurationFromRecord {
                 .addFieldMapping(new FieldMapping("Event", "source.event_type"))
                 .addFieldMapping(new FieldMapping("Call ID", "source.id"));
 
-        LocalFile source = new LocalFile().setPath("input/file/sample/path.csv");
-        LocalFile sink = new LocalFile().setPath("output/file/sample/path.csv");
+        LocalFileSource source = new LocalFileSource().setPath("input/file/sample/path.csv");
+        LocalFileSink sink = new LocalFileSink().setPath("output/file/sample/path.csv");
 
         //Create DataMappingPipeline with source and target entities
         DataMappingPipeline pipeline = new DataMappingPipeline();
