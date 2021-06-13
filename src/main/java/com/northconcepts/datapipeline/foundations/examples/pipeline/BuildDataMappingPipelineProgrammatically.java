@@ -7,7 +7,6 @@
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
 import com.northconcepts.datapipeline.core.FieldType;
-import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMapping;
 import com.northconcepts.datapipeline.foundations.datamapping.FieldMapping;
 import com.northconcepts.datapipeline.foundations.file.LocalFileSink;
@@ -20,7 +19,7 @@ import com.northconcepts.datapipeline.foundations.schema.NumericFieldDef;
 import com.northconcepts.datapipeline.foundations.schema.SchemaDef;
 import com.northconcepts.datapipeline.foundations.schema.TextFieldDef;
 
-public class LoadDataMappingPipelineConfigurationFromRecord {
+public class BuildDataMappingPipelineProgrammatically {
 
     public static void main(String[] args) {
         SchemaDef schema = new SchemaDef()
@@ -38,21 +37,13 @@ public class LoadDataMappingPipelineConfigurationFromRecord {
         LocalFileSource source = new LocalFileSource().setPath("input/file/sample/path.csv");
         LocalFileSink sink = new LocalFileSink().setPath("output/file/sample/path.csv");
 
-        //Create DataMappingPipeline with source and target entities
+        //Build DataMappingPipeline with source and target entities
         DataMappingPipeline pipeline = new DataMappingPipeline();
         pipeline.setInput(new CsvPipelineInput().setFileSource(source).setFieldNamesInFirstRow(true));
         pipeline.setSourceEntity(schema.getEntity("Raw"));
         pipeline.setDataMapping(mapping);
         pipeline.setTargetEntity(schema.getEntity("Processed"));
         pipeline.setOutput(new ExcelPipelineOutput().setFileSink(sink).setFieldNamesInFirstRow(true));
-
-        //convert to Record
-        Record record = pipeline.toRecord();
-
-        //Create new DataMappingPipeline from the previous instance's configuration.
-        DataMappingPipeline pipelineFromRecord = new DataMappingPipeline().fromRecord(record);
-
-        System.out.println(pipelineFromRecord.toRecord());
     }
 
 }

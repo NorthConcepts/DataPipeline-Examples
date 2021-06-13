@@ -10,17 +10,17 @@ package com.northconcepts.datapipeline.foundations.examples.pipeline;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline;
-import com.northconcepts.datapipeline.foundations.pipeline.output.DataWriterPipelineOutput;
 
-public class LoadDataMappingPipelineConfigurationFromJson {
+public class BuildDataMappingPipelineDeclarativelyFromJson {
 
     public static void main(String[] args) throws Throwable {
         String jsonString = new String(Files.readAllBytes(Paths.get("example/data/input/pipeline/datamappingpipeline.json")));
-        DataMappingPipeline pipeline = new DataMappingPipeline().fromJsonString(jsonString);
+        DataMappingPipeline pipeline = new DataMappingPipeline().fromJson(jsonString);
         //pipeline.setOutput(new DataWriterPipelineOutput(() -> StreamWriter.newSystemOutWriter()));
-        pipeline.run();
+        //pipeline.run();
+
+        System.out.println(pipeline.toXml());
     }
 
 }
