@@ -23,7 +23,7 @@ public class DeclarativelyMapXmlFiles {
         DataReader reader = new XmlRecordReader(new File("example/data/input/bookstore.xml"))
                 .addRecordBreak("//book");
 
-        reader = new DataMappingReader(reader, (DataMapping) new DataMapping()
+        reader = new DataMappingReader(reader, new DataMapping()
                 .fromXml(new FileInputStream(new File("example/data/input/datamapping/book-mapping.xml"))));
 
         DataWriter writer = StreamWriter.newSystemOutWriter();

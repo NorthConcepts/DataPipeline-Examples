@@ -23,7 +23,7 @@ public class DeclarativelyMapDataUsingPositions {
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-02-100000-no-header.csv"))
                 .setFieldNamesInFirstRow(false);
         
-        SchemaDef schema = (SchemaDef) new SchemaDef()
+        SchemaDef schema = new SchemaDef()
                 .fromXml(new FileInputStream(new File("example/data/input/datamapping/account-schema-definition-position.xml")));
         EntityDef sourceAccountEntity = schema.getEntity("SourceAccountEntity");
         reader = new TransformingReader(reader)
@@ -31,7 +31,7 @@ public class DeclarativelyMapDataUsingPositions {
         
 //        reader = new AsyncReader(reader);  // Threading
 
-        DataMapping mapping = (DataMapping) new DataMapping()
+        DataMapping mapping = new DataMapping()
                 .fromXml(new FileInputStream("example/data/input/datamapping/credit-balance-mapping-2.xml"));
         reader = new DataMappingReader(reader, mapping);
 

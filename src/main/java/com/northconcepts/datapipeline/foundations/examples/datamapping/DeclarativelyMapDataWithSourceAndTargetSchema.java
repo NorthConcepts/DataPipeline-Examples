@@ -21,7 +21,7 @@ public class DeclarativelyMapDataWithSourceAndTargetSchema {
 
     public static void main(String... args) throws Throwable {
         // Load source & target schema
-        SchemaDef schema = (SchemaDef) new SchemaDef()
+        SchemaDef schema = new SchemaDef()
                 .fromXml(new FileInputStream(new File("example/data/input/datamapping/account-schema-definition.xml")));
         EntityDef sourceAccountEntity = schema.getEntity("SourceAccountEntity");
         EntityDef targetAccountEntity = schema.getEntity("TargetAccountEntity");
@@ -33,8 +33,9 @@ public class DeclarativelyMapDataWithSourceAndTargetSchema {
             .add("C", "Overdue")
             .add("D", "Default");
 
-        DataMapping mapping = (DataMapping) new DataMapping().fromXml(new FileInputStream("example/data/input/datamapping/credit-balance-mapping.xml"));
-        mapping.setSourceEntity(sourceAccountEntity)
+        DataMapping mapping = new DataMapping()
+                .fromXml(new FileInputStream("example/data/input/datamapping/credit-balance-mapping.xml"))
+                .setSourceEntity(sourceAccountEntity)
                 .setTargetEntity(targetAccountEntity)
                 .setValue("statusLookup", statusLookup);
         

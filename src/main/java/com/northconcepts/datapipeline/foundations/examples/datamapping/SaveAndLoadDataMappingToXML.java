@@ -44,7 +44,7 @@ public class SaveAndLoadDataMappingToXML {
         mapping.toXml(new FileWriter("example/data/output/customer-details-data-mapping.xml"), true);
         
         //Load DataMapping from this XML File.
-        DataMapping mappingFromXml = (DataMapping) new DataMapping()
+        DataMapping mappingFromXml = new DataMapping()
                 .fromXml(new FileInputStream("example/data/output/customer-details-data-mapping.xml"));
         
         System.out.println("DataMapping loaded from XML:-\n" + mappingFromXml);
