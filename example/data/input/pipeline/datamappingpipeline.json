@@ -1,128 +1,340 @@
 {
-  "__class__":"com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline",
-  "name":"pipeline",
-  "description":null,
-  "inputClass":"com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput",
-  "input":{
-    "__class__":"com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput",
-    "fieldSeparator":",",
-    "startingQuote":"\"",
-    "endingQuote":"\"",
-    "lineSeparators":"\\n,\\r\\n,\\r",
-    "allowMultiLineText":false,
-    "allowQuoteInField":false,
-    "trimFields":true,
-    "skipEmptyRows":false,
-    "fieldNamesInFirstRow":true,
-    "fileSourceClass":"com.northconcepts.datapipeline.foundations.file.LocalFile",
-    "fileSource":{
-      "__class__":"com.northconcepts.datapipeline.foundations.file.LocalFile",
-      "name":null,
-      "path":"example/data/input/call-center-inbound-call.csv",
-      "file":null,
-      "fileType":null
+  "__class__" : "com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline",
+  "name" : null,
+  "description" : null,
+  "inputClass" : "com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput",
+  "input" : {
+    "__class__" : "com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput",
+    "fieldSeparator" : ",",
+    "startingQuote" : "\"",
+    "endingQuote" : "\"",
+    "lineSeparators" : "\\n,\\r\\n,\\r",
+    "allowMultiLineText" : false,
+    "allowQuoteInField" : false,
+    "trimFields" : true,
+    "skipEmptyRows" : false,
+    "fieldNamesInFirstRow" : true,
+    "fileSourceClass" : "com.northconcepts.datapipeline.foundations.file.LocalFileSource",
+    "fileSource" : {
+      "__class__" : "com.northconcepts.datapipeline.foundations.file.LocalFileSource",
+      "name" : null,
+      "path" : "example/data/input/call-center-inbound-call.csv",
+      "file" : null,
+      "fileType" : null
     }
   },
-  "outputClass":"com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput",
-  "output":{
-    "__class__":"com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput",
-    "providerType":"POI_XSSF",
-    "sheetName":null,
-    "sheetIndex":-1,
-    "firstRowIndex":0,
-    "firstColumnIndex":0,
-    "autofitColumns":false,
-    "autoFilterColumns":false,
-    "fieldNamesInFirstRow":true,
-    "fileSinkClass":"com.northconcepts.datapipeline.foundations.file.LocalFile",
-    "fileSink":{
-      "__class__":"com.northconcepts.datapipeline.foundations.file.LocalFile",
-      "name":null,
-      "path":"data/output/test.xlsx",
-      "file":null,
-      "fileType":null
+  "sourceEntity" : {
+    "__class__" : "com.northconcepts.datapipeline.foundations.schema.EntityDef",
+    "name" : "Raw",
+    "description" : null,
+    "allowExtraFieldsInValidation" : true,
+    "allowExtraFieldsInMapping" : true,
+    "addMissingOptionalFields" : false,
+    "fields" : [ {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.TextFieldDef",
+      "name" : "event_type",
+      "description" : null,
+      "type" : "STRING",
+      "required" : true,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "minimumLength" : null,
+      "maximumLength" : 25,
+      "allowBlank" : false,
+      "pattern" : null
+    }, {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.TextFieldDef",
+      "name" : "id",
+      "description" : null,
+      "type" : "STRING",
+      "required" : true,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "minimumLength" : null,
+      "maximumLength" : null,
+      "allowBlank" : false,
+      "pattern" : null
+    }, {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.TextFieldDef",
+      "name" : "agent_id",
+      "description" : null,
+      "type" : "STRING",
+      "required" : true,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "minimumLength" : null,
+      "maximumLength" : null,
+      "allowBlank" : false,
+      "pattern" : null
+    }, {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.TextFieldDef",
+      "name" : "phone_number",
+      "description" : null,
+      "type" : "STRING",
+      "required" : true,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "minimumLength" : 9,
+      "maximumLength" : null,
+      "allowBlank" : false,
+      "pattern" : null
+    }, {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.TextFieldDef",
+      "name" : "start_time",
+      "description" : null,
+      "type" : "STRING",
+      "required" : true,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "minimumLength" : null,
+      "maximumLength" : null,
+      "allowBlank" : false,
+      "pattern" : null
+    }, {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.TextFieldDef",
+      "name" : "end_time",
+      "description" : null,
+      "type" : "STRING",
+      "required" : false,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "minimumLength" : null,
+      "maximumLength" : null,
+      "allowBlank" : false,
+      "pattern" : null
+    }, {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.TextFieldDef",
+      "name" : "disposition",
+      "description" : null,
+      "type" : "STRING",
+      "required" : false,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "minimumLength" : null,
+      "maximumLength" : null,
+      "allowBlank" : false,
+      "pattern" : null
+    } ],
+    "validations" : [ ]
+  },
+  "targetEntity" : {
+    "__class__" : "com.northconcepts.datapipeline.foundations.schema.EntityDef",
+    "name" : "Processed",
+    "description" : null,
+    "allowExtraFieldsInValidation" : true,
+    "allowExtraFieldsInMapping" : true,
+    "addMissingOptionalFields" : false,
+    "fields" : [ {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.TextFieldDef",
+      "name" : "Event",
+      "description" : null,
+      "type" : "STRING",
+      "required" : true,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "minimumLength" : null,
+      "maximumLength" : 25,
+      "allowBlank" : false,
+      "pattern" : null
+    }, {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.NumericFieldDef",
+      "name" : "Call ID",
+      "description" : null,
+      "type" : "INT",
+      "required" : true,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "precision" : null,
+      "scale" : null,
+      "minimum" : null,
+      "maximum" : null,
+      "pattern" : null
+    }, {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.NumericFieldDef",
+      "name" : "Agent ID",
+      "description" : null,
+      "type" : "INT",
+      "required" : true,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "precision" : null,
+      "scale" : null,
+      "minimum" : null,
+      "maximum" : null,
+      "pattern" : null
+    }, {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.TextFieldDef",
+      "name" : "Caller Number",
+      "description" : null,
+      "type" : "STRING",
+      "required" : true,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "minimumLength" : 9,
+      "maximumLength" : null,
+      "allowBlank" : false,
+      "pattern" : null
+    }, {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.TemporalFieldDef",
+      "name" : "Call Start Time",
+      "description" : null,
+      "type" : "TIME",
+      "required" : true,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "pattern" : null,
+      "minimum" : null,
+      "minimumClass" : null,
+      "maximum" : null,
+      "maximumClass" : null
+    }, {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.TemporalFieldDef",
+      "name" : "Call End Time",
+      "description" : null,
+      "type" : "DATE",
+      "required" : true,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : null,
+      "allowedValues" : [ ],
+      "pattern" : null,
+      "minimum" : null,
+      "minimumClass" : null,
+      "maximum" : null,
+      "maximumClass" : null
+    }, {
+      "__class__" : "com.northconcepts.datapipeline.foundations.schema.TextFieldDef",
+      "name" : "Disposition",
+      "description" : null,
+      "type" : "STRING",
+      "required" : true,
+      "position" : null,
+      "limitToAllowedValues" : false,
+      "defaultValueExpression" : "'UNKNOWN'",
+      "allowedValues" : [ ],
+      "minimumLength" : null,
+      "maximumLength" : null,
+      "allowBlank" : false,
+      "pattern" : null
+    } ],
+    "validations" : [ ]
+  },
+  "outputClass" : "com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput",
+  "output" : {
+    "__class__" : "com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput",
+    "providerType" : "POI_XSSF",
+    "sheetName" : null,
+    "sheetIndex" : -1,
+    "firstRowIndex" : 0,
+    "firstColumnIndex" : 0,
+    "autofitColumns" : false,
+    "autoFilterColumns" : false,
+    "fieldNamesInFirstRow" : true,
+    "fileSinkClass" : "com.northconcepts.datapipeline.foundations.file.LocalFileSink",
+    "fileSink" : {
+      "__class__" : "com.northconcepts.datapipeline.foundations.file.LocalFileSink",
+      "name" : null,
+      "path" : "data/output/test.xlsx",
+      "file" : null,
+      "fileType" : null,
+      "append" : false
     }
   },
-  "dataMapping":{
-    "__class__":"com.northconcepts.datapipeline.foundations.datamapping.DataMapping",
-    "name":null,
-    "description":null,
-    "sourceEntity":null,
-    "conditions":[
-
-    ],
-    "fieldMappings":[
-      {
-        "fieldMappingClass":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-        "fieldMapping":{
-          "__class__":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-          "fieldName":"Event",
-          "defaultValueExpression":null,
-          "condition":null,
-          "sourceExpression":"source.event_type"
-        }
-      },
-      {
-        "fieldMappingClass":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-        "fieldMapping":{
-          "__class__":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-          "fieldName":"Call ID",
-          "defaultValueExpression":null,
-          "condition":null,
-          "sourceExpression":"source.id"
-        }
-      },
-      {
-        "fieldMappingClass":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-        "fieldMapping":{
-          "__class__":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-          "fieldName":"Agent ID",
-          "defaultValueExpression":null,
-          "condition":null,
-          "sourceExpression":"toInt(source.agent_id)"
-        }
-      },
-      {
-        "fieldMappingClass":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-        "fieldMapping":{
-          "__class__":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-          "fieldName":"Caller Number",
-          "defaultValueExpression":null,
-          "condition":null,
-          "sourceExpression":"source.phone_number"
-        }
-      },
-      {
-        "fieldMappingClass":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-        "fieldMapping":{
-          "__class__":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-          "fieldName":"Call Start Time",
-          "defaultValueExpression":null,
-          "condition":null,
-          "sourceExpression":"toTime(parseDate(source.start_time, 'yyyy-MM-dd HH:mm'))"
-        }
-      },
-      {
-        "fieldMappingClass":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-        "fieldMapping":{
-          "__class__":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-          "fieldName":"Call End Time",
-          "defaultValueExpression":"${target.Call Start Time}",
-          "condition":null,
-          "sourceExpression":"toTime(parseDate(source.end_time, 'yyyy-MM-dd HH:mm'))"
-        }
-      },
-      {
-        "fieldMappingClass":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-        "fieldMapping":{
-          "__class__":"com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
-          "fieldName":"Disposition",
-          "defaultValueExpression":null,
-          "condition":null,
-          "sourceExpression":"source.disposition"
-        }
+  "multithreaded" : true,
+  "dataMapping" : {
+    "__class__" : "com.northconcepts.datapipeline.foundations.datamapping.DataMapping",
+    "name" : null,
+    "description" : null,
+    "sourceEntity" : null,
+    "conditions" : [ ],
+    "fieldMappings" : [ {
+      "fieldMappingClass" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+      "fieldMapping" : {
+        "__class__" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+        "fieldName" : "Event",
+        "defaultValueExpression" : null,
+        "condition" : null,
+        "sourceExpression" : "source.event_type"
       }
-    ],
-    "targetEntity":null
+    }, {
+      "fieldMappingClass" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+      "fieldMapping" : {
+        "__class__" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+        "fieldName" : "Call ID",
+        "defaultValueExpression" : null,
+        "condition" : null,
+        "sourceExpression" : "source.id"
+      }
+    }, {
+      "fieldMappingClass" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+      "fieldMapping" : {
+        "__class__" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+        "fieldName" : "Agent ID",
+        "defaultValueExpression" : null,
+        "condition" : null,
+        "sourceExpression" : "toInt(source.agent_id)"
+      }
+    }, {
+      "fieldMappingClass" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+      "fieldMapping" : {
+        "__class__" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+        "fieldName" : "Caller Number",
+        "defaultValueExpression" : null,
+        "condition" : null,
+        "sourceExpression" : "source.phone_number"
+      }
+    }, {
+      "fieldMappingClass" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+      "fieldMapping" : {
+        "__class__" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+        "fieldName" : "Call Start Time",
+        "defaultValueExpression" : null,
+        "condition" : null,
+        "sourceExpression" : "toTime(parseDate(source.start_time, 'yyyy-MM-dd HH:mm'))"
+      }
+    }, {
+      "fieldMappingClass" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+      "fieldMapping" : {
+        "__class__" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+        "fieldName" : "Call End Time",
+        "defaultValueExpression" : "${target.Call Start Time}",
+        "condition" : null,
+        "sourceExpression" : "toTime(parseDate(source.end_time, 'yyyy-MM-dd HH:mm'))"
+      }
+    }, {
+      "fieldMappingClass" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+      "fieldMapping" : {
+        "__class__" : "com.northconcepts.datapipeline.foundations.datamapping.FieldMapping",
+        "fieldName" : "Disposition",
+        "defaultValueExpression" : null,
+        "condition" : null,
+        "sourceExpression" : "source.disposition"
+      }
+    } ],
+    "targetEntity" : null
   }
 }
