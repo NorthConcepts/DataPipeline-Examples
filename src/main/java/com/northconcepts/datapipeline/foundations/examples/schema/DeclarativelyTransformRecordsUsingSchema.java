@@ -17,7 +17,7 @@ import java.io.FileNotFoundException;
 public class DeclarativelyTransformRecordsUsingSchema {
 
     public static void main(String... args) throws FileNotFoundException {
-        SchemaDef schema = new SchemaDef()
+        SchemaDef schema = (SchemaDef) new SchemaDef()
             .fromXml(new FileInputStream("example/data/input/datamapping/account-schema-definition.xml"));
         EntityDef sourceAccountEntity = schema.getEntity("SourceAccountEntity");
 

@@ -21,7 +21,7 @@ public class DeclarativelySetDefaultValuesFoMissingData {
         DataReader reader = new CSVReader(new File("example/data/input/schema/csv-with-null-values.csv"))
                 .setFieldNamesInFirstRow(true);
         
-        SchemaDef schema = new SchemaDef()
+        SchemaDef schema = (SchemaDef) new SchemaDef()
                 .fromXml(new FileInputStream(new File("example/data/input/schema/schema-with-default-values.xml")));
         EntityDef sourceAccountEntity = schema.getEntity("Entity");
         reader = new TransformingReader(reader)
