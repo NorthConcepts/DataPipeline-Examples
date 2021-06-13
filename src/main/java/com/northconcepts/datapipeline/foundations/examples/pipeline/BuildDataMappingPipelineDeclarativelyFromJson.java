@@ -18,9 +18,7 @@ public class BuildDataMappingPipelineDeclarativelyFromJson {
         String jsonString = new String(Files.readAllBytes(Paths.get("example/data/input/pipeline/datamappingpipeline.json")));
         DataMappingPipeline pipeline = new DataMappingPipeline().fromJson(jsonString);
         //pipeline.setOutput(new DataWriterPipelineOutput(() -> StreamWriter.newSystemOutWriter()));
-        //pipeline.run();
-
-        System.out.println(pipeline.toXml());
+        pipeline.run();
     }
 
 }
