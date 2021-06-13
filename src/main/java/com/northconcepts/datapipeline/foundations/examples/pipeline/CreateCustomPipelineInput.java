@@ -51,7 +51,7 @@ public class CreateCustomPipelineInput {
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
         System.out.println("Pipeline as JSON:");
-        System.out.println(Util.formatJson(pipeline.toJsonString()));
+        System.out.println(Util.formatJson(pipeline.toJson()));
     }
 
     public static class CustomPipelineInput extends PipelineInput {

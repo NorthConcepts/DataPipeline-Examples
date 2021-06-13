@@ -3,12 +3,10 @@ package com.northconcepts.datapipeline.foundations.examples.datamapping;
 import java.io.File;
 import java.io.FileInputStream;
 
-import com.northconcepts.datapipeline.core.AsyncReader;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.FieldList;
 import com.northconcepts.datapipeline.core.NullWriter;
-import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMapping;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMappingReader;

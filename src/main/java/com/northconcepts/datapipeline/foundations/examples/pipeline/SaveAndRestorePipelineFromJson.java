@@ -6,7 +6,8 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
-import com.northconcepts.datapipeline.foundations.file.LocalFile;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSink;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.action.convert.ConvertStringToNumberAction;
 import com.northconcepts.datapipeline.foundations.pipeline.action.transform.AddFieldsAction;
@@ -19,11 +20,11 @@ public class SaveAndRestorePipelineFromJson {
     public static void main(String[] args) throws Throwable{
 
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
-                .setFileSource(new LocalFile().setPath("data/input/Listing.csv"))
+                .setFileSource(new LocalFileSource().setPath("data/input/Listing.csv"))
                 .setFieldNamesInFirstRow(true);
 
         ExcelPipelineOutput pipelineOutput = new ExcelPipelineOutput()
-                .setFileSink(new LocalFile().setPath("data/output/output.xlsx"))
+                .setFileSink(new LocalFileSink().setPath("data/output/output.xlsx"))
                 .setFieldNamesInFirstRow(true);
 
         Pipeline pipeline = new Pipeline();
@@ -37,12 +38,12 @@ public class SaveAndRestorePipelineFromJson {
                 .setPattern("0.00"));
         pipeline.addAction(new AddFieldsAction().add("new_column", AddFieldsAction.FieldType.EXPRESSION, "List - Sell"));
 
-        String json = pipeline.toJsonString();
+        String json = pipeline.toJson();
 
         System.out.println(json);
         
         Pipeline pipeline2 = new Pipeline();
-        pipeline2.fromJsonString(json);
+        pipeline2.fromJson(json);
 
         pipeline2.run();
     }

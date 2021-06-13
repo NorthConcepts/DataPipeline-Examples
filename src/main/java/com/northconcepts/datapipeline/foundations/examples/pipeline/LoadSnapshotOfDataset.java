@@ -8,7 +8,7 @@ package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
 import java.util.concurrent.TimeUnit;
 
-import com.northconcepts.datapipeline.foundations.file.LocalFile;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.MemoryDataset;
@@ -18,7 +18,7 @@ public class LoadSnapshotOfDataset {
 
     public static void main(String[] args) {
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
-                .setFileSource(new LocalFile().setPath("example/data/input/trades.csv"))
+                .setFileSource(new LocalFileSource().setPath("example/data/input/trades.csv"))
                 .setFieldNamesInFirstRow(true);
 
         Pipeline pipeline = new Pipeline();

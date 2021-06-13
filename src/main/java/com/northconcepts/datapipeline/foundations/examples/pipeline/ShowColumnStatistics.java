@@ -6,7 +6,7 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
-import com.northconcepts.datapipeline.foundations.file.LocalFile;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
@@ -18,7 +18,7 @@ public class ShowColumnStatistics {
     public static void main(String[] args) {
 
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
-                .setFileSource(new LocalFile().setPath("data/input/Listing.csv"))
+                .setFileSource(new LocalFileSource().setPath("data/input/Listing.csv"))
                 .setFieldNamesInFirstRow(true);
 
         Pipeline pipeline = new Pipeline();

@@ -12,7 +12,8 @@ import java.util.List;
 import com.northconcepts.datapipeline.core.ArrayValue;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.Record;
-import com.northconcepts.datapipeline.foundations.file.LocalFile;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSink;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.action.PipelineAction;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
@@ -27,11 +28,11 @@ public class CreateCustomPipelineAction {
 
     public static void main(String[] args) {
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
-                .setFileSource(new LocalFile().setPath("example/data/input/countries_with_country-code.csv"))
+                .setFileSource(new LocalFileSource().setPath("example/data/input/countries_with_country-code.csv"))
                 .setFieldNamesInFirstRow(true);
 
         ExcelPipelineOutput pipelineOutput = new ExcelPipelineOutput()
-                .setFileSink(new LocalFile().setPath("example/data/output/countries_with_country-code.xlsx"))
+                .setFileSink(new LocalFileSink().setPath("example/data/output/countries_with_country-code.xlsx"))
                 .setFieldNamesInFirstRow(true);
 
         Pipeline pipeline = new Pipeline()
@@ -59,7 +60,7 @@ public class CreateCustomPipelineAction {
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
         System.out.println("Pipeline as JSON:");
-        System.out.println(Util.formatJson(pipeline.toJsonString()));
+        System.out.println(Util.formatJson(pipeline.toJson()));
 
     }
 

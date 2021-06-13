@@ -8,7 +8,7 @@ package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
 import java.util.Map;
 
-import com.northconcepts.datapipeline.foundations.file.LocalFile;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
@@ -23,7 +23,7 @@ public class ShowUniqueValuesInColumn {
         Pipeline pipeline = new Pipeline();
 
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
-                .setFileSource(new LocalFile().setPath("data/input/Listing.csv"))
+                .setFileSource(new LocalFileSource().setPath("data/input/Listing.csv"))
                 .setFieldNamesInFirstRow(true);
 
         pipeline.setInput(pipelineInput);

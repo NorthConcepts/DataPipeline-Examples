@@ -10,9 +10,8 @@ import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.core.StreamWriter;
-import com.northconcepts.datapipeline.foundations.file.LocalFile;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
-import com.northconcepts.datapipeline.foundations.pipeline.dataset.MemoryDataset;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.foundations.schema.BooleanFieldDef;
 import com.northconcepts.datapipeline.foundations.schema.EntityDef;
@@ -28,7 +27,7 @@ public class MapRecordsInPipelineUsingSchema {
                 .setFieldNamesInFirstRow(true)
                 .setAllowMultiLineText(true);
 
-        pipelineInput.setFileSource(new LocalFile().setPath("data/input/jewelry.csv"));  // can be set late with actual file
+        pipelineInput.setFileSource(new LocalFileSource().setPath("data/input/jewelry.csv"));  // can be set late with actual file
 
         EntityDef entityDef = new EntityDef().setName("Jewelry")
                 .addField(new NumericFieldDef("Variant Price", FieldType.DOUBLE))

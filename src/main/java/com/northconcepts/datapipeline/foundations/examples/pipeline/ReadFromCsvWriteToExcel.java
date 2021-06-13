@@ -6,7 +6,8 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
-import com.northconcepts.datapipeline.foundations.file.LocalFile;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSink;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.action.convert.ConvertStringToNumberAction;
 import com.northconcepts.datapipeline.foundations.pipeline.action.transform.AddFieldsAction;
@@ -19,11 +20,11 @@ public class ReadFromCsvWriteToExcel {
     public static void main(String[] args) {
 
         CsvPipelineInput pipelineInput = new CsvPipelineInput()
-                .setFileSource(new LocalFile().setPath("data/input/Listing.csv"))
+                .setFileSource(new LocalFileSource().setPath("data/input/Listing.csv"))
                 .setFieldNamesInFirstRow(true);
 
         ExcelPipelineOutput pipelineOutput = new ExcelPipelineOutput()
-                .setFileSink(new LocalFile().setPath("data/output/output.xlsx"))
+                .setFileSink(new LocalFileSink().setPath("data/output/output.xlsx"))
                 .setFieldNamesInFirstRow(true);
 
         Pipeline pipeline = new Pipeline()
