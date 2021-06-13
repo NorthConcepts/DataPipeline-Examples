@@ -6,17 +6,18 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.Record;
-import com.northconcepts.datapipeline.foundations.file.LocalFile;
+import com.northconcepts.datapipeline.foundations.file.LocalFileSink;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.PipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
 import com.northconcepts.datapipeline.foundations.sourcecode.CodeWriter;
 import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
 import com.northconcepts.datapipeline.internal.lang.Util;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 public class CreateCustomPipelineInput {
 
@@ -24,7 +25,7 @@ public class CreateCustomPipelineInput {
         CustomPipelineInput pipelineInput = new CustomPipelineInput();
 
         ExcelPipelineOutput pipelineOutput = new ExcelPipelineOutput()
-                .setFileSink(new LocalFile().setPath("example/data/output/custom_package_pipeline_input.xlsx"))
+                .setFileSink(new LocalFileSink().setPath("example/data/output/custom_package_pipeline_input.xlsx"))
                 .setFieldNamesInFirstRow(true);
 
         Pipeline pipeline = new Pipeline()
@@ -84,10 +85,10 @@ public class CreateCustomPipelineInput {
         public PipelineInput fromRecord(Record source) {
             return this;
         }
-
+        
         @Override
-        protected void toXmlImpl(Document document, Element pipelineInputElement) {
-
+        public Element toXmlElement(Document document) {
+            return super.toXmlElement(document);
         }
 
         @Override
