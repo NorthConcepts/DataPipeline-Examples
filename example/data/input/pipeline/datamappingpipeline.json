@@ -126,7 +126,7 @@
         "pattern":null
       }
     ],
-    "validations":[ ]
+    "validations":[]
   },
   "targetEntity":{
     "name":"Processed",
@@ -238,7 +238,7 @@
         "pattern":null
       }
     ],
-    "validations":[ ]
+    "validations":[]
   },
   "output":{
     "__class__":"com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput",
@@ -262,7 +262,7 @@
     "name":null,
     "description":null,
     "sourceEntity":null,
-    "conditions":[ ],
+    "conditions":[],
     "fieldMappings":[
       {
         "fieldName":"Event",
