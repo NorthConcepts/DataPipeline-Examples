@@ -19,8 +19,8 @@
             <field name="Call ID" required="true" type="INT"/>
             <field name="Agent ID" required="true" type="INT"/>
             <field allowBlank="false" minimumLength="9" name="Caller Number" required="true" type="STRING"/>
-            <field name="Call Start Time" required="true" type="TIME"/>
-            <field name="Call End Time" required="true" type="DATE"/>
+            <field name="Call Start Time" required="true" type="DATETIME"/>
+            <field name="Call End Time" required="true" type="DATETIME"/>
             <field allowBlank="false" defaultValueExpression="'UNKNOWN'" name="Disposition" required="true" type="STRING"/>
         </fields>
     </target-entity>
@@ -33,8 +33,8 @@
             <field-mapping fieldName="Call ID" sourceExpression="source.id"/>
             <field-mapping fieldName="Agent ID" sourceExpression="toInt(source.agent_id)"/>
             <field-mapping fieldName="Caller Number" sourceExpression="source.phone_number"/>
-            <field-mapping fieldName="Call Start Time" sourceExpression="toTime(parseDate(source.start_time, 'yyyy-MM-dd HH:mm'))"/>
-            <field-mapping defaultValueExpression="${target.Call Start Time}" fieldName="Call End Time" sourceExpression="toTime(parseDate(source.end_time, 'yyyy-MM-dd HH:mm'))"/>
+            <field-mapping fieldName="Call Start Time" sourceExpression="parseDate(source.start_time, 'yyyy-MM-dd HH:mm')"/>
+            <field-mapping defaultValueExpression="${target.Call Start Time}" fieldName="Call End Time" sourceExpression="parseDate(source.end_time, 'yyyy-MM-dd HH:mm')"/>
             <field-mapping fieldName="Disposition" sourceExpression="source.disposition"/>
         </field-mappings>
     </data-mapping>

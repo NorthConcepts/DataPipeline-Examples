@@ -15,8 +15,6 @@ public class BuildDataMappingPipelineDeclarativelyFromJson {
 
     public static void main(String[] args) throws Throwable {
         DataMappingPipeline pipeline = new DataMappingPipeline().fromJson(new FileInputStream("example/data/input/pipeline/datamappingpipeline.json"));
-
-        //Run pipeline
         pipeline.run();
     }
 

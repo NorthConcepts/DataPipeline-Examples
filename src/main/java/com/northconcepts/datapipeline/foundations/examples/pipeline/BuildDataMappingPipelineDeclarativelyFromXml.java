@@ -15,10 +15,7 @@ public class BuildDataMappingPipelineDeclarativelyFromXml {
 
     public static void main(String[] args) throws Throwable {
         DataMappingPipeline pipeline = new DataMappingPipeline().fromXml(new FileInputStream("example/data/input/pipeline/datamappingpipeline.xml"));
-
-        //Run pipeline
         pipeline.run();
-
     }
 
 }
