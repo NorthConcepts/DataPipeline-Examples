@@ -1,6 +1,6 @@
-<data-mapping-pipeline class="com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline" multithreaded="true">
-    <pipeline-input allowMultiLineText="false" allowQuoteInField="false" class="com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput" endingQuote="&quot;" fieldNamesInFirstRow="true" fieldSeparator="," lineSeparators="\n,\r\n,\r" skipEmptyRows="false" startingQuote="&quot;" trimFields="true">
-        <file-source class="com.northconcepts.datapipeline.foundations.file.LocalFileSource" path="example/data/input/call-center-inbound-call.csv"/>
+<data-mapping-pipeline __class__="com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline" multithreaded="true">
+    <pipeline-input allowMultiLineText="false" allowQuoteInField="false" __class__="com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput" endingQuote="&quot;" fieldNamesInFirstRow="true" fieldSeparator="," lineSeparators="\n,\r\n,\r" skipEmptyRows="false" startingQuote="&quot;" trimFields="true">
+        <file-source __class__="com.northconcepts.datapipeline.foundations.file.LocalFileSource" path="example/data/input/call-center-inbound-call.csv"/>
     </pipeline-input>
     <source-entity addMissingOptionalFields="false" allowExtraFieldsInMapping="true" allowExtraFieldsInValidation="true" name="Raw">
         <fields>
@@ -24,8 +24,8 @@
             <field allowBlank="false" defaultValueExpression="'UNKNOWN'" name="Disposition" required="true" type="STRING"/>
         </fields>
     </target-entity>
-    <pipeline-output autoFilterColumns="false" autofitColumns="false" class="com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput" fieldNamesInFirstRow="true" firstColumnIndex="0" firstRowIndex="0" providerType="POI_XSSF" sheetIndex="-1">
-        <file-sink append="false" class="com.northconcepts.datapipeline.foundations.file.LocalFileSink" path="data/output/test.xlsx"/>
+    <pipeline-output autoFilterColumns="false" autofitColumns="false" __class__="com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput" fieldNamesInFirstRow="true" firstColumnIndex="0" firstRowIndex="0" providerType="POI_XSSF" sheetIndex="-1">
+        <file-sink append="false" __class__="com.northconcepts.datapipeline.foundations.file.LocalFileSink" path="data/output/test.xlsx"/>
     </pipeline-output>
     <data-mapping>
         <field-mappings>
