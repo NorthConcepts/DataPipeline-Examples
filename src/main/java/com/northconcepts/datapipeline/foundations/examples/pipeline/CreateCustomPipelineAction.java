@@ -86,7 +86,7 @@ public class CreateCustomPipelineAction {
 
         @Override
         public Record toRecord() {
-            Record record = new Record();
+            Record record = super.toRecord();
 
             ArrayValue array = new ArrayValue();
             for (String fieldName : fieldNameList) {
@@ -98,6 +98,8 @@ public class CreateCustomPipelineAction {
 
         @Override
         public UpcaseFieldsAction fromRecord(Record source) {
+            super.fromRecord(source);
+
             if (source.containsField("fieldNameList")) {
                 ArrayValue array = source.getField("fieldNameList").getValueAsArray();
                 for (int i = 0; i < array.size(); i++) {

@@ -78,11 +78,12 @@ public class CreateCustomPipelineInput {
 
         @Override
         public Record toRecord() {
-            return new Record();
+            return super.toRecord();
         }
 
         @Override
         public PipelineInput fromRecord(Record source) {
+            super.fromRecord(source);
             return this;
         }
         
