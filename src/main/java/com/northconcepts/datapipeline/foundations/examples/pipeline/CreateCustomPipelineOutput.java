@@ -83,11 +83,12 @@ public class CreateCustomPipelineOutput {
 
         @Override
         public Record toRecord() {
-            return new Record();
+            return super.toRecord();
         }
 
         @Override
         public PipelineOutput fromRecord(Record source) {
+            super.fromRecord(source);
             return this;
         }
         
