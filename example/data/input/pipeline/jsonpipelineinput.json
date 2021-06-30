@@ -1,0 +1,45 @@
+{
+  "__class__": "com.northconcepts.datapipeline.foundations.pipeline.input.JsonPipelineInput",
+  "fileSource": {
+    "__class__": "com.northconcepts.datapipeline.foundations.file.LocalFileSource",
+    "name": "input-json",
+    "path": "example/data/input/pipeline/json-input.json"
+  },
+  "duplicateFieldPolicy": "USE_LAST_VALUE",
+  "recordBreaks": [
+    "//array/object"
+  ],
+  "fields": [
+    {
+      "name": "UID",
+      "locationPath": "/object/UID",
+      "cascadeValues": true,
+      "cascadeResetLocationPath": null
+    },
+    {
+      "name": "type",
+      "locationPath": "//favorites/*/node()",
+      "cascadeValues": false,
+      "cascadeResetLocationPath": null
+    },
+    {
+      "name": "favorite-name",
+      "locationPath": "//favorites//name",
+      "cascadeValues": false,
+      "cascadeResetLocationPath": null
+    },
+    {
+      "name": "favorite-id",
+      "locationPath": "//favorites//id",
+      "cascadeValues": true,
+      "cascadeResetLocationPath": "//favorites/books"
+    },
+    {
+      "name": "favorite-category",
+      "locationPath": "//favorites//category",
+      "cascadeValues": false,
+      "cascadeResetLocationPath": null
+    }
+  ],
+  "useBigDecimal": false
+}
