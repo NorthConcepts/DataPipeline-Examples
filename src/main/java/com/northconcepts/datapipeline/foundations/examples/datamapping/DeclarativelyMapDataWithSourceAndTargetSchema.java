@@ -9,7 +9,9 @@ package com.northconcepts.datapipeline.foundations.examples.datamapping;
 import java.io.File;
 import java.io.FileInputStream;
 
+import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.FieldList;
+import com.northconcepts.datapipeline.core.LimitReader;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.excel.ExcelDocument;
 import com.northconcepts.datapipeline.excel.ExcelReader;
@@ -57,7 +59,10 @@ public class DeclarativelyMapDataWithSourceAndTargetSchema {
 
         pipeline.run();
         
-        Job job = Job.run(new ExcelReader(new ExcelDocument().open(new File("data/output/test.xlsx"))), StreamWriter.newSystemOutWriter());
+        DataReader reader = new ExcelReader(new ExcelDocument().open(new File("data/output/test.xlsx")));        
+        reader = new LimitReader(reader, 10);
+        
+        Job job = Job.run(reader, StreamWriter.newSystemOutWriter());
         
         System.out.println("Records Transferred: " + job.getRecordsTransferred());
         System.out.println("Running Time: " + job.getRunningTimeAsString());

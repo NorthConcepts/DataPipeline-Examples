@@ -9,12 +9,8 @@ package com.northconcepts.datapipeline.foundations.examples.datamapping;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 
-import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMapping;
 import com.northconcepts.datapipeline.foundations.datamapping.FieldMapping;
-import com.northconcepts.datapipeline.foundations.schema.BooleanFieldDef;
-import com.northconcepts.datapipeline.foundations.schema.EntityDef;
-import com.northconcepts.datapipeline.foundations.schema.TextFieldDef;
 
 public class SaveAndLoadDataMappingToXML {
 
@@ -30,16 +26,6 @@ public class SaveAndLoadDataMappingToXML {
                 .addFieldMapping(new FieldMapping("phone", "${source.customer-contact}"))
                 .addFieldMapping(new FieldMapping("email", "${source.customer-email}"))
                 .addFieldMapping(new FieldMapping("isActive", "${source.customer-active}"));
-
-        EntityDef entityDef = new EntityDef()
-                .setName("Order Details")
-                .addField(new TextFieldDef("OrderName", FieldType.STRING)
-                            .setRequired(true)
-                            .setMinimumLength(0)
-                            .setMaximumLength(2))
-                .addField(new BooleanFieldDef("isActiveOrder", FieldType.BOOLEAN));
-
-        mapping.setTargetValidationEntity(entityDef);
 
         mapping.toXml(new FileWriter("example/data/output/customer-details-data-mapping.xml"), true);
         
