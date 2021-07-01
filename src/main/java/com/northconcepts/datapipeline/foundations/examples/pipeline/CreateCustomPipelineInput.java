@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2006-2021 North Concepts Inc.  All rights reserved.
  * Proprietary and Confidential.  Use is subject to license terms.
@@ -44,12 +45,17 @@ public class CreateCustomPipelineInput {
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
         Pipeline pipeline2 = new Pipeline().fromRecord(record);
-        pipeline2.run();
+        //pipeline2.run();
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
         System.out.println("Pipeline as JSON:");
         System.out.println(Util.formatJson(pipeline.toJson()));
+
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+
+        Pipeline pipeline3 = (Pipeline) new Pipeline().fromXml(pipeline.toXml());
+        //pipeline3.run();
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 

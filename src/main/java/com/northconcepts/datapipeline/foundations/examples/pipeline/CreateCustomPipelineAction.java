@@ -6,6 +6,11 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
+import static com.northconcepts.datapipeline.core.XmlSerializable.getAttribute;
+import static com.northconcepts.datapipeline.core.XmlSerializable.getChildElement;
+import static com.northconcepts.datapipeline.core.XmlSerializable.getChildElements;
+import static com.northconcepts.datapipeline.core.XmlSerializable.setAttribute;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +23,12 @@ import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.action.PipelineAction;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
-import com.northconcepts.datapipeline.foundations.sourcecode.CodeWriter;
 import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
 import com.northconcepts.datapipeline.internal.lang.Util;
 import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
 import com.northconcepts.datapipeline.transform.TransformingReader;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class CreateCustomPipelineAction {
 
@@ -44,23 +50,28 @@ public class CreateCustomPipelineAction {
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        System.out.println("Generated Code:");
-        System.out.println(pipeline.getJavaCode().getSource());
-
-        System.out.println("---------------------------------------------------------------------------------------------------------");
-
         Record record = pipeline.toRecord();
         System.out.println(record);
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
         Pipeline pipeline2 = new Pipeline().fromRecord(record);
-        pipeline2.run();
+        //pipeline2.run();
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
         System.out.println("Pipeline as JSON:");
         System.out.println(Util.formatJson(pipeline.toJson()));
+
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+
+        Pipeline pipeline3 = (Pipeline) new Pipeline().fromXml(pipeline.toXml());
+        //pipeline3.run();
+
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+
+        System.out.println("Pipeline as XML:");
+        System.out.println(pipeline.toXml());
 
     }
 
@@ -110,22 +121,37 @@ public class CreateCustomPipelineAction {
         }
 
         @Override
-        public void generateJavaCode(JavaCodeBuilder code) {
-            super.generateJavaCode(code);
+        public Element toXmlElement(Document document) {
+            Element element = super.toXmlElement(document);
 
-            code.addImport("com.northconcepts.datapipeline.transform.TransformingReader");
-            code.addImport("com.northconcepts.datapipeline.transform.BasicFieldTransformer");
+            Element fieldsNameListElement = document.createElement("fieldNameList");
+            for(String fieldName : fieldNameList) {
+                Element fieldNameElement = document.createElement("field");
+                setAttribute(fieldNameElement, "name", fieldName);
+                fieldsNameListElement.appendChild(fieldNameElement);
+            }
+            element.appendChild(fieldsNameListElement);
 
-            CodeWriter writer = code.getSourceWriter();
-
-            writer.println("reader = new TransformingReader(reader)");
-            writer.indent();
-
-            writer.println(".add(new BasicFieldTransformer(\"%s\").upperCase());", escapeJavaString(String.join("\",\"", fieldNameList)));
-
-            writer.println(";");
-            writer.outdent();
+            return element;
         }
+
+        @Override
+        public UpcaseFieldsAction fromXmlElement(Element element) {
+            super.fromXmlElement(element);
+
+            Element fieldsNameListElement = getChildElement(element, "fieldNameList");
+            if(fieldsNameListElement != null) {
+                List<Element> fieldsElementList = getChildElements(fieldsNameListElement, "field");
+                for(Element field : fieldsElementList) {
+                    fieldNameList.add(getAttribute(field, "name"));
+                }
+            }
+
+            return this;
+        }
+
+        @Override
+        public void generateJavaCode(JavaCodeBuilder code) {}
 
     }
 
