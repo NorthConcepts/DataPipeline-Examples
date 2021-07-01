@@ -6,6 +6,9 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
+import static com.northconcepts.datapipeline.core.XmlSerializable.getAttribute;
+import static com.northconcepts.datapipeline.core.XmlSerializable.setAttribute;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -15,7 +18,6 @@ import com.northconcepts.datapipeline.foundations.file.LocalFileSink;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.PipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
-import com.northconcepts.datapipeline.foundations.sourcecode.CodeWriter;
 import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
 import com.northconcepts.datapipeline.internal.lang.Util;
 
@@ -36,11 +38,6 @@ public class CreateCustomPipelineInput {
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        System.out.println("Generated Code:");
-        System.out.println(pipeline.getJavaCode().getSource());
-
-        System.out.println("---------------------------------------------------------------------------------------------------------");
-
         Record record = pipeline.toRecord();
         System.out.println(record);
 
@@ -53,22 +50,41 @@ public class CreateCustomPipelineInput {
 
         System.out.println("Pipeline as JSON:");
         System.out.println(Util.formatJson(pipeline.toJson()));
+
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+
+        System.out.println("Pipeline as XML:");
+        System.out.println(pipeline.toXml());
     }
 
     public static class CustomPipelineInput extends PipelineInput {
 
-        private static final int MAX_TRUCKS = 10;
-        private static final long MAX_PACKAGES = 20;
-        private static final int RECORD_DELAY_MILLISECONDS = 250;
+        private static int maxTrucks = 10;
+        private static int maxPackages = 20;
+        private static int recordDelayMS = 250;
 
-        @Override
-        public void generateJavaCode(JavaCodeBuilder code) {
-            code.addImport("com.northconcepts.datapipeline.core.DataReader");
-            code.addImport("com.northconcepts.datapipeline.job.Job");
-            code.addImport("com.northconcepts.datapipeline.foundations.examples.pipeline.CreateCustomPipelineInput.FakePackageReader");
+        public static int getMaxTrucks() {
+            return maxTrucks;
+        }
 
-            CodeWriter writer = code.getSourceWriter();
-            writer.println("DataReader reader = new FakePackageReader(%d, %d, %d);", MAX_TRUCKS, MAX_PACKAGES, RECORD_DELAY_MILLISECONDS);
+        public static void setMaxTrucks(int maxTrucks) {
+            CustomPipelineInput.maxTrucks = maxTrucks;
+        }
+
+        public static int getMaxPackages() {
+            return maxPackages;
+        }
+
+        public static void setMaxPackages(int maxPackages) {
+            CustomPipelineInput.maxPackages = maxPackages;
+        }
+
+        public static int getRecordDelayMS() {
+            return recordDelayMS;
+        }
+
+        public static void setRecordDelayMS(int recordDelayMS) {
+            CustomPipelineInput.recordDelayMS = recordDelayMS;
         }
 
         @Override
@@ -78,24 +94,46 @@ public class CreateCustomPipelineInput {
 
         @Override
         public Record toRecord() {
-            return super.toRecord();
+            return super.toRecord()
+                .setField("maxTrucks", maxTrucks)
+                .setField("maxPackages", maxPackages)
+                .setField("recordDelayMS", recordDelayMS);
         }
 
         @Override
-        public PipelineInput fromRecord(Record source) {
+        public CustomPipelineInput fromRecord(Record source) {
             super.fromRecord(source);
+            setMaxTrucks(source.getFieldValueAsInteger("maxTrucks", maxTrucks));
+            setMaxPackages(source.getFieldValueAsInteger("maxPackages", maxPackages));
+            setRecordDelayMS(source.getFieldValueAsInteger("recordDelayMS", recordDelayMS));
+
             return this;
         }
         
         @Override
         public Element toXmlElement(Document document) {
-            return super.toXmlElement(document);
+            Element element = super.toXmlElement(document);
+            setAttribute(element, "maxTrucks", maxTrucks);
+            setAttribute(element, "maxPackages", maxPackages);
+            setAttribute(element, "recordDelayMS", recordDelayMS);
+            return element;
+        }
+
+        @Override
+        public CustomPipelineInput fromXmlElement(Element element) {
+            setMaxTrucks(getAttribute(element, "maxTrucks", maxTrucks));
+            setMaxPackages(getAttribute(element, "maxPackages", maxPackages));
+            setRecordDelayMS(getAttribute(element, "recordDelayMS", recordDelayMS));
+            return this;
         }
 
         @Override
         public DataReader createDataReader() {
-            return new FakePackageReader(MAX_TRUCKS, MAX_PACKAGES, RECORD_DELAY_MILLISECONDS);
+            return new FakePackageReader(maxTrucks, maxPackages, recordDelayMS);
         }
+
+        @Override
+        public void generateJavaCode(JavaCodeBuilder javaCodeBuilder) {}
     }
 
     public static class FakePackageReader extends DataReader {
