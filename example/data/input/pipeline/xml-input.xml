@@ -1,0 +1,40 @@
+<teachers>
+    <teacher memberid="10001">
+        <name> Rahul Sharma </name>
+        <gender> male </gender>
+        <subjects>
+            <subject name="Math-1" class="KG" />
+            <subject name="Science-1" class="PG" />
+            <subject name="Social Science-1" class="LKG" />
+        </subjects>
+        <subjects>
+            <subject name="Arts-2" class="KG" />
+            <subject name="Arts and Science-2" class="PG" />
+            <subject name="Science-2" class="LKG" />
+        </subjects>
+    </teacher>
+    <teacher memberid="10002">
+        <subjects>
+            <subject name="Math-3" class="KG" />
+            <subject name="Science-3" class="PG" />
+            <subject name="Social Science-3" class="LKG" />
+        </subjects>
+        <subjects>
+            <subject name="Arts-4" class="KG" />
+            <subject name="Arts and Science-4" class="PG" />
+            <subject name="Science-4" class="LKG" />
+        </subjects>
+    </teacher>
+    <teacher memberid="10003">
+        <subjects>
+            <subject name="Math-5" class="KG" />
+            <subject name="Science-5" class="PG" />
+            <subject name="Social Science-5" class="LKG" />
+        </subjects>
+        <subjects>
+            <subject name="Arts-6" class="KG" />
+            <subject name="Arts and Science-6" class="PG" />
+            <subject name="Science-6" class="LKG" />
+        </subjects>
+    </teacher>
+</teachers>

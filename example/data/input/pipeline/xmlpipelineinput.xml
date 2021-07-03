@@ -1,0 +1,12 @@
+<pipeline-input __class__="com.northconcepts.datapipeline.foundations.pipeline.input.XmlPipelineInput" duplicateFieldPolicy="COPY_FIELD">
+    <record-breaks>
+        <record-break value="/teachers/teacher/subjects"/>
+    </record-breaks>
+    <fields>
+        <field cascadeValues="false" locationPath="/teachers/teacher/@memberid" name="teacherId"/>
+        <field cascadeResetLocationPath="/teachers/teacher" cascadeValues="true" locationPath="/teachers/teacher/name" name="name"/>
+        <field cascadeValues="true" locationPath="/teachers/teacher/gender" name="gender"/>
+        <field cascadeValues="false" locationPath="/teachers/teacher/subjects/subject/@name" name="subjects"/>
+    </fields>
+    <file-source __class__="com.northconcepts.datapipeline.foundations.file.LocalFileSource" name="input-xml" path="example/data/input/pipeline/xml-input.xml"/>
+</pipeline-input>
