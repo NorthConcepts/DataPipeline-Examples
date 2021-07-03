@@ -1,0 +1,38 @@
+{
+  "__class__": "com.northconcepts.datapipeline.foundations.pipeline.input.XmlPipelineInput",
+  "fileSource": {
+    "__class__": "com.northconcepts.datapipeline.foundations.file.LocalFileSource",
+    "name": "input-xml",
+    "path": "example/data/input/pipeline/xml-input.xml"
+  },
+  "duplicateFieldPolicy": "COPY_FIELD",
+  "recordBreaks": [
+    "/teachers/teacher/subjects"
+  ],
+  "fields": [
+    {
+      "name": "teacherId",
+      "locationPath": "/teachers/teacher/@memberid",
+      "cascadeValues": false,
+      "cascadeResetLocationPath": null
+    },
+    {
+      "name": "name",
+      "locationPath": "/teachers/teacher/name",
+      "cascadeValues": true,
+      "cascadeResetLocationPath": "/teachers/teacher"
+    },
+    {
+      "name": "gender",
+      "locationPath": "/teachers/teacher/gender",
+      "cascadeValues": true,
+      "cascadeResetLocationPath": null
+    },
+    {
+      "name": "subjects",
+      "locationPath": "/teachers/teacher/subjects/subject/@name",
+      "cascadeValues": false,
+      "cascadeResetLocationPath": null
+    }
+  ]
+}
