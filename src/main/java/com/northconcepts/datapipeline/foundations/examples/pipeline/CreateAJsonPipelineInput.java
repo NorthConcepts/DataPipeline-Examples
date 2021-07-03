@@ -17,6 +17,7 @@ public class CreateAJsonPipelineInput {
             .setName("input-json")
             .setPath("example/data/input/pipeline/json-input.json")
             .detectFileType();
+        
         JsonPipelineInput input = new JsonPipelineInput()
             .setFileSource(source)
             .addRecordBreak("//array/object")
@@ -26,6 +27,7 @@ public class CreateAJsonPipelineInput {
             .addField("favorite-id", "//favorites//id", "//favorites/books")
             .addField("favorite-category", "//favorites//category")
             .setDuplicateFieldPolicy(XmlReader.DuplicateFieldPolicy.USE_LAST_VALUE);
+        
         pipeline.setInput(input);
 
         LocalFileSink sink = new LocalFileSink().setPath("data/output/test.xlsx");
