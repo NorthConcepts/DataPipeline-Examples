@@ -1,0 +1,46 @@
+{
+   "UID":"11e03ad7f20543f88d598ab7f31b5b3f",   
+   "profile":{
+      "favorites":{
+         "movies":[
+            {
+               "name":"Food Inc",
+               "id":73304591159.1234567,
+               "category":"Movie"
+            },
+			{
+               "name":"Forrest gump",
+               "id":25904594452.1234567,
+               "category":"Movie"
+            }
+         ],
+         "books":[
+            {
+               "name":"Robert Whitaker",
+               "id":168314056582399.1234567,
+               "category":"Author"
+            },
+            {
+               "name":"Sylvia Plath",
+               "category":"Author"
+            },
+            {
+               "name":"John Steinbeck",
+               "category":"Author"
+            }
+         ],
+         "music":[
+            {
+               "name":"The Devil Makes Three",
+               "id":8364692300.1234567,
+               "category":"Musician/band"
+            },
+			{
+               "name":"Scorpions",
+               "category":"Hardrock band"
+            }
+         ]
+         
+      }
+	}	
+}

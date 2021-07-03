@@ -1,0 +1,13 @@
+<pipeline-input __class__="com.northconcepts.datapipeline.foundations.pipeline.input.JsonPipelineInput" duplicateFieldPolicy="USE_LAST_VALUE" useBigDecimal="false">
+    <record-breaks>
+        <record-break value="//array/object"/>
+    </record-breaks>
+    <fields>
+        <field cascadeValues="true" locationPath="/object/UID" name="UID"/>
+        <field cascadeValues="false" locationPath="//favorites/*/node()" name="type"/>
+        <field cascadeValues="false" locationPath="//favorites//name" name="favorite-name"/>
+        <field cascadeResetLocationPath="//favorites/books" cascadeValues="true" locationPath="//favorites//id" name="favorite-id"/>
+        <field cascadeValues="false" locationPath="//favorites//category" name="favorite-category"/>
+    </fields>
+    <file-source __class__="com.northconcepts.datapipeline.foundations.file.LocalFileSource" name="input-json" path="example/data/input/pipeline/json-input.json"/>
+</pipeline-input>
