@@ -1,0 +1,21 @@
+		<actor stage-name="${stageName}" real-name="${realName}">
+			<gender>${gender}</gender>
+			<city>${city}</city>
+			<alternate-address>
+				<#if (balance > 150)>
+					<street>${alternateAddress[0].street}</street>
+					<city>${alternateAddress[0].city}</city>
+					<province>${alternateAddress[0].province}</province>
+					<zipCode>${alternateAddress[0].zipCode}</zipCode>
+					<home-phone>${alternateAddress[0].contactNumber.home!}</home-phone>
+					<office-phone>${alternateAddress[0].contactNumber.office!}</office-phone>
+				<#else>
+					<street>${alternateAddress[1].street}</street>
+					<city>${alternateAddress[1].city}</city>
+					<province>${alternateAddress[1].province}</province>
+					<zipCode>${alternateAddress[1].zipCode}</zipCode>
+					<home-phone>${alternateAddress[1].contactNumber.home!}</home-phone>
+					<office-phone>${alternateAddress[1].contactNumber.office!}</office-phone>
+				</#if>
+			</alternate-address>
+		</actor>
