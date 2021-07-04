@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2006-2021 North Concepts Inc.  All rights reserved.
  * Proprietary and Confidential.  Use is subject to license terms.
