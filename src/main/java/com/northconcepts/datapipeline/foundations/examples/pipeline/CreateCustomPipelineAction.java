@@ -14,6 +14,9 @@ import static com.northconcepts.datapipeline.core.XmlSerializable.setAttribute;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.northconcepts.datapipeline.core.ArrayValue;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.Record;
@@ -23,12 +26,9 @@ import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.action.PipelineAction;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
-import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
 import com.northconcepts.datapipeline.internal.lang.Util;
 import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
 import com.northconcepts.datapipeline.transform.TransformingReader;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 public class CreateCustomPipelineAction {
 
@@ -55,8 +55,8 @@ public class CreateCustomPipelineAction {
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        Pipeline pipeline2 = new Pipeline().fromRecord(record);
-        //pipeline2.run();
+        pipeline = new Pipeline().fromRecord(record);
+        pipeline.run();
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
@@ -65,8 +65,8 @@ public class CreateCustomPipelineAction {
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        Pipeline pipeline3 = (Pipeline) new Pipeline().fromXml(pipeline.toXml());
-        //pipeline3.run();
+        pipeline = new Pipeline().fromXml(pipeline.toXml());
+        pipeline.run();
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
@@ -149,9 +149,6 @@ public class CreateCustomPipelineAction {
 
             return this;
         }
-
-        @Override
-        public void generateJavaCode(JavaCodeBuilder code) {}
 
     }
 

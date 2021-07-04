@@ -15,7 +15,6 @@ import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.PipelineOutput;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
-import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
 import com.northconcepts.datapipeline.internal.lang.Util;
 
 public class CreateCustomPipelineOutput {
@@ -40,8 +39,8 @@ public class CreateCustomPipelineOutput {
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        Pipeline pipeline2 = new Pipeline().fromRecord(record);
-        //pipeline2.run();
+        pipeline = new Pipeline().fromRecord(record);
+        pipeline.run();
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
@@ -50,8 +49,8 @@ public class CreateCustomPipelineOutput {
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        Pipeline pipeline3 = (Pipeline) new Pipeline().fromXml(pipeline.toXml());
-        //pipeline3.run();
+        pipeline = new Pipeline().fromXml(pipeline.toXml());
+        pipeline.run();
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
@@ -81,7 +80,7 @@ public class CreateCustomPipelineOutput {
             super.fromRecord(source);
             return this;
         }
-        
+
         @Override
         public Element toXmlElement(Document document) {
             return super.toXmlElement(document);
@@ -92,8 +91,6 @@ public class CreateCustomPipelineOutput {
             return this;
         }
 
-        @Override
-        public void generateJavaCode(JavaCodeBuilder javaCodeBuilder) {}
     }
 
     public static class ConsoleWriter extends DataWriter {

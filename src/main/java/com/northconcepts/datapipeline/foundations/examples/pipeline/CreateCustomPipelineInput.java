@@ -19,7 +19,6 @@ import com.northconcepts.datapipeline.foundations.file.LocalFileSink;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.PipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
-import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
 import com.northconcepts.datapipeline.internal.lang.Util;
 
 public class CreateCustomPipelineInput {
@@ -44,8 +43,8 @@ public class CreateCustomPipelineInput {
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        Pipeline pipeline2 = new Pipeline().fromRecord(record);
-        //pipeline2.run();
+        pipeline = new Pipeline().fromRecord(record);
+        pipeline.run();
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
@@ -54,8 +53,8 @@ public class CreateCustomPipelineInput {
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        Pipeline pipeline3 = (Pipeline) new Pipeline().fromXml(pipeline.toXml());
-        //pipeline3.run();
+        pipeline = new Pipeline().fromXml(pipeline.toXml());
+        pipeline.run();
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
@@ -101,9 +100,9 @@ public class CreateCustomPipelineInput {
         @Override
         public Record toRecord() {
             return super.toRecord()
-                .setField("maxTrucks", maxTrucks)
-                .setField("maxPackages", maxPackages)
-                .setField("recordDelayMS", recordDelayMS);
+                    .setField("maxTrucks", maxTrucks)
+                    .setField("maxPackages", maxPackages)
+                    .setField("recordDelayMS", recordDelayMS);
         }
 
         @Override
@@ -115,7 +114,7 @@ public class CreateCustomPipelineInput {
 
             return this;
         }
-        
+
         @Override
         public Element toXmlElement(Document document) {
             Element element = super.toXmlElement(document);
@@ -138,8 +137,6 @@ public class CreateCustomPipelineInput {
             return new FakePackageReader(maxTrucks, maxPackages, recordDelayMS);
         }
 
-        @Override
-        public void generateJavaCode(JavaCodeBuilder javaCodeBuilder) {}
     }
 
     public static class FakePackageReader extends DataReader {
