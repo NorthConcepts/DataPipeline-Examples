@@ -33,6 +33,7 @@ public class MapDataWithSchemaBasedValidation {
         input.setValue("age", 15);
 
         DataMapping mapping = new DataMapping()
+                //TODO Do we need to update this example to use DataMappingPipeline#setSourceEntity?
                 .setTargetValidationEntity(customerEntity)  // set optional entity definition to validate against
                 .addFieldMapping("name", "source.fname + ' ' + source.lname")
                 .addFieldMapping("age", "source.age");
