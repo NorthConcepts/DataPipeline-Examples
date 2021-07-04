@@ -15,8 +15,6 @@ import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.PipelineOutput;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
-import com.northconcepts.datapipeline.foundations.sourcecode.CodeWriter;
-import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
 import com.northconcepts.datapipeline.internal.lang.Util;
 
 public class CreateCustomPipelineOutput {
@@ -36,23 +34,28 @@ public class CreateCustomPipelineOutput {
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        System.out.println("Generated Code:");
-        System.out.println(pipeline.getJavaCode().getSource());
-
-        System.out.println("---------------------------------------------------------------------------------------------------------");
-
         Record record = pipeline.toRecord();
         System.out.println(record);
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        Pipeline pipeline2 = new Pipeline().fromRecord(record);
-        pipeline2.run();
+        pipeline = new Pipeline().fromRecord(record);
+        pipeline.run();
 
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
         System.out.println("Pipeline as JSON:");
         System.out.println(Util.formatJson(pipeline.toJson()));
+
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+
+        pipeline = new Pipeline().fromXml(pipeline.toXml());
+        pipeline.run();
+
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+
+        System.out.println("Pipeline as XML:");
+        System.out.println(pipeline.toXml());
     }
 
     public static class CustomPipelineOutput extends PipelineOutput {
@@ -60,20 +63,6 @@ public class CreateCustomPipelineOutput {
         @Override
         public DataWriter createDataWriter() {
             return new ConsoleWriter();
-        }
-
-        @Override
-        public void generateJavaCode(JavaCodeBuilder code) {
-            
-            code.addImport("java.io.File");
-            code.addImport("com.northconcepts.datapipeline.core.DataWriter");
-            code.addImport("com.northconcepts.datapipeline.foundations.examples.pipeline.CreateCustomPipelineOutput.CustomPipelineOutput");
-            code.addImport("com.northconcepts.datapipeline.foundations.examples.pipeline.CreateCustomPipelineOutput.ConsoleWriter");
-
-            CodeWriter writer = code.getSourceWriter();
-
-            writer.println();
-            writer.println("DataWriter writer = new ConsoleWriter();");
         }
 
         @Override
@@ -91,10 +80,15 @@ public class CreateCustomPipelineOutput {
             super.fromRecord(source);
             return this;
         }
-        
+
         @Override
         public Element toXmlElement(Document document) {
             return super.toXmlElement(document);
+        }
+
+        @Override
+        public CustomPipelineOutput fromXmlElement(Element element) {
+            return this;
         }
 
     }
