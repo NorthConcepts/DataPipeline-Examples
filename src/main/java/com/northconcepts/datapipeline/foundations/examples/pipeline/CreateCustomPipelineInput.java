@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2006-2021 North Concepts Inc.  All rights reserved.
  * Proprietary and Confidential.  Use is subject to license terms.
@@ -64,32 +63,32 @@ public class CreateCustomPipelineInput {
 
     public static class CustomPipelineInput extends PipelineInput {
 
-        private static int maxTrucks = 10;
-        private static int maxPackages = 20;
-        private static int recordDelayMS = 250;
+        private int maxTrucks = 10;
+        private int maxPackages = 20;
+        private int recordDelayMS = 250;
 
-        public static int getMaxTrucks() {
+        public int getMaxTrucks() {
             return maxTrucks;
         }
 
-        public static void setMaxTrucks(int maxTrucks) {
-            CustomPipelineInput.maxTrucks = maxTrucks;
+        public void setMaxTrucks(int maxTrucks) {
+            this.maxTrucks = maxTrucks;
         }
 
-        public static int getMaxPackages() {
+        public int getMaxPackages() {
             return maxPackages;
         }
 
-        public static void setMaxPackages(int maxPackages) {
-            CustomPipelineInput.maxPackages = maxPackages;
+        public void setMaxPackages(int maxPackages) {
+            this.maxPackages = maxPackages;
         }
 
-        public static int getRecordDelayMS() {
+        public int getRecordDelayMS() {
             return recordDelayMS;
         }
 
-        public static void setRecordDelayMS(int recordDelayMS) {
-            CustomPipelineInput.recordDelayMS = recordDelayMS;
+        public void setRecordDelayMS(int recordDelayMS) {
+            this.recordDelayMS = recordDelayMS;
         }
 
         @Override
@@ -108,9 +107,9 @@ public class CreateCustomPipelineInput {
         @Override
         public CustomPipelineInput fromRecord(Record source) {
             super.fromRecord(source);
-            setMaxTrucks(source.getFieldValueAsInteger("maxTrucks", maxTrucks));
-            setMaxPackages(source.getFieldValueAsInteger("maxPackages", maxPackages));
-            setRecordDelayMS(source.getFieldValueAsInteger("recordDelayMS", recordDelayMS));
+            setMaxTrucks(source.getFieldValueAsInteger("maxTrucks", 10));
+            setMaxPackages(source.getFieldValueAsInteger("maxPackages", 20));
+            setRecordDelayMS(source.getFieldValueAsInteger("recordDelayMS", 250));
 
             return this;
         }
