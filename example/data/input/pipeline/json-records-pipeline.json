@@ -1,0 +1,70 @@
+{
+  "__class__" : "com.northconcepts.datapipeline.foundations.pipeline.Pipeline",
+  "name" : null,
+  "description" : null,
+  "input" : {
+    "__class__" : "com.northconcepts.datapipeline.foundations.pipeline.input.JsonPipelineInput",
+    "saveLineage" : false,
+    "fileSource" : {
+      "__class__" : "com.northconcepts.datapipeline.foundations.file.LocalFileSource",
+      "name" : "input-json",
+      "path" : "example/data/input/pipeline/MOCK_DATA.json"
+    },
+    "duplicateFieldPolicy" : "USE_LAST_VALUE",
+    "addTextToParent" : false,
+    "ignoreNamespaces" : true,
+    "recordBreaks" : [ "//array/object" ],
+    "fields" : [ {
+      "name" : "output_id",
+      "locationPath" : "//array/object/id",
+      "cascadeValues" : false,
+      "cascadeResetLocationPath" : null
+    }, {
+      "name" : "output_first_name",
+      "locationPath" : "//array/object/first_name",
+      "cascadeValues" : false,
+      "cascadeResetLocationPath" : null
+    }, {
+      "name" : "output_last_name",
+      "locationPath" : "//array/object/last_name",
+      "cascadeValues" : false,
+      "cascadeResetLocationPath" : null
+    }, {
+      "name" : "output_email",
+      "locationPath" : "//array/object/email",
+      "cascadeValues" : false,
+      "cascadeResetLocationPath" : null
+    }, {
+      "name" : "output_ip_address",
+      "locationPath" : "//array/object/ip_address",
+      "cascadeValues" : false,
+      "cascadeResetLocationPath" : null
+    } ],
+    "useBigDecimal" : false
+  },
+  "sourceEntity" : null,
+  "targetEntity" : null,
+  "output" : {
+    "__class__" : "com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput",
+    "providerType" : "POI_XSSF",
+    "sheetName" : null,
+    "sheetIndex" : -1,
+    "firstRowIndex" : 0,
+    "firstColumnIndex" : 0,
+    "autofitColumns" : false,
+    "autoFilterColumns" : false,
+    "fieldNamesInFirstRow" : true,
+    "fileSink" : {
+      "__class__" : "com.northconcepts.datapipeline.foundations.file.LocalFileSink",
+      "name" : null,
+      "path" : "data/output/test.xlsx",
+      "append" : false
+    }
+  },
+  "multithreaded" : true,
+  "actions" : [ {
+    "__class__" : "com.northconcepts.datapipeline.foundations.pipeline.action.filter.FilterMatchExpression",
+    "description" : null,
+    "expression" : "endsWith(output_email, 'org')"
+  } ]
+}
