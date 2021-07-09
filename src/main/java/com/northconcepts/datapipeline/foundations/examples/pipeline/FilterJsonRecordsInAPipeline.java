@@ -13,7 +13,6 @@ import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.action.filter.FilterMatchExpression;
 import com.northconcepts.datapipeline.foundations.pipeline.input.JsonPipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
-import com.northconcepts.datapipeline.internal.lang.Util;
 import com.northconcepts.datapipeline.xml.XmlReader;
 
 public class FilterJsonRecordsInAPipeline {
@@ -44,8 +43,6 @@ public class FilterJsonRecordsInAPipeline {
 
         LocalFileSink sink = new LocalFileSink().setPath("data/output/test.xlsx");
         pipeline.setOutput(new ExcelPipelineOutput().setFileSink(sink).setFieldNamesInFirstRow(true));
-
-        System.out.println(Util.formatJson(pipeline.toJson()));
 
         pipeline.run();
     }
