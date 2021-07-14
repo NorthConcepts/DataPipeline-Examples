@@ -6,6 +6,7 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
+import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.foundations.datamapping.DataMapping;
 import com.northconcepts.datapipeline.foundations.datamapping.FieldMapping;
 import com.northconcepts.datapipeline.foundations.file.LocalFileSink;
@@ -25,11 +26,11 @@ public class BuildDataMappingPipelineProgrammatically {
         //Create validation entities for the mapping data
         SchemaDef schema = new SchemaDef()
             .addEntity(new EntityDef().setName("Raw")
-                .addField(new TextFieldDef().setName("event_type").setRequired(true).setMaximumLength(25))
-                .addField(new TextFieldDef().setName("id").setRequired(true)))
+                .addField(new TextFieldDef("event_type", FieldType.STRING).setRequired(true).setMaximumLength(25))
+                .addField(new TextFieldDef("id", FieldType.STRING).setRequired(true)))
             .addEntity(new EntityDef().setName("Processed")
-                .addField(new TextFieldDef().setName("Event").setRequired(true).setMaximumLength(25))
-                .addField(new NumericFieldDef().setName("Call ID").setRequired(true)));
+                .addField(new TextFieldDef("Event", FieldType.STRING).setRequired(true).setMaximumLength(25))
+                .addField(new NumericFieldDef("Call ID", FieldType.INT).setRequired(true)));
 
         //Map data
         DataMapping mapping = new DataMapping()
