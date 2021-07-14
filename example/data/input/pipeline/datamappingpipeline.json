@@ -1,5 +1,4 @@
 {
-  "__class__":"com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline",
   "name":null,
   "description":null,
   "input":{
