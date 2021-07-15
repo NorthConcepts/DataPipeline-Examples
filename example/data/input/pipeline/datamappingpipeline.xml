@@ -1,4 +1,4 @@
-<data-mapping-pipeline __class__="com.northconcepts.datapipeline.foundations.pipeline.DataMappingPipeline" multithreaded="true">
+<data-mapping-pipeline multithreaded="true">
     <pipeline-input allowMultiLineText="false" allowQuoteInField="false" __class__="com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput" endingQuote="&quot;" fieldNamesInFirstRow="true" fieldSeparator="," lineSeparators="\n,\r\n,\r" skipEmptyRows="false" startingQuote="&quot;" trimFields="true">
         <file-source __class__="com.northconcepts.datapipeline.foundations.file.LocalFileSource" path="example/data/input/call-center-inbound-call.csv"/>
     </pipeline-input>
