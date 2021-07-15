@@ -23,7 +23,7 @@ import com.northconcepts.datapipeline.transform.TransformingReader;
 
 import java.io.File;
 
-public class SetDefaultValuesFoMissingData {
+public class SetDefaultValuesForMissingData {
 
     public static void main(String... args) throws Throwable {
         DataReader reader = new CSVReader(new File("example/data/input/schema/csv-with-null-values.csv"))
@@ -31,35 +31,35 @@ public class SetDefaultValuesFoMissingData {
         
         SchemaDef schema = new SchemaDef()
             .addEntity(new EntityDef().setName("Entity")
-                .addField(new NumericFieldDef().setName("ID").setType(FieldType.INT)
+                .addField(new NumericFieldDef("ID", FieldType.INT)
                     .setDefaultValueExpression("0"))
-                .addField(new BooleanFieldDef().setName("BOOLEAN1")
+                .addField(new BooleanFieldDef("BOOLEAN1", FieldType.BOOLEAN)
                     .setDefaultValueExpression("false"))
-                .addField(new TextFieldDef().setName("STRING1").setType(FieldType.STRING)
+                .addField(new TextFieldDef("STRING1", FieldType.STRING)
                     .setDefaultValueExpression("'DEFAULT STRING VALUE'"))
-                .addField(new NumericFieldDef().setName("BYTE1").setType(FieldType.BYTE)
+                .addField(new NumericFieldDef("BYTE1", FieldType.BYTE)
                     .setDefaultValueExpression("88"))
-                .addField(new TextFieldDef().setName("CHAR1").setType(FieldType.CHAR)
+                .addField(new TextFieldDef("CHAR1", FieldType.CHAR)
                     .setDefaultValueExpression("'z'"))
-                .addField(new TemporalFieldDef().setName("DATE1").setType(FieldType.DATE)
+                .addField(new TemporalFieldDef("DATE1", FieldType.DATE)
                     .setDefaultValueExpression("toDate('1999-08-21T15:31:50.000Z')"))
-                .addField(new TemporalFieldDef().setName("DATETIME1").setType(FieldType.DATETIME)
+                .addField(new TemporalFieldDef("DATETIME1", FieldType.DATETIME)
                     .setDefaultValueExpression("toDatetime('1999-08-21T15:31:50.000Z')"))
-                .addField(new TemporalFieldDef().setName("TIME1").setType(FieldType.TIME)
+                .addField(new TemporalFieldDef("TIME1", FieldType.TIME)
                     .setDefaultValueExpression("toDatetime('1999-08-21T15:31:50.000Z')"))
-                .addField(new NumericFieldDef().setName("INT1").setType(FieldType.INT)
+                .addField(new NumericFieldDef("INT1", FieldType.INT)
                     .setDefaultValueExpression("99"))
-                .addField(new NumericFieldDef().setName("LONG1").setType(FieldType.LONG)
+                .addField(new NumericFieldDef("LONG1", FieldType.LONG)
                     .setDefaultValueExpression("1152921504606846976"))
-                .addField(new NumericFieldDef().setName("DOUBLE1").setType(FieldType.DOUBLE)
+                .addField(new NumericFieldDef("DOUBLE1", FieldType.DOUBLE)
                     .setDefaultValueExpression("10.0"))
-                .addField(new NumericFieldDef().setName("FLOAT1").setType(FieldType.FLOAT)
+                .addField(new NumericFieldDef("FLOAT1", FieldType.FLOAT)
                     .setDefaultValueExpression("99"))
-                .addField(new NumericFieldDef().setName("SHORT1").setType(FieldType.SHORT)
+                .addField(new NumericFieldDef("SHORT1", FieldType.SHORT)
                     .setDefaultValueExpression("99"))
-                .addField(new NumericFieldDef().setName("BIGDECIMAL1").setType(FieldType.BIG_DECIMAL)
+                .addField(new NumericFieldDef("BIGDECIMAL1", FieldType.BIG_DECIMAL)
                     .setDefaultValueExpression("'111111111111111111111111111111111111111.111111111111111111111111111111111111111'"))
-                .addField(new NumericFieldDef().setName("BIGINTEGER1").setType(FieldType.BIG_INTEGER)
+                .addField(new NumericFieldDef("BIGINTEGER1", FieldType.BIG_INTEGER)
                     .setDefaultValueExpression("'99999999999999999999999999999999999999'"))
             );
 
