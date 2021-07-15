@@ -1,0 +1,21 @@
+<pipeline __class__="com.northconcepts.datapipeline.foundations.pipeline.Pipeline" multithreaded="true">
+    <pipeline-input __class__="com.northconcepts.datapipeline.foundations.pipeline.input.JsonPipelineInput" addTextToParent="false" duplicateFieldPolicy="USE_LAST_VALUE" ignoreNamespaces="true" saveLineage="false" useBigDecimal="false">
+        <record-breaks>
+            <record-break value="//array/object"/>
+        </record-breaks>
+        <fields>
+            <field cascadeValues="false" locationPath="//array/object/id" name="output_id"/>
+            <field cascadeValues="false" locationPath="//array/object/first_name" name="output_first_name"/>
+            <field cascadeValues="false" locationPath="//array/object/last_name" name="output_last_name"/>
+            <field cascadeValues="false" locationPath="//array/object/email" name="output_email"/>
+            <field cascadeValues="false" locationPath="//array/object/ip_address" name="output_ip_address"/>
+        </fields>
+        <file-source __class__="com.northconcepts.datapipeline.foundations.file.LocalFileSource" name="input-json" path="example/data/input/pipeline/MOCK_DATA.json"/>
+    </pipeline-input>
+    <pipeline-output __class__="com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput" autoFilterColumns="false" autofitColumns="false" fieldNamesInFirstRow="true" firstColumnIndex="0" firstRowIndex="0" providerType="POI_XSSF" sheetIndex="-1">
+        <file-sink __class__="com.northconcepts.datapipeline.foundations.file.LocalFileSink" append="false" path="data/output/test.xlsx"/>
+    </pipeline-output>
+    <actions>
+        <action __class__="com.northconcepts.datapipeline.foundations.pipeline.action.filter.FilterMatchExpression" expression="endsWith(output_email, 'org')"/>
+    </actions>
+</pipeline>
