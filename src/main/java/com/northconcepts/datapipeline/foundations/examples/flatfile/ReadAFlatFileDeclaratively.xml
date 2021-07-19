@@ -1,0 +1,23 @@
+<data-mapping-pipeline multithreaded="true" sendSkippedToDiscardWriter="false">
+  <pipeline-input __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.FlatFilePipelineInput" saveLineage="true">
+    <file-source __class__="com.northconcepts.datapipeline.foundations.file.LocalFileSource" path="example/data/input/flatfile-01.txt"/>
+    <fields>
+      <field __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.FixedLengthFieldDef" length="10" name="id" skip="false"/>
+      <field __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.FixedLengthFieldDef" length="4" name="year" skip="false"/>
+      <field __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.FixedLengthFieldDef" length="2" name="month" skip="false"/>
+      <field __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.FixedLengthFieldDef" length="2" name="day" skip="false"/>
+      <field __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.VariableLengthFieldDef" name="firstName" skip="false" terminator="@@"/>
+      <field __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.VariableLengthFieldDef" name="lastName" skip="false" terminator="!"/>
+    </fields>
+  </pipeline-input>
+  <source-entity addMissingOptionalFields="false" allowExtraFieldsInMapping="true" allowExtraFieldsInValidation="true">
+    <fields>
+      <field allowBlank="false" name="id" required="false" type="STRING"/>
+      <field minimum="2020" name="year" required="false" type="INT"/>
+      <field maximum="12" minimum="1" name="month" required="false" type="INT"/>
+      <field maximum="31" minimum="1" name="day" required="false" type="INT"/>
+      <field allowBlank="false" name="firstName" required="false" type="STRING"/>
+      <field allowBlank="false" name="lastName" required="false" type="STRING"/>
+    </fields>
+  </source-entity>
+</data-mapping-pipeline>
