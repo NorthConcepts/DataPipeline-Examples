@@ -1,7 +1,5 @@
 package com.northconcepts.datapipeline.foundations.examples.flatfile;
 
-import java.io.FileInputStream;
-
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.StreamWriter;
@@ -13,7 +11,7 @@ import com.northconcepts.datapipeline.job.Job;
 public class ReadAFlatFileDeclarativelyUsingXml {
 
     public static void main(String[] args) throws Throwable {
-        PipelineInput input = XmlSerializable.newInstanceFromXml(new FileInputStream("example/data/input/ReadAFlatFileDeclaratively.xml"));
+        PipelineInput input = XmlSerializable.newInstanceFromXml(ReadAFlatFileDeclarativelyUsingJson.class.getResourceAsStream("ReadAFlatFileDeclaratively.xml"));
 
         System.out.println("---------------------");
         System.out.println(input.toXml());
