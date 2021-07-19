@@ -41,6 +41,11 @@ public class FlatFileReader extends DataReader {
         }
     }
 
+    @Override
+    public boolean isLineageSupported() {
+        return true;
+    }
+
     public List<FlatFileFieldDef> getFields() {
         return fields;
     }
@@ -66,10 +71,21 @@ public class FlatFileReader extends DataReader {
 
         Record record = new Record();
 
+        if (isSaveLineage()) {
+            recordLineage.setRecord(record).setFileColumnNumber(parser.getColumn());
+        }
+
         for (int i = 0; i < fields.size(); i++) {
             FlatFileFieldDef fieldDef = fields.get(i);
             try {
+                long fileColumnNumber = parser.getColumn();
+
                 fieldDef.parseNextField(this, parser, record);
+
+                if (isSaveLineage()) {
+                    fieldLineage.setField(record.getField(-1)).setFileColumnNumber(fileColumnNumber);
+                }
+
             } catch (Throwable e) {
                 throw exception(e);
             }
