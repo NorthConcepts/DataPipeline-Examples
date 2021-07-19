@@ -72,6 +72,5 @@ dependencies {
 
     compile 'log4j:log4j:1.2.17'
 
-    compile 'junit:junit:4.13.1'
-
+    compile 'junit:junit:4.13.2'
 }
