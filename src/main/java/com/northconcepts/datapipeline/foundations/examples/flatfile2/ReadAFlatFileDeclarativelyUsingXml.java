@@ -19,7 +19,6 @@ public class ReadAFlatFileDeclarativelyUsingXml {
         System.out.println("---------------------");
 
         DataReader reader = input.createDataReader();
-        reader = input.createSchemaTransformer(reader);
         DataWriter writer = StreamWriter.newSystemOutWriterWithSessionProperties();
 
         Job.run(reader, writer);

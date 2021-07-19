@@ -79,7 +79,8 @@ public class FlatFilePipelineInput extends FileSourcePipelineInput {
                 reader.addField(fieldDef);
             }
             reader.setSaveLineage(isSaveLineage());
-            return reader;
+
+            return createSchemaTransformer(reader);
         } catch (Throwable e) {
             throw exception(e);
         }
