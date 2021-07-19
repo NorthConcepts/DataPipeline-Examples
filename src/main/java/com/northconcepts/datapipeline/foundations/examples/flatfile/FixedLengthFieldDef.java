@@ -85,6 +85,7 @@ public class FixedLengthFieldDef extends FlatFileFieldDef {
 
     @Override
     public FixedLengthFieldDef fromXmlElement(Element element) {
+        super.fromXmlElement(element);
         this.length = getAttribute(element, "length", 0);
         return this;
     }

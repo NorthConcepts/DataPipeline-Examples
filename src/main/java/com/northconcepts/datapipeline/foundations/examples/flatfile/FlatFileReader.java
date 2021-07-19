@@ -50,17 +50,17 @@ public class FlatFileReader extends DataReader {
         return fields;
     }
 
-    public FlatFileReader add(FlatFileFieldDef field) {
+    public FlatFileReader addField(FlatFileFieldDef field) {
         fields.add(field);
         return this;
     }
 
     public FlatFileReader addFixedLengthField(String name, int length) {
-        return add(new FixedLengthFieldDef().setName(name).setLength(length));
+        return addField(new FixedLengthFieldDef().setName(name).setLength(length));
     }
 
     public FlatFileReader addVariableLengthField(String name, String terminator) {
-        return add(new VariableLengthFieldDef().setName(name).setTerminator(terminator));
+        return addField(new VariableLengthFieldDef().setName(name).setTerminator(terminator));
     }
 
     @Override

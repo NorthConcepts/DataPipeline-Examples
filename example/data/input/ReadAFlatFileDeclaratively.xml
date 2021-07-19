@@ -1,0 +1,11 @@
+<pipeline-input __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.FlatFilePipelineInput" saveLineage="true">
+  <file-source __class__="com.northconcepts.datapipeline.foundations.file.LocalFileSource" path="example/data/input/flatfile-01.txt"/>
+  <fields>
+    <field __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.FixedLengthFieldDef" length="10" name="id" skip="false"/>
+    <field __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.FixedLengthFieldDef" length="4" name="year" skip="false"/>
+    <field __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.FixedLengthFieldDef" length="2" name="month" skip="false"/>
+    <field __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.FixedLengthFieldDef" length="2" name="day" skip="false"/>
+    <field __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.VariableLengthFieldDef" name="firstName" skip="false" terminator="@@"/>
+    <field __class__="com.northconcepts.datapipeline.foundations.examples.flatfile.VariableLengthFieldDef" name="lastName" skip="false" terminator="!"/>
+  </fields>
+</pipeline-input>

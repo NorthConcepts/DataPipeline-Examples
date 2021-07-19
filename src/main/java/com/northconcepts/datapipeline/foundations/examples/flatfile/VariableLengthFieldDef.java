@@ -96,6 +96,7 @@ public class VariableLengthFieldDef extends FlatFileFieldDef {
 
     @Override
     public VariableLengthFieldDef fromXmlElement(Element element) {
+        super.fromXmlElement(element);
         this.terminator = getAttribute(element, "terminator", (String) null);
         return this;
     }

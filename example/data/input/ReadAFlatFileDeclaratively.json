@@ -1,0 +1,40 @@
+{
+  "__class__" : "com.northconcepts.datapipeline.foundations.examples.flatfile.FlatFilePipelineInput",
+  "saveLineage" : true,
+  "fileSource" : {
+    "__class__" : "com.northconcepts.datapipeline.foundations.file.LocalFileSource",
+    "name" : null,
+    "path" : "example/data/input/flatfile-01.txt"
+  },
+  "fields" : [ {
+    "__class__" : "com.northconcepts.datapipeline.foundations.examples.flatfile.FixedLengthFieldDef",
+    "name" : "id",
+    "skip" : false,
+    "length" : 10
+  }, {
+    "__class__" : "com.northconcepts.datapipeline.foundations.examples.flatfile.FixedLengthFieldDef",
+    "name" : "year",
+    "skip" : false,
+    "length" : 4
+  }, {
+    "__class__" : "com.northconcepts.datapipeline.foundations.examples.flatfile.FixedLengthFieldDef",
+    "name" : "month",
+    "skip" : false,
+    "length" : 2
+  }, {
+    "__class__" : "com.northconcepts.datapipeline.foundations.examples.flatfile.FixedLengthFieldDef",
+    "name" : "day",
+    "skip" : false,
+    "length" : 2
+  }, {
+    "__class__" : "com.northconcepts.datapipeline.foundations.examples.flatfile.VariableLengthFieldDef",
+    "name" : "firstName",
+    "skip" : false,
+    "terminator" : "@@"
+  }, {
+    "__class__" : "com.northconcepts.datapipeline.foundations.examples.flatfile.VariableLengthFieldDef",
+    "name" : "lastName",
+    "skip" : false,
+    "terminator" : "!"
+  } ]
+}
