@@ -6,9 +6,6 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.flatfile;
 
-import static com.northconcepts.datapipeline.core.XmlSerializable.getAttribute;
-import static com.northconcepts.datapipeline.core.XmlSerializable.setAttribute;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -90,14 +87,16 @@ public class VariableLengthFieldDef extends FlatFileFieldDef {
     @Override
     public Element toXmlElement(Document document) {
         Element element = super.toXmlElement(document);
-        setAttribute(element, "terminator", terminator);
+        //setAttribute(element, "terminator", terminator);  // XXX: trims whitespace characters
+        element.setAttribute("terminator", terminator);
         return element;
     }
 
     @Override
     public VariableLengthFieldDef fromXmlElement(Element element) {
         super.fromXmlElement(element);
-        this.terminator = getAttribute(element, "terminator", (String) null);
+        //this.terminator = getAttribute(element, "terminator", (String) null); // XXX: trims whitespace characters
+        this.terminator = element.getAttribute("terminator");
         return this;
     }
 
