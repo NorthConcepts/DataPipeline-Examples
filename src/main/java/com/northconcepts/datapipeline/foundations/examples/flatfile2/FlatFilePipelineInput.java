@@ -97,9 +97,8 @@ public class FlatFilePipelineInput extends FileSourcePipelineInput {
 
     @Override
     public Record toRecord() {
-        Record record = super.toRecord();
-
-        saveFileSource(record);
+        Record record = super.toRecord()
+                .setField("fileSource", fileSource == null ? null : fileSource.toRecord());
 
         //record.setField("fillChar", fillChar)
 
@@ -118,7 +117,7 @@ public class FlatFilePipelineInput extends FileSourcePipelineInput {
     public FlatFilePipelineInput fromRecord(Record source) {
         super.fromRecord(source);
 
-        loadFileSource(source);
+        this.fileSource = RecordSerializable.newInstanceFromRecord(source.getFieldValueAsRecord("fileSource", null), FileSource.class);
 
         //this.fillChar = source.getFieldValueAsChar("fillChar", fixedWidthReader.getFillChar());
 
