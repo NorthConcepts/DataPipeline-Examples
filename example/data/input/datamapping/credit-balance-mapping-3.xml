@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<data-mapping>
+  <field-mappings>
+    <field-mapping fieldName="Account_ID" sourceExpression="'A' + source.Account"/>
+    <field-mapping fieldName="Account_LastName" sourceExpression="source.LastName"/>
+    <field-mapping fieldName="Account_FirstName" sourceExpression="source.FirstName"/>
+    <field-mapping fieldName="Account_Balance" sourceExpression="coalesce(source.Balance, 10)"/>
+    <field-mapping fieldName="Account_CreditLimit" sourceExpression="coalesce(source.CreditLimit * 1.10, 20)"/>
+    <field-mapping fieldName="Account_CreatedDate" sourceExpression="source.AccountCreated"/>
+    <field-mapping fieldName="Account_Rating" sourceExpression="source.Rating"/>
+    <field-mapping fieldName="Account_Status" sourceExpression="lookup(0, statusLookup, source['Rating'])"/>
+    <field-mapping fieldName="Account_field_abs" sourceExpression="recordContainsNonNullValue(source, 'abs')"/>
+    <field-mapping fieldName="Account_field_Balance" sourceExpression="getValue(source, 'Balance', 999)"  />
+    <field-mapping fieldName="Account_field_Balance2" sourceExpression="getValue(source, 'Balance2', '')"  />
+    
+<!--     
+    <field-mapping fieldName="Account_field_Balance2" sourceExpression="getValue(source, 'Balance2', 777)"  />
+
+    <field-mapping fieldName="Account_field_Balance" sourceExpression="999"  condition="!recordContainsNonNullValue(source, 'Balance')"/>
+    <field-mapping fieldName="Account_field_Balance" sourceExpression="source.Balance" condition="recordContainsNonNullValue(source, 'Balance')"/>
+
+    <field-mapping fieldName="Account_Status2" sourceExpression="lookup(0, statusLookup, source['2Rating2'])"/>
+ -->    
+  </field-mappings>
+</data-mapping>
