@@ -60,6 +60,7 @@ dependencies {
     compile "com.northconcepts:northconcepts-datapipeline-integrations-orc:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-pdf:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-rtf:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-security:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-template:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-trello:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-twitter:${version}"
