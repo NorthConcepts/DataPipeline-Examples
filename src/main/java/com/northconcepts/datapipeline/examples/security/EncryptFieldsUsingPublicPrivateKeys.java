@@ -27,16 +27,16 @@ public class EncryptFieldsUsingPublicPrivateKeys {
         PrivateKey privateKey = keyPair.getPrivate();
         PublicKey publicKey = keyPair.getPublic();
 
-        RecordList encryptedRecord = encrypt(privateKey);
-        decrypt(publicKey, encryptedRecord);
+        RecordList encryptedRecord = encrypt(publicKey);
+        decrypt(privateKey, encryptedRecord);
     }
 
-    private static RecordList encrypt(PrivateKey privateKey) {
+    private static RecordList encrypt(PublicKey publicKey) {
         DataReader reader = new CSVReader(new File("data/input/jewelry.csv"))
                 .setAllowMultiLineText(true)
                 .setFieldNamesInFirstRow(true);
 
-        reader = new AsymmetricEncryptingReader(reader, ASYMMETRIC_ALGORITHM, privateKey)
+        reader = new AsymmetricEncryptingReader(reader, ASYMMETRIC_ALGORITHM, publicKey)
                 .addFields("Vendor", "Published", "Variant Price");
 
         RecordList recordList = new RecordList();
@@ -48,10 +48,10 @@ public class EncryptFieldsUsingPublicPrivateKeys {
         return recordList;
     }
 
-    private static void decrypt(PublicKey publicKey, RecordList recordList) {
+    private static void decrypt(PrivateKey privateKey, RecordList recordList) {
         DataReader reader = new MemoryReader(recordList);
 
-        reader = new AsymmetricDecryptingReader(reader, ASYMMETRIC_ALGORITHM, publicKey)
+        reader = new AsymmetricDecryptingReader(reader, ASYMMETRIC_ALGORITHM, privateKey)
                 .addFields("Vendor", "Published", "Variant Price");
 
         Job.run(reader, StreamWriter.newSystemOutWriter());
