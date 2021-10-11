@@ -18,7 +18,7 @@ import com.northconcepts.datapipeline.internal.lang.LongPointer;
 public class ShowJsonTreeNodeStatistics {
 
     public static void main(String[] args) {
-        Tree tree = Tree.fromJson(new File("example/data/input/pipeline/MOCK_DATA.json"));
+        Tree tree = Tree.loadJson(new File("example/data/input/pipeline/MOCK_DATA.json"));
         TreeNode rootNode = tree.getRootNode();
         printTreeNode(rootNode, 0);
     }

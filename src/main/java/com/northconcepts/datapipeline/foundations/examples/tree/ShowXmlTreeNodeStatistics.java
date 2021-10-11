@@ -18,7 +18,7 @@ import com.northconcepts.datapipeline.internal.lang.LongPointer;
 public class ShowXmlTreeNodeStatistics {
 
     public static void main(String[] args) {
-        Tree tree = Tree.fromXml(new File("example/data/input/pipeline/xml-input.xml"));
+        Tree tree = Tree.loadXml(new File("example/data/input/pipeline/xml-input.xml"));
         TreeNode rootNode = tree.getRootNode();
         printTreeNode(rootNode, 0);
     }
