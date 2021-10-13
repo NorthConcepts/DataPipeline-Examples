@@ -17,58 +17,73 @@ import com.northconcepts.datapipeline.jdbc.sql.insert.Insert;
 
 public class CustomJdbcInsertStrategy implements IInsert {
 
-	private PreparedStatement insertStatement = null;
+    private PreparedStatement insertStatement = null;
+    private boolean debug;
 
-	@Override
-	public void addBatch() throws Throwable {
-		insertStatement.addBatch();
-	}
+    @Override
+    public void addBatch() throws Throwable {
+        insertStatement.addBatch();
+    }
 
-	@Override
-	public DataException addExceptionProperties(DataException exception) {
-		return exception;
-	}
+    @Override
+    public DataException addExceptionProperties(DataException exception) {
+        return exception;
+    }
 
-	@Override
-	public void close() throws Throwable {
-		insertStatement.close();
-	}
+    @Override
+    public void close() throws Throwable {
+        insertStatement.close();
+    }
 
-	@Override
-	public void executeBatch() throws Throwable {
-		throw new DataException("Batch is not supported");
-	}
+    @Override
+    public void executeBatch() throws Throwable {
+        throw new DataException("Batch is not supported");
+    }
 
-	@Override
-	public void executeUpdate() throws Throwable {
-		insertStatement.executeUpdate();
-	}
+    @Override
+    public void executeUpdate() throws Throwable {
+        insertStatement.executeUpdate();
+    }
 
-	@Override
-	public boolean isBatchSupported() {
-		return true;
-	}
+    @Override
+    public boolean isBatchSupported() {
+        return true;
+    }
 
-	@Override
-	public void prepare(JdbcWriter writer, Record record) throws Throwable {
+    @Override
+    public void prepare(JdbcWriter writer, Record record) throws Throwable {
 
-		Insert insert = new Insert(writer.getTableName());
-		for (int i = 0; i < record.getFieldCount(); i++) {
-			insert.add(record.getField(i).getName());
-		}
-		String insertSql = insert.getSqlFragment();
-		System.out.println("SQL Statement:- " + insertSql);
+        Insert insert = new Insert(writer.getTableName());
+        for (int i = 0; i < record.getFieldCount(); i++) {
+            insert.add(record.getField(i).getName());
+        }
+        String insertSql = insert.getSqlFragment();
 
-		insertStatement = writer.getConnection().prepareStatement(insertSql);
-	}
+        if (debug) {
+            System.out.println("SQL Statement:- " + insertSql);
+        }
 
-	@Override
-	public void setValues(JdbcWriter writer, Record record) throws Throwable {
-		insertStatement.clearParameters();
-		for (int i = 0; i < record.getFieldCount(); i++) {
-			Field field = record.getField(i);
-			writer.setParameterValue(field, insertStatement, i + 1);
-		}
-	}
+        insertStatement = writer.getConnection().prepareStatement(insertSql);
+    }
+
+    @Override
+    public void setValues(JdbcWriter writer, Record record) throws Throwable {
+        insertStatement.clearParameters();
+        for (int i = 0; i < record.getFieldCount(); i++) {
+            Field field = record.getField(i);
+            writer.setParameterValue(field, insertStatement, i + 1);
+        }
+    }
+
+    @Override
+    public boolean isDebug() {
+        return debug;
+    }
+
+    @Override
+    public CustomJdbcInsertStrategy setDebug(boolean debug) {
+        this.debug = debug;
+        return this;
+    }
 
 }
