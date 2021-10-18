@@ -13,6 +13,8 @@ import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.csv.CSVWriter.ValuePolicy;
+import com.northconcepts.datapipeline.foundations.pipeline.dataset.Tree;
+import com.northconcepts.datapipeline.foundations.pipeline.dataset.TreeNode;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.xml.XmlReader;
 import com.northconcepts.datapipeline.xml.XmlReader.DuplicateFieldPolicy;
@@ -20,17 +22,18 @@ import com.northconcepts.datapipeline.xml.XmlReader.DuplicateFieldPolicy;
 public class DynamicallyMapXmlToCSV {
 
     public static void main(String[] args) {
-        DataReader reader = new XmlReader(new File("example/data/input/pipeline/xml-input.xml"))
+        File inputFile = new File("example/data/input/call-center-agents.xml");
+
+        DataReader reader = new XmlReader(inputFile)
                 .setDuplicateFieldPolicy(DuplicateFieldPolicy.USE_LAST_VALUE)
                 .setAddTextToParent(false)
                 .setIgnoreNamespaces(true)
                 .setAutoCloseReader(true)
-                .addField("subject_name", "/teachers/teacher/subjects/subject/@name", false)
-                .addField("class", "/teachers/teacher/subjects/subject/@class", false)
-                .addRecordBreak("/teachers/teacher/subjects/subject")
                 .setSaveLineage(false);
 
-        DataWriter writer = new CSVWriter(new File("example/data/output/output.csv"))
+        addFieldsAndRecordBreak(Tree.loadXml(inputFile).getRootNode(), (XmlReader) reader);
+
+        DataWriter writer = new CSVWriter(new File("example/data/output/DynamicallyMapXmlToCSV_Output.csv"))
                 .setFieldSeparator(",")
                 .setStartingQuote("\"")
                 .setEndingQuote("\"")
@@ -45,4 +48,17 @@ public class DynamicallyMapXmlToCSV {
         Job.run(reader, writer);
     }
 
+    private static void addFieldsAndRecordBreak(TreeNode treeNode, XmlReader reader) {
+        if (treeNode.isField()) {
+            reader.addField(treeNode.getName(), treeNode.getXpathExpression());
+        }
+
+        if (treeNode.isRecordBreak()) {
+            reader.addRecordBreak(treeNode.getXpathExpression());
+        }
+
+        for (TreeNode child : treeNode.getChildren()) {
+            addFieldsAndRecordBreak(child, reader);
+        }
+    }
 }

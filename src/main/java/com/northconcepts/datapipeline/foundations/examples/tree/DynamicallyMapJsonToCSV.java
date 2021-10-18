@@ -13,6 +13,8 @@ import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.csv.CSVWriter.ValuePolicy;
+import com.northconcepts.datapipeline.foundations.pipeline.dataset.Tree;
+import com.northconcepts.datapipeline.foundations.pipeline.dataset.TreeNode;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.json.JsonReader;
 import com.northconcepts.datapipeline.xml.XmlReader.DuplicateFieldPolicy;
@@ -20,20 +22,19 @@ import com.northconcepts.datapipeline.xml.XmlReader.DuplicateFieldPolicy;
 public class DynamicallyMapJsonToCSV {
 
     public static void main(String[] args) {
-        DataReader reader = new JsonReader(new File("example/data/input/pipeline/MOCK_DATA.json"))
+        File inputFile = new File("example/data/input/pipeline/MOCK_DATA.json");
+
+        DataReader reader = new JsonReader(inputFile)
                 .useBigDecimal(false)
                 .setDuplicateFieldPolicy(DuplicateFieldPolicy.USE_LAST_VALUE)
                 .setAddTextToParent(false)
                 .setIgnoreNamespaces(true)
                 .setAutoCloseReader(true)
-                .addField("id", "/array/object/id", false)
-                .addField("first_name", "/array/object/first_name", false)
-                .addField("last_name", "/array/object/last_name", false)
-                .addField("email", "/array/object/email", false)
-                .addRecordBreak("/array/object")
                 .setSaveLineage(false);
 
-        DataWriter writer = new CSVWriter(new File("example/data/output/output.csv"))
+        addFieldsAndRecordBreak(Tree.loadJson(inputFile).getRootNode(), (JsonReader) reader);
+
+        DataWriter writer = new CSVWriter(new File("example/data/output/DynamicallyMapJsonToCSV_Output.csv"))
                 .setFieldSeparator(",")
                 .setStartingQuote("\"")
                 .setEndingQuote("\"")
@@ -46,6 +47,20 @@ public class DynamicallyMapJsonToCSV {
                 .setFieldNamesInFirstRow(true);
 
         Job.run(reader, writer);
+    }
+
+    private static void addFieldsAndRecordBreak(TreeNode treeNode, JsonReader reader) {
+        if (treeNode.isField()) {
+            reader.addField(treeNode.getName(), treeNode.getXpathExpression());
+        }
+
+        if (treeNode.isRecordBreak()) {
+            reader.addRecordBreak(treeNode.getXpathExpression());
+        }
+
+        for (TreeNode child : treeNode.getChildren()) {
+            addFieldsAndRecordBreak(child, reader);
+        }
     }
 
 }
