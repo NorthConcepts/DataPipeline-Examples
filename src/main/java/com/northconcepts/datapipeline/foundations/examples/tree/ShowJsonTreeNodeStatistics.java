@@ -9,11 +9,11 @@ package com.northconcepts.datapipeline.foundations.examples.tree;
 
 import java.io.File;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.LongAdder;
 
 import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Tree;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.TreeNode;
-import com.northconcepts.datapipeline.internal.lang.LongPointer;
 
 public class ShowJsonTreeNodeStatistics {
 
@@ -38,7 +38,7 @@ public class ShowJsonTreeNodeStatistics {
         System.out.println(spaces + "Maximum Length: " + treeNode.getMaximumLength());
         System.out.println(spaces + "Sample Value: " + treeNode.getSampleValue());
 
-        for (Entry<FieldType, LongPointer> entry : treeNode.getFieldTypes().entrySet()) {
+        for (Entry<FieldType, LongAdder> entry : treeNode.getFieldTypes().entrySet()) {
             System.out.println(spaces + "Field Type: " + entry.getKey() + " Pointer: " + entry.getValue().longValue());
         }
 
