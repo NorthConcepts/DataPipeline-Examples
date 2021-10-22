@@ -14,7 +14,6 @@ import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.csv.CSVWriter.ValuePolicy;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Tree;
-import com.northconcepts.datapipeline.foundations.pipeline.dataset.TreeNode;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.xml.XmlReader;
 import com.northconcepts.datapipeline.xml.XmlReader.DuplicateFieldPolicy;
@@ -31,7 +30,17 @@ public class DynamicallyMapXmlToCSV {
                 .setAutoCloseReader(true)
                 .setSaveLineage(false);
 
-        addFieldsAndRecordBreak(Tree.loadXml(inputFile).getRootNode(), (XmlReader) reader);
+        Tree tree = Tree.loadXml(inputFile);
+
+        // Add all fields
+        tree.getAllFields()
+        .stream()
+        .forEach(a -> ((XmlReader) reader).addField(a.getName(), a.getXpathExpression()));
+
+        // Add all record breaks
+        tree.getAllRecordBreaks()
+        .stream()
+        .forEach(a -> ((XmlReader) reader).addRecordBreak(a.getXpathExpression()));
 
         DataWriter writer = new CSVWriter(new File("example/data/output/DynamicallyMapXmlToCSV_Output.csv"))
                 .setFieldSeparator(",")
@@ -48,17 +57,4 @@ public class DynamicallyMapXmlToCSV {
         Job.run(reader, writer);
     }
 
-    private static void addFieldsAndRecordBreak(TreeNode treeNode, XmlReader reader) {
-        if (treeNode.isField()) {
-            reader.addField(treeNode.getName(), treeNode.getXpathExpression());
-        }
-
-        if (treeNode.isRecordBreak()) {
-            reader.addRecordBreak(treeNode.getXpathExpression());
-        }
-
-        for (TreeNode child : treeNode.getChildren()) {
-            addFieldsAndRecordBreak(child, reader);
-        }
-    }
 }

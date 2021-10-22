@@ -14,9 +14,9 @@ import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.csv.CSVWriter.ValuePolicy;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Tree;
-import com.northconcepts.datapipeline.foundations.pipeline.dataset.TreeNode;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.json.JsonReader;
+import com.northconcepts.datapipeline.xml.XmlReader;
 import com.northconcepts.datapipeline.xml.XmlReader.DuplicateFieldPolicy;
 
 public class DynamicallyMapJsonToCSV {
@@ -32,7 +32,17 @@ public class DynamicallyMapJsonToCSV {
                 .setAutoCloseReader(true)
                 .setSaveLineage(false);
 
-        addFieldsAndRecordBreak(Tree.loadJson(inputFile).getRootNode(), (JsonReader) reader);
+        Tree tree = Tree.loadJson(inputFile);
+
+        // Add all fields
+        tree.getAllFields()
+        .stream()
+        .forEach(a -> ((XmlReader) reader).addField(a.getName(), a.getXpathExpression()));
+
+        // Add all record breaks
+        tree.getAllRecordBreaks()
+        .stream()
+        .forEach(a -> ((XmlReader) reader).addRecordBreak(a.getXpathExpression()));
 
         DataWriter writer = new CSVWriter(new File("example/data/output/DynamicallyMapJsonToCSV_Output.csv"))
                 .setFieldSeparator(",")
@@ -47,20 +57,6 @@ public class DynamicallyMapJsonToCSV {
                 .setFieldNamesInFirstRow(true);
 
         Job.run(reader, writer);
-    }
-
-    private static void addFieldsAndRecordBreak(TreeNode treeNode, JsonReader reader) {
-        if (treeNode.isField()) {
-            reader.addField(treeNode.getName(), treeNode.getXpathExpression());
-        }
-
-        if (treeNode.isRecordBreak()) {
-            reader.addRecordBreak(treeNode.getXpathExpression());
-        }
-
-        for (TreeNode child : treeNode.getChildren()) {
-            addFieldsAndRecordBreak(child, reader);
-        }
     }
 
 }
