@@ -2,7 +2,7 @@
 <table>
 	<thead>
 		<tr>
-		<#list record.fieldNames as fieldName>
+		<#list record?keys as fieldName>
 			<td>${fieldName}</td>
 		</#list>		
 		</tr>
@@ -10,7 +10,7 @@
 	<tbody>
 </#if>
 		<tr>
-			<#list record.values as value>
+			<#list record?values as value>
 				<td>${value}</td>
 			</#list>
 		</tr>
