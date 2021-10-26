@@ -34,12 +34,10 @@ public class DynamicallyMapXmlToCSV {
 
         // Add all fields
         tree.getAllFields()
-        .stream()
         .forEach(a -> ((XmlReader) reader).addField(a.getName(), a.getXpathExpression()));
 
         // Add all record breaks
         tree.getAllRecordBreaks()
-        .stream()
         .forEach(a -> ((XmlReader) reader).addRecordBreak(a.getXpathExpression()));
 
         DataWriter writer = new CSVWriter(new File("example/data/output/DynamicallyMapXmlToCSV_Output.csv"))

@@ -8,6 +8,7 @@
 package com.northconcepts.datapipeline.foundations.examples.tree;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.atomic.LongAdder;
 
@@ -19,8 +20,8 @@ public class ShowXmlTreeNodeStatistics {
 
     public static void main(String[] args) {
         Tree tree = Tree.loadXml(new File("example/data/input/pipeline/xml-input.xml"));
-        TreeNode rootNode = tree.getRootNode();
-        printTreeNode(rootNode, 0);
+        List<TreeNode> nodes = tree.getAllNodes();
+        nodes.forEach(n -> printTreeNode(n, n.getDepth()));
     }
 
     private static void printTreeNode(TreeNode treeNode, int depth) {
@@ -55,10 +56,6 @@ public class ShowXmlTreeNodeStatistics {
         System.out.println(spaces + "Descendant Value Count: " + treeNode.getDescendantValueCount());
         System.out.println(spaces + "Children Value Count: " + treeNode.getChildrenValueCount());
         System.out.println(spaces + "Children TreeNode Count: " + treeNode.getChildren().size());
-
-        for (TreeNode child : treeNode.getChildren()) {
-            printTreeNode(child, depth + 1);
-        }
 
     }
 
