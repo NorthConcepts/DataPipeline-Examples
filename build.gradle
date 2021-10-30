@@ -13,7 +13,7 @@ repositories {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-version = '7.0.0'
+version = '7.1.0-SNAPSHOT'
 
 sourceSets {
     examples {
@@ -74,4 +74,7 @@ dependencies {
     compile 'log4j:log4j:1.2.17'
 
     compile 'junit:junit:4.13.2'
+    
+	compile 'org.hsqldb:hsqldb:2.4.0'
+    
 }
