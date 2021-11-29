@@ -1,7 +1,6 @@
 package com.northconcepts.datapipeline.foundations.examples.jdbc;
 
 import java.io.File;
-import java.sql.Connection;
 
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcConnection;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcTable;
@@ -16,25 +15,21 @@ public class SortJdbcTablesAlphabetically {
         createConnection();
 
         jdbcConnection.loadTables();
+        System.out.println("Tables are: ");
         for (JdbcTable jdbcTable : jdbcConnection.getTablesSorted()) {
             System.out.println(jdbcTable.getName());
         }
     }
 
     private static void createConnection() throws Throwable {
-        Class.forName("org.hsqldb.jdbcDriver");
-
         jdbcConnection = new JdbcConnection()
-                .setDriverClassName("org.hsqldb.jdbcDriver")
+                .setDriverClassName("org.h2.Driver")
                 .setUsername("sa")
                 .setName("H2_DB")
                 .setPlainTextPassword("")
-                .setUrl("jdbc:hsqldb:mem:jdbcTableSort");
+                .setUrl("jdbc:h2:mem:jdbcTableSort;MODE=MySQL");
 
-        Connection connection = jdbcConnection.createConnection();
-        // createTableArtist(connection);
-
-        JdbcFacade jdbcfacade = new JdbcFacade(JdbcConnectionFactory.wrap(connection));
+        JdbcFacade jdbcfacade = new JdbcFacade(JdbcConnectionFactory.wrap(jdbcConnection.createConnection()));
         jdbcfacade.executeFile(new File("example/data/input/pre-sales.sql"));
     }
 }
