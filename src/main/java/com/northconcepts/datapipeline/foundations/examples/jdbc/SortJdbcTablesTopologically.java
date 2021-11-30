@@ -5,7 +5,6 @@ import java.io.File;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcConnection;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcTable;
 import com.northconcepts.datapipeline.internal.jdbc.JdbcFacade;
-import com.northconcepts.datapipeline.jdbc.JdbcConnectionFactory;
 
 public class SortJdbcTablesTopologically {
 
@@ -17,7 +16,7 @@ public class SortJdbcTablesTopologically {
                 .setPlainTextPassword("")
                 .setUrl("jdbc:h2:mem:jdbcTableSort;MODE=MySQL");
 
-        JdbcFacade jdbcfacade = new JdbcFacade(JdbcConnectionFactory.wrap(jdbcConnection.createConnection()));
+        JdbcFacade jdbcfacade = new JdbcFacade(jdbcConnection);
         jdbcfacade.executeFile(new File("example/data/input/pre-sales.sql"));
 
         jdbcConnection.loadTables(null, null, "%", "TABLE");
