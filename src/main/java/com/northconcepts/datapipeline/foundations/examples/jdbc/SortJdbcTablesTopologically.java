@@ -8,20 +8,9 @@ import com.northconcepts.datapipeline.internal.jdbc.JdbcFacade;
 import com.northconcepts.datapipeline.jdbc.JdbcConnectionFactory;
 
 public class SortJdbcTablesTopologically {
-    private static JdbcConnection jdbcConnection;
 
     public static void main(String[] args) throws Throwable {
-        createConnection();
-
-        jdbcConnection.loadTables();
-        System.out.println("Tables are: ");
-        for (JdbcTable jdbcTable : jdbcConnection.getTablesSortedTopologically()) {
-            System.out.println(jdbcTable.getName());
-        }
-    }
-
-    private static void createConnection() throws Throwable {
-        jdbcConnection = new JdbcConnection()
+        JdbcConnection jdbcConnection = new JdbcConnection()
                 .setDriverClassName("org.h2.Driver")
                 .setUsername("sa")
                 .setName("H2_DB")
@@ -30,5 +19,11 @@ public class SortJdbcTablesTopologically {
 
         JdbcFacade jdbcfacade = new JdbcFacade(JdbcConnectionFactory.wrap(jdbcConnection.createConnection()));
         jdbcfacade.executeFile(new File("example/data/input/pre-sales.sql"));
+
+        jdbcConnection.loadTables(null, null, "%", "TABLE");
+        System.out.println("Tables are: ");
+        for (JdbcTable jdbcTable : jdbcConnection.getTablesSortedTopologically()) {
+            System.out.println(jdbcTable.getName());
+        }
     }
 }

@@ -9,20 +9,8 @@ import com.northconcepts.datapipeline.jdbc.JdbcConnectionFactory;
 
 public class SortJdbcTablesAlphabetically {
 
-    private static JdbcConnection jdbcConnection;
-
     public static void main(String[] args) throws Throwable {
-        createConnection();
-
-        jdbcConnection.loadTables();
-        System.out.println("Tables are: ");
-        for (JdbcTable jdbcTable : jdbcConnection.getTablesSorted()) {
-            System.out.println(jdbcTable.getName());
-        }
-    }
-
-    private static void createConnection() throws Throwable {
-        jdbcConnection = new JdbcConnection()
+        JdbcConnection jdbcConnection = new JdbcConnection()
                 .setDriverClassName("org.h2.Driver")
                 .setUsername("sa")
                 .setName("H2_DB")
@@ -31,5 +19,11 @@ public class SortJdbcTablesAlphabetically {
 
         JdbcFacade jdbcfacade = new JdbcFacade(JdbcConnectionFactory.wrap(jdbcConnection.createConnection()));
         jdbcfacade.executeFile(new File("example/data/input/pre-sales.sql"));
+
+        jdbcConnection.loadTables(null, null, "%", "TABLE");
+        System.out.println("Tables are: ");
+        for (JdbcTable jdbcTable : jdbcConnection.getTablesSorted()) {
+            System.out.println(jdbcTable.getName());
+        }
     }
 }
