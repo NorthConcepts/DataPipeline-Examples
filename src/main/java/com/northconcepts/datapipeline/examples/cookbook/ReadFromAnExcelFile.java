@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2021 North Concepts Inc.  All rights reserved.
+ * Copyright (c) 2006-2022 North Concepts Inc.  All rights reserved.
  * Proprietary and Confidential.  Use is subject to license terms.
  * 
  * https://northconcepts.com/data-pipeline/licensing/
@@ -18,13 +18,13 @@ import com.northconcepts.datapipeline.excel.ExcelReader;
 
 public class ReadFromAnExcelFile {
 
-    public static final Logger log = DataEndpoint.log; 
+    public static final Logger log = DataEndpoint.log;
 
     public static void main(String[] args) throws Throwable {
-        ExcelDocument document = new ExcelDocument().open(new File("example/data/input/credit-balance-01.xls"));
+        ExcelDocument document = new ExcelDocument().open(new File("data/output/test.xlsx"));
         DataReader reader = new ExcelReader(document)
-            .setSheetName("credit-balance")
-            .setFieldNamesInFirstRow(true);
+                //                .setSheetName("credit-balance")
+                .setFieldNamesInFirstRow(true);
 
         reader.open();
         try {
