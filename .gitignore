@@ -19,3 +19,4 @@ src/main/java/com/northconcepts/datapipeline/examples/userguide/RunningJobs.java
 temp/
 WriteAParquetFile.parquet
 .WriteAParquetFile.parquet.crc
+src/main/resources/NorthConcepts-DataPipeline.license.old
