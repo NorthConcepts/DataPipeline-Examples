@@ -2,7 +2,7 @@
 <data-mapping>
   <field-mappings>
     <field-mapping fieldName="Account_ID" sourceExpression="'A' + source.Account"/>
-    <field-mapping fieldName="Account_LastName" sourceExpression="source.LastName"/>
+    <field-mapping fieldName="Account_LastName" sourceExpression="${source.LastName}"/>
     <field-mapping fieldName="Account_FirstName" sourceExpression="source.FirstName"/>
     <field-mapping fieldName="Account_Balance" sourceExpression="coalesce(source.Balance, 10)"/>
     <field-mapping fieldName="Account_CreditLimit" sourceExpression="coalesce(source.CreditLimit * 1.10, 20)"/>
