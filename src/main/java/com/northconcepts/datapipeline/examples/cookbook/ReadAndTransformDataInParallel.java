@@ -1,4 +1,4 @@
-package com.northconcepts.datapipeline.examples;
+package com.northconcepts.datapipeline.examples.cookbook;
 
 import com.northconcepts.datapipeline.core.AsyncTaskReader;
 import com.northconcepts.datapipeline.core.DataReader;
