@@ -21,7 +21,9 @@ public class MapRecordUsingSchema {
         record.addField("name", "John Smith");
         record.addField("age", "76");
         record.addField("balance", "31.05");
-        record.addField("active", "true"); // "yes" and non-zero numbers also map to true 
+        record.addField("active", "true"); // "yes" and non-zero numbers also map to true
+        record.addField("bonuses", new String[]{"100", "500", "2000"});
+        record.addField("balanceAge", new double[]{0, 30, 1.05});
         record.addField("lastUpdated", "2019-12-19");
 
         EntityDef entityDef = new EntityDef();
@@ -29,9 +31,11 @@ public class MapRecordUsingSchema {
         entityDef.addField(new NumericFieldDef("age", FieldType.INT).setRequired(true).setMinimum(25).setMaximum(75));
         entityDef.addField(new NumericFieldDef("balance", FieldType.BIG_DECIMAL));
         entityDef.addField(new BooleanFieldDef("active", FieldType.BOOLEAN).setAllowedValues(null));
+        entityDef.addField(new NumericFieldDef("bonuses", FieldType.DOUBLE).setArray(true));
+        entityDef.addField(new NumericFieldDef("balanceAge", FieldType.DOUBLE).setArray(true));
         entityDef.addField(new TemporalFieldDef("lastUpdated", FieldType.DATE).setPattern("yyyy-MM-dd"));
-        
-        
+
+
         System.out.println("Original Record-----------------------------------");
         System.out.println(record);
         System.out.println("Mapping Result-----------------------------------");
