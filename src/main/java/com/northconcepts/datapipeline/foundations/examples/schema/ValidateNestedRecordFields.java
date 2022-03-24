@@ -38,19 +38,27 @@ public class ValidateNestedRecordFields {
                 .addField(new TextFieldDef("name", FieldType.STRING).setRequired(true).setAllowBlank(false).setMaximumLength(100))
                 .addField(new NumericFieldDef("age", FieldType.INT).setRequired(true).setMinimum(0).setMaximum(150))
                 .addField(new RecordFieldDef("account", "account").setArray(true).setRequired(true))
-                .addField(new RecordFieldDef("address", "address").setRequired(true)));
+                .addField(new RecordFieldDef("address", "address").setRequired(true).setArray(false).setStrictArrays(false)));
 
 
         Record record = new Record();
         record.addField("name", "");
         record.addField("age", 76);
-        record.addField("address", new Record()
+        record.addField("address", new Record[]{new Record()
                 .setField("street", "One Microsoft Way")
                 .setField("city", "Redmond")
                 .setField("state_or_province", "Washington")
                 .setField("postal_code", "98052-6399")
-                .setField("country", "USA")
+                .setField("country", "USA")}
                 );
+        //        record.addField("address", new Record()
+        //                .setField("street", "One Microsoft Way")
+        //                .setField("city", "Redmond")
+        //                .setField("state_or_province", "Washington")
+        //                .setField("postal_code", "98052-6399")
+        //                .setField("country", "USA"),
+        //                true
+        //                );
         record.addField("account", new Record()
                 .setField("name", "Retirement")
                 .setField("number", "123")
@@ -60,7 +68,7 @@ public class ValidateNestedRecordFields {
         record.addField("account", new Record()
                 .setField("name", "Cash")
                 .setField("number", null)
-                .setField("balance", new BigDecimal("881.85")),
+                .setField("balance", new BigDecimal("881000000.85")),
                 true
                 );
 
