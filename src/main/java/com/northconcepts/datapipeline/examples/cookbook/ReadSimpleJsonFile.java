@@ -16,7 +16,7 @@ import com.northconcepts.datapipeline.json.SimpleJsonReader;
 public class ReadSimpleJsonFile {
 
     public static void main(String[] args) {
-        DataReader reader = new SimpleJsonReader(new File("example/data/output/simple-json-to-file.json"));
+        DataReader reader = new SimpleJsonReader(new File("example/data/input/simple-json-input.json"));
         
         Job.run(reader, new StreamWriter(System.out));
     }
