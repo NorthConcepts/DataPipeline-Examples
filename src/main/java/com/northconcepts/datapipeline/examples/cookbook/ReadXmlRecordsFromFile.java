@@ -17,7 +17,7 @@ import com.northconcepts.datapipeline.xml.XmlRecordReader;
 public class ReadXmlRecordsFromFile {
 
     public static void main(String[] args) {
-        DataReader reader = new XmlRecordReader(new File("example/data/output/simple-xml-to-file.xml"))
+        DataReader reader = new XmlRecordReader(new File("example/data/input/simple-xml-input.xml"))
                 .addRecordBreak("/records/record");
         
         DataWriter writer = StreamWriter.newSystemOutWriter();
