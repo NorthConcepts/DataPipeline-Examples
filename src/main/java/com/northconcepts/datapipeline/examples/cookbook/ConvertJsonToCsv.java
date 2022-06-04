@@ -7,6 +7,7 @@
 package com.northconcepts.datapipeline.examples.cookbook;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -16,6 +17,7 @@ import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.json.JsonReader;
+import com.northconcepts.datapipeline.json.SimpleJsonReader;
 
 public class ConvertJsonToCsv {
 
@@ -82,25 +84,18 @@ public class ConvertJsonToCsv {
 */
     
     public static void main(String[] args) throws Throwable {
-    	String url = "http://www.google.com/finance/info?client=ig&q=msft,orcl,adbe";
 
-    	BufferedReader input = new BufferedReader(new InputStreamReader(new URL(url).openStream(), "UTF-8"));
-    	
-        OutputStreamWriter output = new OutputStreamWriter(System.out);
-
-        // remove preceding slashes from stream
-    	input.readLine();
-    	input.read();
-    	input.read();
-    	
-
-    	DataReader reader = new JsonReader(input)
+    	DataReader reader = new JsonReader(new File("example/data/input/finance.json"))
     	    .addField("symbol", "//array/object/t")
     	    .addField("exchange", "//array/object/e")
     	    .addField("price", "//array/object/l")
     	    .addField("change", "//array/object/c")
     	    .addRecordBreak("//array/object");
-        DataWriter writer = new CSVWriter(output);
+
+		OutputStreamWriter output = new OutputStreamWriter(System.out);
+
+		DataWriter writer = new CSVWriter(output);
+
         Job.run(reader, writer);
     }
 
