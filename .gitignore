@@ -20,3 +20,4 @@ temp/
 WriteAParquetFile.parquet
 .WriteAParquetFile.parquet.crc
 src/main/resources/NorthConcepts-DataPipeline.license.old
+src/main/resources/NorthConcepts-DataPipeline.license
