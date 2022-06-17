@@ -15,13 +15,17 @@ import com.northconcepts.datapipeline.job.Job;
 
 public class ReadFromGmail {
     
-    /*
-     * Gmail -> Settings -> Accounts and Import -> Other Google Account settings ->
-     * Sign-in & security -> Allow less secure apps: ON
-     * 
+   /*
+     * Google Account->Security->2-Step Verification->Follow the steps
+     *
+     * Google Account->Security->App Passwords->Enter your password->Select app->
+     * Choose Other(Custom name)->Enter NorthConcepts-DataPipeline->Click Generate->
+     * Copy generated password
+     *
      * Gmail -> Settings -> Forwarding and POP/IMAP -> Enable POP or Enable IMAP
      * 
      */
+
     public static void main(String... args) {
         DataReader reader = new EmailReader(MailStore.IMAP_OVER_SSL, "imap.gmail.com", "username", "password");
         DataWriter writer = new StreamWriter(System.out);
