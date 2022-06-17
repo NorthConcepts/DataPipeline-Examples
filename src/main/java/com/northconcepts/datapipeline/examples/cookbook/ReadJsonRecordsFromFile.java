@@ -17,7 +17,7 @@ import com.northconcepts.datapipeline.json.JsonRecordReader;
 public class ReadJsonRecordsFromFile {
 
     public static void main(String[] args) {
-        DataReader reader = new JsonRecordReader(new File("example/data/output/simple-json-to-file.json"))
+        DataReader reader = new JsonRecordReader(new File("example/data/input/simple-json-to-file-with-bigdecimal.json"))
                 .addRecordBreak("/array/object");
         
         DataWriter writer = StreamWriter.newSystemOutWriter();
