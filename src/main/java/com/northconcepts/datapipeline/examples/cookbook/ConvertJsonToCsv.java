@@ -92,9 +92,8 @@ public class ConvertJsonToCsv {
     	    .addField("change", "//array/object/c")
     	    .addRecordBreak("//array/object");
 
-		OutputStreamWriter output = new OutputStreamWriter(System.out);
 
-		DataWriter writer = new CSVWriter(output);
+		DataWriter writer = new CSVWriter(new OutputStreamWriter(System.out));
 
         Job.run(reader, writer);
     }
