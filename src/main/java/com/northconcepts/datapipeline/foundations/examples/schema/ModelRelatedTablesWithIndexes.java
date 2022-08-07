@@ -3,6 +3,7 @@ package com.northconcepts.datapipeline.foundations.examples.schema;
 import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.foundations.schema.EntityDef;
 import com.northconcepts.datapipeline.foundations.schema.EntityRelationshipDef;
+import com.northconcepts.datapipeline.foundations.schema.ForeignKeyAction;
 import com.northconcepts.datapipeline.foundations.schema.IndexDef;
 import com.northconcepts.datapipeline.foundations.schema.NumericFieldDef;
 import com.northconcepts.datapipeline.foundations.schema.RelationshipCardinality;
@@ -32,11 +33,13 @@ public class ModelRelatedTablesWithIndexes {
                 .addIndex(new IndexDef("idx_year_national_debt", "year", "national_debt"))
                 .addIndex(new IndexDef("idx_year_inflation", "year", "inflation")));
 
-        schema.addEntityRelationship(new EntityRelationshipDef("country_country_population")
+        schema.addEntityRelationship(new EntityRelationshipDef("fk_country_country_population")
                 .setPrimaryEntityName("country")
                 .setForeignEntityName("country_population")
                 .setCardinality(RelationshipCardinality.ONE_TO_MANY)
-                .setForeignKeyFieldNames("country_code"));
+                .setForeignKeyFieldNames("country_code")
+                .setOnUpdateAction(ForeignKeyAction.CASCADE)
+                .setOnDeleteAction(ForeignKeyAction.RESTRICT));
 
         System.out.println("------------------");
         System.out.println(schema.toJson());
