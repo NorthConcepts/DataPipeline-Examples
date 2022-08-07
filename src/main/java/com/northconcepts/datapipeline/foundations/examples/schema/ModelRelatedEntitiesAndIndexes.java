@@ -10,7 +10,7 @@ import com.northconcepts.datapipeline.foundations.schema.RelationshipCardinality
 import com.northconcepts.datapipeline.foundations.schema.SchemaDef;
 import com.northconcepts.datapipeline.foundations.schema.TextFieldDef;
 
-public class ModelRelatedTablesWithIndexes {
+public class ModelRelatedEntitiesAndIndexes {
 
     public static void main(String[] args) {
         SchemaDef schema = new SchemaDef("world_stats");
@@ -19,7 +19,7 @@ public class ModelRelatedTablesWithIndexes {
                 .addField(new TextFieldDef("code", FieldType.STRING).setPrimaryKeySequence(0))
                 .addField(new TextFieldDef("english_name", FieldType.STRING))
                 .addField(new TextFieldDef("local_name", FieldType.STRING))
-                .addIndex(new IndexDef("idx_english_name", "local_name")));
+                .addIndex(new IndexDef("idx_english_name", "local_name").setUnique(true)));
 
         schema.addEntity(new EntityDef("country_population")
                 .addField(new TextFieldDef("country_code", FieldType.STRING).setPrimaryKeySequence(0))
