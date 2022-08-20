@@ -21,3 +21,6 @@ WriteAParquetFile.parquet
 .WriteAParquetFile.parquet.crc
 src/main/resources/NorthConcepts-DataPipeline.license.old
 src/main/resources/NorthConcepts-DataPipeline.license
+data/input/fire-event-data.xls
+data/input/hads2013n_ASCII.zip
+data/input/thads2013n.csv
