@@ -16,14 +16,14 @@ public class ModelRelatedEntitiesAndIndexes {
         SchemaDef schema = new SchemaDef("world_stats");
 
         schema.addEntity(new EntityDef("country")
-                .addField(new TextFieldDef("code", FieldType.STRING).setPrimaryKeySequence(0))
+                .addField(new TextFieldDef("code", FieldType.STRING).setPrimaryKeyPosition(0))
                 .addField(new TextFieldDef("english_name", FieldType.STRING))
                 .addField(new TextFieldDef("local_name", FieldType.STRING))
                 .addIndex(new IndexDef("idx_english_name", "local_name").setUnique(true)));
 
         schema.addEntity(new EntityDef("country_population")
-                .addField(new TextFieldDef("country_code", FieldType.STRING).setPrimaryKeySequence(0))
-                .addField(new NumericFieldDef("year", FieldType.INT).setPrimaryKeySequence(1))
+                .addField(new TextFieldDef("country_code", FieldType.STRING).setPrimaryKeyPosition(0))
+                .addField(new NumericFieldDef("year", FieldType.INT).setPrimaryKeyPosition(1))
                 .addField(new NumericFieldDef("population", FieldType.BIG_DECIMAL).setMinimum(0))
                 .addField(new NumericFieldDef("gdp", FieldType.BIG_DECIMAL).setScale(0))
                 .addField(new NumericFieldDef("national_debt", FieldType.BIG_DECIMAL).setScale(0))

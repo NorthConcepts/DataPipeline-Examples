@@ -6,12 +6,16 @@
  */
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
+import java.util.Map.Entry;
+import java.util.concurrent.atomic.LongAdder;
+
 import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.MemoryDataset;
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
+import com.northconcepts.datapipeline.foundations.time.DateTimePattern;
 
 public class ShowColumnStatistics {
 
@@ -26,7 +30,7 @@ public class ShowColumnStatistics {
         pipeline.setInput(pipelineInput);
 
         Dataset dataset = new MemoryDataset(pipeline);
-        
+
         dataset.load().waitForRecordsToLoad();
 
         for(Column column : dataset.getColumns()) {
@@ -37,6 +41,11 @@ public class ShowColumnStatistics {
             System.out.println("Unique Value Count " + column.getUniqueValueCount());
             System.out.println("Is Numeric Column: " + column.getNumeric());
             System.out.println("Is Temporal Column: " + column.getTemporal());
+            if (column.getTemporal()) {
+                for (Entry<DateTimePattern, LongAdder> entry : column.getTemporalPatterns().entrySet()) {
+                    System.out.println("    " + entry.getKey().getPattern() + "  --  " + entry.getValue().longValue());
+                }
+            }
             System.out.println("Is Boolean Column: " + column.getBoolean());
             System.out.println("Minimum Length: " + column.getMinimumLength());
             System.out.println("Maximum Length: " + column.getMaximumLength());
