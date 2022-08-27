@@ -31,21 +31,27 @@ public class ShowColumnStatistics {
 
         Dataset dataset = new MemoryDataset(pipeline);
 
-        dataset.load().waitForRecordsToLoad();
+        dataset.load().waitForColumnStatsToLoad();
 
         for(Column column : dataset.getColumns()) {
-            System.out.println("Name:" + column.getName());
+            System.out.println("Name: " + column.getName());
             System.out.println("Value Count: " + column.getValueCount());
             System.out.println("Null Count: " + column.getNullCount());
             System.out.println("Blank Count: " + column.getBlankCount());
-            System.out.println("Unique Value Count " + column.getUniqueValueCount());
+            System.out.println("Unique Value Count: " + column.getUniqueValueCount());
+
             System.out.println("Is Numeric Column: " + column.getNumeric());
+            if (column.getNumeric()) {
+                System.out.println("    " + column.getNumberDescriptor() + " -- " + column.getNumberDescriptor().getFieldType());
+            }
+
             System.out.println("Is Temporal Column: " + column.getTemporal());
             if (column.getTemporal()) {
                 for (Entry<DateTimePattern, LongAdder> entry : column.getTemporalPatterns().entrySet()) {
                     System.out.println("    " + entry.getKey().getPattern() + "  --  " + entry.getValue().longValue());
                 }
             }
+
             System.out.println("Is Boolean Column: " + column.getBoolean());
             System.out.println("Minimum Length: " + column.getMinimumLength());
             System.out.println("Maximum Length: " + column.getMaximumLength());
