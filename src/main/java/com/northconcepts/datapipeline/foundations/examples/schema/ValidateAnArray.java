@@ -19,10 +19,10 @@ public class ValidateAnArray {
                 .setRequired(true)
                 .setMinimum(25)
                 .setMaximum(75)
-                .setArray(true)
+                //                .setArray(true)
                 ;
 
-        System.out.println(fieldDef.validateValue(new int[]{25, 90, 40}));
+        System.out.println(fieldDef.validateValue(new int[]{25, 30, 40}));
         System.out.println("------------------------------------");
         System.out.println(fieldDef.validateValue(25));
         System.out.println("------------------------------------");
