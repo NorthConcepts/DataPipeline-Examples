@@ -9,6 +9,7 @@ package com.northconcepts.datapipeline.foundations.examples.pipeline;
 import java.util.Map.Entry;
 import java.util.concurrent.atomic.LongAdder;
 
+import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
@@ -30,8 +31,10 @@ public class ShowColumnStatistics {
         pipeline.setInput(pipelineInput);
 
         Dataset dataset = new MemoryDataset(pipeline);
-
         dataset.load().waitForColumnStatsToLoad();
+
+        System.out.println("Column Count: " + dataset.getColumnCount());
+        System.out.println("Record Count: " + dataset.getRecordCount());
 
         for(Column column : dataset.getColumns()) {
             System.out.println("Name: " + column.getName());
@@ -56,6 +59,11 @@ public class ShowColumnStatistics {
             System.out.println("Minimum Length: " + column.getMinimumLength());
             System.out.println("Maximum Length: " + column.getMaximumLength());
             System.out.println("Sample Value: " + column.getSampleValue());
+            System.out.println("Inferred Field Type: " + column.getInferredFieldType());
+            System.out.println("Field Type: " + column.getFieldType());
+            for (Entry<FieldType, LongAdder> entry : column.getFieldTypes().entrySet()) {
+                System.out.println("    " + entry.getKey() + "  --  " + entry.getValue().longValue());
+            }
             System.out.println("===============================");
 
         }
