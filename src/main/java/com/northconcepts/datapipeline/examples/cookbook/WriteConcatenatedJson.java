@@ -1,15 +1,16 @@
 package com.northconcepts.datapipeline.examples.cookbook;
 
 import com.northconcepts.datapipeline.core.DataWriter;
-import com.northconcepts.datapipeline.core.RecordList;
 import com.northconcepts.datapipeline.core.Record;
+import com.northconcepts.datapipeline.core.RecordList;
 import com.northconcepts.datapipeline.job.Job;
-import com.northconcepts.datapipeline.memory.MemoryReader;
 import com.northconcepts.datapipeline.json.JsonLinesWriter;
+import com.northconcepts.datapipeline.memory.MemoryReader;
+
 
 import java.io.File;
 
-public class WriteJsonLinesFromRecord {
+public class WriteConcatenatedJson {
     public static void main(String[] args) {
         Record record1 = new Record();
         record1.setField("stageName", "John Wayne");
@@ -26,8 +27,8 @@ public class WriteJsonLinesFromRecord {
         record2.setField("balance", -0.96);
 
         MemoryReader reader = new MemoryReader(new RecordList(record1, record2));
-        DataWriter writer = new JsonLinesWriter(new File("data/output/json-lines-from-record.jsonl"))
-                .setPretty(true);
+        
+        DataWriter writer = new JsonLinesWriter(new File("data/output/concatenated-json.jsonl")).setNewLine("");
 
         Job.run(reader, writer);
     }
