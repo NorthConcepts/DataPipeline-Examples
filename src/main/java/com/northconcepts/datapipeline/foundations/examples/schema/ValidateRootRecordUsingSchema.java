@@ -31,6 +31,8 @@ public class ValidateRootRecordUsingSchema {
                 .setField("city", "Hogwarts")
                 .setField("country", "Scotland")));
 
+         // "valid" : true
+
         System.out.println("------------------------------------");
 
         System.out.println(entityDef.validateRecord(new Record()
@@ -39,6 +41,14 @@ public class ValidateRootRecordUsingSchema {
                 .setField("city", "Burrow")
                 .setField("country", "England")
                 .setField("zipcode", "00000")));
+
+        /**
+         *  "valid" : false
+         *  "message" : "Record failed validation rule, expected: record satisfies expression: recordContainsNonNullValue(this, 'customer_id')"
+         *  "message" : "Record failed validation rule, expected: record satisfies expression: getValue(this, 'customer_name', 'no name') != 'Lord Voldemort'"
+         *  "message" : "Record failed validation rule, expected: record satisfies expression: recordContainsValue(this, 'address')"
+         *  "message" : "Record failed validation rule, expected: record satisfies expression: !recordContainsField(this, 'zipcode')"
+         */
 
     }
 
