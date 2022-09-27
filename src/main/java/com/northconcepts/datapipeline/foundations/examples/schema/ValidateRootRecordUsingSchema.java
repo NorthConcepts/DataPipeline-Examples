@@ -1,11 +1,19 @@
 package com.northconcepts.datapipeline.foundations.examples.schema;
 
+import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.core.Record;
+import com.northconcepts.datapipeline.core.RecordList;
+import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.filter.FilterExpression;
 import com.northconcepts.datapipeline.foundations.schema.EntityDef;
 import com.northconcepts.datapipeline.foundations.schema.NumericFieldDef;
+import com.northconcepts.datapipeline.foundations.schema.SchemaFilter;
 import com.northconcepts.datapipeline.foundations.schema.TextFieldDef;
+import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.memory.MemoryReader;
+import com.northconcepts.datapipeline.validate.ValidatingReader;
 
 public class ValidateRootRecordUsingSchema {
 
@@ -23,33 +31,27 @@ public class ValidateRootRecordUsingSchema {
                 .addValidation(new FilterExpression("recordContainsValue(this, 'address')"))
                 .addValidation(new FilterExpression("!recordContainsField(this, 'zipcode')"));
 
+        RecordList records = new RecordList()
+                .add(new Record()
+                        .setField("customer_id", 1000L)
+                        .setField("customer_name", "Harry Potter")
+                        .setField("address", "4 Privet Drive")
+                        .setField("city", "Hogwarts")
+                        .setField("country", "Scotland"))
+                .add(new Record()
+                        .setField("customer_id", null)
+                        .setField("customer_name", "Lord Voldemort")
+                        .setField("city", "Burrow")
+                        .setField("country", "England")
+                        .setField("zipcode", "00000"));
 
-        System.out.println(entityDef.validateRecord(new Record()
-                .setField("customer_id", 1000L)
-                .setField("customer_name", "Harry Potter")
-                .setField("address", "4 Privet Drive")
-                .setField("city", "Hogwarts")
-                .setField("country", "Scotland")));
 
-         // "valid" : true
+        DataReader reader = new MemoryReader(records);
+        reader = new ValidatingReader(reader).add(new SchemaFilter(entityDef));
 
-        System.out.println("------------------------------------");
+        DataWriter writer = StreamWriter.newSystemOutWriter();
 
-        System.out.println(entityDef.validateRecord(new Record()
-                .setField("customer_id", null)
-                .setField("customer_name", "Lord Voldemort" )
-                .setField("city", "Burrow")
-                .setField("country", "England")
-                .setField("zipcode", "00000")));
-
-        /**
-         *  "valid" : false
-         *  "message" : "Record failed validation rule, expected: record satisfies expression: recordContainsNonNullValue(this, 'customer_id')"
-         *  "message" : "Record failed validation rule, expected: record satisfies expression: getValue(this, 'customer_name', 'no name') != 'Lord Voldemort'"
-         *  "message" : "Record failed validation rule, expected: record satisfies expression: recordContainsValue(this, 'address')"
-         *  "message" : "Record failed validation rule, expected: record satisfies expression: !recordContainsField(this, 'zipcode')"
-         */
-
+        Job.run(reader, writer);
     }
 
 }
