@@ -21,7 +21,8 @@ public class ReadAllTabsFromAnExcelFile {
 
         for (String sheetName : document.getSheetNames()) {
             DataReader reader = new ExcelReader(document).setFieldNamesInFirstRow(true).setSheetName(sheetName);
-
+            System.out.println("SheetName:"+sheetName);
+            
             Job.run(reader, new StreamWriter(System.out));
         }
 
