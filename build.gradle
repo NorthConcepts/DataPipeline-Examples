@@ -69,6 +69,8 @@ dependencies {
 
     compile "com.northconcepts:northconcepts-datapipeline-filesystems-amazons3:${version}"
 
+    compile "com.fasterxml.jackson:jackson-bom:2.13.4.20221012";
+
     compile "mysql:mysql-connector-java:8.0.15"
 
     compile 'junit:junit:4.13.2'
