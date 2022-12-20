@@ -23,20 +23,20 @@ public class WriteAParquetFileUsingSchemaFromDatabase {
 
         ParquetDataWriter writer = new ParquetDataWriter(new File("example/data/output/WriteAParquetFileUsingSchemaFromDatabase.parquet"));
         // Set schema using a query
-        // writer.setSchema(jdbcConnectionFactory, "SELECT * FROM user_information");
+        // writer.setSchema(jdbcConnectionFactory, "SELECT * FROM user");
 
         // Set schema using a query with parameters
-        //writer.setSchema(jdbcConnectionFactory, "SELECT * FROM user_information WHERE user_role_id=?", 1);
+        //writer.setSchema(jdbcConnectionFactory, "SELECT * FROM user WHERE user_role_id=?", 1);
 
         // Set schema using a query with parameters & JdbcValueReader (default is OPINIONATED)
-        writer.setSchema(jdbcConnectionFactory, JdbcValueReader.STRICT, "SELECT * FROM user_information WHERE user_role_id=?", 1);
+        writer.setSchema(jdbcConnectionFactory, JdbcValueReader.STRICT, "SELECT * FROM user WHERE user_role_id=?", 1);
 
         System.out.println("===================Generated Parquet Schema========================");
         System.out.println(writer.getSchema());
         System.out.println("===================================================================");
 
         // Reading records from table user_information and writing to parquet file.
-        DataReader reader = new JdbcReader(jdbcConnectionFactory.createConnection(), "select * from user_information").setAutoCloseConnection(true);
+        DataReader reader = new JdbcReader(jdbcConnectionFactory.createConnection(), "select * from user").setAutoCloseConnection(true);
         Job.run(reader, writer);
 
         System.out.println("=======================Reading Parquet File============================================");

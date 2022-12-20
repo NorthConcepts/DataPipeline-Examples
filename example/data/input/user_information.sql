@@ -4,7 +4,7 @@ CREATE TABLE user_role (
   PRIMARY KEY (user_role_id)
  );
   
-CREATE TABLE user_information (
+CREATE TABLE user (
   user_id INT NOT NULL,
   user_name VARCHAR(16) NOT NULL,
   first_name VARCHAR(255) NULL,
@@ -22,8 +22,8 @@ INSERT INTO user_role
 VALUES
 (1, 'Admin'), (2, 'Viewer');
 
-INSERT INTO user_information 
+INSERT INTO user 
 (user_id, user_name, first_name, last_name, email, password, user_role_id) VALUES
-(1, 'john_doe', 'John', 'Doe', 'john.doe@northconcepts.com', '**********', 1),
-(2, 'jane_doe', 'jane', 'Doe', 'jane.doe@northconcepts.com', '**********', 1),
-(3, 'view_user', 'viewer', '', 'view_user@northconcepts.com', '**********', 2);
+(1, 'john_doe', 'John', 'Doe', 'john.doe@example.com', '**********', 1),
+(2, 'jane_doe', 'jane', 'Doe', 'jane.doe@example.com', '**********', 1),
+(3, 'view_user', 'viewer', '', 'view_user@example.com', '**********', 2);
