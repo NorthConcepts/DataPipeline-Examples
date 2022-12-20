@@ -35,7 +35,7 @@ public class WriteAParquetFileUsingSchemaFromDatabase {
         System.out.println(writer.getSchema());
         System.out.println("===================================================================");
 
-        // Reading records from table user_information and writing to parquet file.
+        // Reading records from table user and writing to parquet file.
         DataReader reader = new JdbcReader(jdbcConnectionFactory.createConnection(), "select * from user").setAutoCloseConnection(true);
         Job.run(reader, writer);
 
