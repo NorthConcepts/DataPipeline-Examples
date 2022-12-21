@@ -13,7 +13,7 @@ import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.parquet.ParquetDataReader;
 import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
 
-public class WriteAParquetFileUsingSchemaFromRecord {
+public class WriteAParquetFileUsingSchemaFromData {
 
     public static void main(String[] args) throws SQLException {
         Record record = new Record()
