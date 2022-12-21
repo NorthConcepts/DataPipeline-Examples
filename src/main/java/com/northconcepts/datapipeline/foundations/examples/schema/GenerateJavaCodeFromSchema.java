@@ -21,12 +21,29 @@ public class GenerateJavaCodeFromSchema {
 
         JavaCodeBuilder code = new JavaCodeBuilder();
         CodeWriter codeWriter = code.getSourceWriter();
-        codeWriter.println("public class GenerateJavaCodeFromSchema {");
+        codeWriter.println("public class DataPipelineExample {");
         codeWriter.println();
         codeWriter.indent();
         codeWriter.println("public static void main(String[] args) throws Throwable {");
         codeWriter.indent();
 
+        SchemaDef schema = createSchema();
+
+        schema.generateJavaCode(code);
+
+        // Adding semicolon to avoid compilation errors.
+        codeWriter.println(";");
+
+        codeWriter.outdent();
+        codeWriter.println("}");
+        codeWriter.outdent();
+        codeWriter.println("}");
+
+        System.out.println(code.getSource());
+
+    }
+    
+    public static SchemaDef createSchema(){
         SchemaDef schema = new SchemaDef()
                 .setName("Code Generation")
                 .setDescription("Schema description")
@@ -64,19 +81,9 @@ public class GenerateJavaCodeFromSchema {
                 .setForeignKeyFieldNames("supplier_id")
                 .setOnUpdateAction(ForeignKeyAction.CASCADE)
                 .setOnDeleteAction(ForeignKeyAction.RESTRICT));
-
-        schema.generateJavaCode(code);
-
-        // Adding semicolon to avoid compilation errors.
-        codeWriter.println(";");
-
-        codeWriter.outdent();
-        codeWriter.println("}");
-        codeWriter.outdent();
-        codeWriter.println("}");
-
-        System.out.println(code.getSource());
-
+        
+        return schema;
+        
     }
 
 }
