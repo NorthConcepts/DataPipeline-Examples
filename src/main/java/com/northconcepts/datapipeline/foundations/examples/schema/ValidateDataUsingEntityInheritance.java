@@ -55,13 +55,10 @@ public class ValidateDataUsingEntityInheritance {
         ValidationResult validationResult = schema.getEntity("employee").validateRecord(record);
         System.out.println(validationResult);
 
+        System.out.println("=========================================================================================");
         for (int i = 0; i < validationResult.getErrors().size(); i++) {
             ValidationMessage validationMessage = validationResult.getErrors().get(i);
             System.out.println(i + " - " + validationMessage.getMessage());
         }
-
-        System.out.println("==========================After Mapping Record====================================");
-        System.out.println(record);
-        System.out.println("=========================================================================================");
     }
 }
