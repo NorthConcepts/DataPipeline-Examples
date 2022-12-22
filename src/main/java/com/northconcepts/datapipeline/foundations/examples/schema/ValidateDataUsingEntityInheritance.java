@@ -1,5 +1,6 @@
 package com.northconcepts.datapipeline.foundations.examples.schema;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import com.northconcepts.datapipeline.core.FieldType;
@@ -37,22 +38,22 @@ public class ValidateDataUsingEntityInheritance {
                 .addField(new TemporalFieldDef("modified_on", FieldType.DATETIME)));
 
         Record record = new Record();
-        record.addField("id", "123456");
+        record.addField("id", 123456L);
         record.addField("email", "john_doe@example.com");
-        record.addField("salary", "200000");
+        record.addField("salary", BigDecimal.valueOf(200000L));
         record.addField("department", "IT");
         record.addField("budget", 100_000);
-        record.addField("created_by", null); // This is required field.
+        record.addField("created_by", null); // Required field
         record.addField("created_on", LocalDateTime.of(2022, 8, 19, 15, 18));
-        record.addField("created", "dummy"); // Invalid value, it should be DATETIME.
+        record.addField("created", "dummy"); // wrong value type, it should be DATETIME.
         record.addField("modified_by", "test_user");
 
         System.out.println("==========================Input Record====================================");
         System.out.println(record);
         System.out.println("=========================================================================================");
 
-        ValidationResult validationResult = schema.getEntity("employee").mapAndValidateRecord(record);
-        //System.out.println(validationResult);
+        ValidationResult validationResult = schema.getEntity("employee").validateRecord(record);
+        System.out.println(validationResult);
 
         for (int i = 0; i < validationResult.getErrors().size(); i++) {
             ValidationMessage validationMessage = validationResult.getErrors().get(i);
