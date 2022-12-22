@@ -41,9 +41,8 @@ public class ValidateDataUsingNestedEntities {
                 .setField("supplier_name", "A1")
                 .setField("country", "USA")
                 .setField("city", "New York") // Unexpected field
-                .setField("products_record_field", magazineProduct)
+                .setField("products_record_field", new Record[] { magazineProduct, newsPaperProduct })
                 ;
-        suppierRecord.addField("products_record_field", newsPaperProduct, true);
 
         System.out.println("==========================Input Record====================================");
         System.out.println(suppierRecord);
