@@ -18,24 +18,24 @@ public class ValidateDataUsingEntityInheritance {
     public static void main(String[] args) {
         SchemaDef schema = new SchemaDef("human_resources");
 
+        schema.addEntity(new EntityDef().setName("auditable")
+                .addField(new TextFieldDef("created_by", FieldType.STRING).setRequired(true))
+                .addField(new TemporalFieldDef("created_on", FieldType.DATETIME).setRequired(true))
+                .addField(new TextFieldDef("modified_by", FieldType.STRING))
+                .addField(new TemporalFieldDef("modified_on", FieldType.DATETIME)));
+
+        schema.addEntity(new EntityDef().setName("user")
+                .setSuperEntityName("auditable")
+                .addField(new NumericFieldDef("id", FieldType.INT).setRequired(true))
+                .addField(new TextFieldDef("email", FieldType.STRING))
+                .addField(new TemporalFieldDef("created", FieldType.DATETIME)));
+
         schema.addEntity(new EntityDef().setName("employee")
                 .setSuperEntityName("user")
                 .addField(new NumericFieldDef("id", FieldType.LONG))
                 .addField(new TextFieldDef("email", FieldType.STRING).setMaximumLength(4096).setRequired(true))
                 .addField(new NumericFieldDef("salary", FieldType.BIG_DECIMAL).setMaximum(10_000_000))
                 .addField(new TextFieldDef("department", FieldType.STRING)));
-
-        schema.addEntity(new EntityDef().setName("user")
-                .setSuperEntityName("audit_bean")
-                .addField(new NumericFieldDef("id", FieldType.INT).setRequired(true))
-                .addField(new TextFieldDef("email", FieldType.STRING))
-                .addField(new TemporalFieldDef("created", FieldType.DATETIME)));
-
-        schema.addEntity(new EntityDef().setName("audit_bean")
-                .addField(new TextFieldDef("created_by", FieldType.STRING).setRequired(true))
-                .addField(new TemporalFieldDef("created_on", FieldType.DATETIME).setRequired(true))
-                .addField(new TextFieldDef("modified_by", FieldType.STRING))
-                .addField(new TemporalFieldDef("modified_on", FieldType.DATETIME)));
 
         Record record = new Record();
         record.addField("id", 123456L);
