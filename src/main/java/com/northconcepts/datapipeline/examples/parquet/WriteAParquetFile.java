@@ -31,7 +31,7 @@ public class WriteAParquetFile {
         System.out.println("============================================================");
         System.out.println("Write records to a parquet file");
         System.out.println("============================================================");
-        
+
         DataReader reader = new MemoryReader(createRecordList());
         reader = new DebugReader(reader);
         ParquetDataWriter writer = new ParquetDataWriter(PARQUET_FILE);
@@ -40,13 +40,13 @@ public class WriteAParquetFile {
         System.out.println("============================================================");
         System.out.println("Prepared Schema");
         System.out.println("============================================================");
-        
+
         System.out.println(writer.getSchema());
 
         System.out.println("============================================================");
         System.out.println("Read the parquet file");
         System.out.println("============================================================");
-        
+
         Job.run(new ParquetDataReader(PARQUET_FILE), new StreamWriter(System.out));
 
     }
@@ -73,13 +73,6 @@ public class WriteAParquetFile {
         record1.setField("Array-1", Arrays.asList("J", 234, new BigDecimal("456.789"), "A"));
         record1.setField("Array-2", new String[] { "J", "A", "V", "A" });
         record1.setField("Array-3", new Double[] { 123.123, 345.345, 456.456, 555.678 });
-        record1
-            .setField("RECORD",
-                    new Record()
-                        .setField("RECORD",
-                                new Record()
-                                    .setField("STRING", "A basic numeric constant is considered an integer.")
-                                    .setField("DOUBLE", 1234.12345D)));
 
 
         // Record with null values.
@@ -102,7 +95,6 @@ public class WriteAParquetFile {
         record2.setFieldNull("Array-1", FieldType.UNDEFINED);
         record2.setFieldNull("Array-2", FieldType.STRING);
         record2.setFieldNull("Array-3", FieldType.DOUBLE);
-        record2.setFieldNull("RECORD", FieldType.RECORD);
 
         recordList.add(record1, record2);
         return recordList;
