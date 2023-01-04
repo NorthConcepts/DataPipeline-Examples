@@ -9,6 +9,8 @@ import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.parquet.ParquetDataReader;
 import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
+import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
+import com.northconcepts.datapipeline.transform.TransformingReader;
 
 public class WriteAParquetFileUsingSchemaFromData {
 
@@ -22,7 +24,16 @@ public class WriteAParquetFileUsingSchemaFromData {
         DataReader reader = new CSVReader(new File("example/data/input/bank_account.csv"))
                 .setFieldNamesInFirstRow(true);
 
+        reader = new TransformingReader(reader)
+                .add(new BasicFieldTransformer("Id").stringToInt())
+                .add(new BasicFieldTransformer("Balance").stringToLong())
+                .add(new BasicFieldTransformer("CreditLimit").stringToDouble())
+                .add(new BasicFieldTransformer("AccountCreated").stringToDateTime("dd-mm-yyyy"))
+                .add(new BasicFieldTransformer("Rating").stringToChar())
+                ;
+
         reader = new DebugReader(reader);
+
         ParquetDataWriter writer = new ParquetDataWriter(PARQUET_FILE);
         Job.run(reader, writer);
 
