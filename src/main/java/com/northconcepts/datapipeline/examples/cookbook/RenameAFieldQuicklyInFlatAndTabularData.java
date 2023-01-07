@@ -13,18 +13,10 @@ import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.transform.FastRenameField;
-import com.northconcepts.datapipeline.transform.RenameField;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 
 public class RenameAFieldQuicklyInFlatAndTabularData {
 
-    /**
-     * An performant alternative to {@link RenameField} that assumes
-     * 1) a flat table structure (no nested fields or arrays),
-     * 2) columns are always in the same position from row to row
-     * 3) no missing fields (nulls field values are okay), and
-     * 4) the target name does not already exist (otherwise there will be two fields with the same name).
-     */
     public static void main(String[] args) throws Throwable {
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-01.csv"))
                 .setFieldNamesInFirstRow(true);
