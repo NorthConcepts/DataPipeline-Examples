@@ -46,14 +46,14 @@ public class ShowColumnStatistics {
             System.out.println("Unique Value Count: " + column.getUniqueValueCount());
 
             System.out.println("Is Numeric Column: " + column.getNumeric());
+            System.out.println("    Inferred Numeric Value Count: " + column.getInferredNumericValueCount());
             if (column.getNumeric()) {
-                System.out.println("    Inferred Numeric Value Count: " + column.getInferredNumericValueCount());
                 System.out.println("    " + column.getNumberDescriptor() + " -- " + column.getNumberDescriptor().getFieldType());
             }
 
             System.out.println("Is Temporal Column: " + column.getTemporal());
+            System.out.println("    Inferred Temporal Value Count: " + column.getInferredTemporalValueCount());
             if (column.getTemporal()) {
-                System.out.println("    Inferred Temporal Value Count: " + column.getInferredTemporalValueCount());
                 for (Entry<DateTimePattern, LongAdder> entry : column.getTemporalPatterns().entrySet()) {
                     System.out.println("    " + entry.getKey().getPattern() + "  --  " + entry.getValue().longValue());
                 }
