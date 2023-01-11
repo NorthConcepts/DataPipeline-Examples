@@ -80,6 +80,10 @@ public class ShowColumnStatistics {
             for (Entry<FieldType, LongAdder> entry : column.getFieldTypes().entrySet()) {
                 System.out.println("    " + entry.getKey() + "  --  " + entry.getValue().longValue());
             }
+            System.out.println("Null Values For Field Types:");
+            for (Entry<FieldType, LongAdder> entry : column.getNullValueFieldTypes().entrySet()) {
+                System.out.println("    " + entry.getKey() + "  --  " + entry.getValue().longValue());
+            }
             System.out.println("===============================");
 
         }
