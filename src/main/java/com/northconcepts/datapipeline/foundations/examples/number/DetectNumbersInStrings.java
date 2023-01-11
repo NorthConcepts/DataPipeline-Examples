@@ -5,17 +5,23 @@ import com.northconcepts.datapipeline.foundations.number.NumberDetector;
 import com.northconcepts.datapipeline.foundations.number.NumberMatch;
 
 public class DetectNumbersInStrings {
-    
+
     public static void main(String[] args) {
 
         detectNumber("23");
         detectNumber("-236");
         detectNumber("23.49");
+        detectNumber("1234567890");
+        detectNumber("123456789012345678901234567890");
+        detectNumber("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890.123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890");
         detectNumber("23L");
         detectNumber("23_3");
-      
+        detectNumber(" \t\n");
+        detectNumber("");
+        detectNumber(null);
+
     }
-    
+
     public static void detectNumber(String value){
         NumberDetector detector = new NumberDetector();
 
@@ -29,10 +35,11 @@ public class DetectNumbersInStrings {
             return;
         }
 
-        System.out.println("    Source:        " + numberMatch.getSource());
+        System.out.println("    Source:          " + numberMatch.getSource());
         System.out.println("    WholePart:     " + numberMatch.getWholePart());
         System.out.println("    FractionPart:  " + numberMatch.getFractionPart());
         System.out.println("    Number:        " + numberMatch.getNumber());
+        System.out.println("    Class:            " + numberMatch.getNumber().getClass());
 
         NumberDescriptor numberDescriptor = numberMatch.getNumberDescriptor();
         if (numberDescriptor != null) {
@@ -46,5 +53,5 @@ public class DetectNumbersInStrings {
             System.out.println("        IsSigned:       " + numberDescriptor.isSigned());
         }
     }
-    
+
 }
