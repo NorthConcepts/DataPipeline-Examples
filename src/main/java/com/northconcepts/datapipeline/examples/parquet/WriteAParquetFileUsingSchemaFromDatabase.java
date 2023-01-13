@@ -22,20 +22,23 @@ public class WriteAParquetFileUsingSchemaFromDatabase {
     public static void main(String[] args) throws Throwable {
         Connection connection = openConnection();
 
-        executeSqlFile(connection, "example/data/input/user_information.sql");
+        // Create table in database.
+        JdbcConnectionFactory factory = JdbcConnectionFactory.wrap(connection);
+        JdbcFacade client = new JdbcFacade(factory);
+        client.executeFile(new File("example/data/input/user_information.sql"));
 
         DataReader reader = new JdbcReader(connection, "SELECT * FROM user").setAutoCloseConnection(true);
 
         ParquetDataWriter writer = new ParquetDataWriter(new File(PARQUET_FILE));
 
         // Set Parquet schema using a query
-        writer.setSchema(JdbcConnectionFactory.wrap(connection), "SELECT * FROM user");
+        writer.setSchema(connection, "SELECT * FROM user");
 
         // Set Parquet schema using a query with parameters
-        //writer.setSchema(JdbcConnectionFactory.wrap(connection), "SELECT * FROM user WHERE user_role_id=?", 1);
+        //writer.setSchema(connection, "SELECT * FROM user WHERE user_role_id=?", 1);
 
         // Set Parquet schema using a query with parameters & JdbcValueReader (default is OPINIONATED)
-        // writer.setSchema(JdbcConnectionFactory.wrap(connection), JdbcValueReader.STRICT, "SELECT * FROM user WHERE user_role_id=?", 1);
+        // writer.setSchema(connection, JdbcValueReader.STRICT, "SELECT * FROM user WHERE user_role_id=?", 1);
 
         System.out.println("===================Generated Parquet Schema========================");
         System.out.println(writer.getSchema());
@@ -55,12 +58,6 @@ public class WriteAParquetFileUsingSchemaFromDatabase {
         properties.put("password", "");
         Connection connection = driver.connect("jdbc:h2:mem:jdbcTableSort;MODE=MySQL", properties);
         return connection;
-    }
-
-    private static void executeSqlFile(Connection connection, String pathname) {
-        JdbcConnectionFactory factory = JdbcConnectionFactory.wrap(connection);
-        JdbcFacade client = new JdbcFacade(factory);
-        client.executeFile(new File(pathname));
     }
 
 }
