@@ -7,9 +7,10 @@ import com.northconcepts.datapipeline.foundations.time.DateTimePatternDetector;
 import java.time.temporal.TemporalQueries;
 import java.util.List;
 
-public class DetectDate_TimePatternsInStrings {
+public class DetectDateTimePatternsInStrings {
 
     public static void main(String[] args) {
+        detectDateTimePattern("20");
         detectDateTimePattern("2001");
         detectDateTimePattern("2001-01");
         detectDateTimePattern("2001-01-12");
@@ -24,7 +25,7 @@ public class DetectDate_TimePatternsInStrings {
         List<DateTimePatternMatch> patterns = detector.matchAll(value);
 
         System.out.println("=======================================================================");
-        System.out.println("String: "+value);
+        System.out.println("String: " + value);
 
 
         if (patterns.size() == 0) {
@@ -33,14 +34,15 @@ public class DetectDate_TimePatternsInStrings {
         }
 
         for (DateTimePatternMatch pattern : patterns) {
-            System.out.print("    " + pattern.getPattern() + "  -->  " +
-                    pattern.getValue().query(TemporalQueries.localDate()) + " " +
-                    pattern.getValue().query(TemporalQueries.localTime()) + " " +
-                    pattern.getValue().query(TemporalQueries.zone()) + " "
-            );
+            System.out.println("    Pattern:   " + pattern.getPattern());
+            System.out.println("    LocalDate: " + pattern.getValue().query(TemporalQueries.localDate()));
+            System.out.println("    LocalTime: " + pattern.getValue().query(TemporalQueries.localTime()));
+            System.out.println("    Zone:      " + pattern.getValue().query(TemporalQueries.zone()));
+
+            System.out.print("    FieldType: ");
             try {
                 System.out.println(pattern.getFieldType());
-            } catch (DataException e) {
+            } catch (Throwable e) {
                 System.out.println(e.getMessage());
             }
         }
