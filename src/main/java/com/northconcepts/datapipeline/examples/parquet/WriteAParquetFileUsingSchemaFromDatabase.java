@@ -2,14 +2,10 @@ package com.northconcepts.datapipeline.examples.parquet;
 
 import java.io.File;
 import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.SQLException;
-import java.util.Properties;
 
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.StreamWriter;
-import com.northconcepts.datapipeline.internal.jdbc.JdbcFacade;
-import com.northconcepts.datapipeline.jdbc.JdbcConnectionFactory;
+import com.northconcepts.datapipeline.examples.database.DB;
 import com.northconcepts.datapipeline.jdbc.JdbcReader;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.parquet.ParquetDataReader;
@@ -20,12 +16,11 @@ public class WriteAParquetFileUsingSchemaFromDatabase {
     private static final String PARQUET_FILE = "example/data/output/WriteAParquetFileUsingSchemaFromDatabase.parquet";
 
     public static void main(String[] args) throws Throwable {
-        Connection connection = openConnection();
+        DB db = new DB(); // creates HSQL DB
 
-        // Create table in database.
-        JdbcConnectionFactory factory = JdbcConnectionFactory.wrap(connection);
-        JdbcFacade client = new JdbcFacade(factory);
-        client.executeFile(new File("example/data/input/user_information.sql"));
+        Connection connection = db.getConnection();
+
+        db.executeFile(new File("example/data/input/user_information.sql"));
 
         DataReader reader = new JdbcReader(connection, "SELECT * FROM user").setAutoCloseConnection(true);
 
@@ -49,15 +44,6 @@ public class WriteAParquetFileUsingSchemaFromDatabase {
         System.out.println("=======================Reading Parquet File============================================");
         reader = new ParquetDataReader(new File(PARQUET_FILE));
         Job.run(reader, new StreamWriter(System.out));
-    }
-
-    private static Connection openConnection() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-        Driver driver = (Driver) Class.forName("org.h2.Driver").newInstance();
-        Properties properties = new Properties();
-        properties.put("user", "sa");
-        properties.put("password", "");
-        Connection connection = driver.connect("jdbc:h2:mem:jdbcTableSort;MODE=MySQL", properties);
-        return connection;
     }
 
 }
