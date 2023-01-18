@@ -10,21 +10,26 @@ import com.northconcepts.datapipeline.foundations.datamapping.DataMapping;
 
 public class SerializeDataMappingContainingSpecialCharactersToXML {
 
-    public static void main(String[] args) {
-        DataMapping mapping = new DataMapping()
-                // Description contains special character SOH (start of heading)
-                .setDescription("DataMapping for user table having start of heading character" + ((char) 01))
-                .addFieldMapping("first_name", "source.fname")
-                .addFieldMapping("last_name", "toUpperCase(source.lname)")
-                .addFieldMapping("name", "source.fname + ' ' + target.last_name")
-                .addFieldMapping("name_length", "length(target.name)");
+	public static void main(String[] args) {
+		DataMapping mapping = new DataMapping()
+				// Description contains special character SOH (start of heading)
+				.setDescription("DataMapping for user table having start of heading character" + ((char) 01))
+				.addFieldMapping("first_name", "source.fname")
+				.addFieldMapping("last_name", "toUpperCase(source.lname)")
+				.addFieldMapping("name", "source.fname + ' ' + target.last_name")
+				.addFieldMapping("name_length", "length(target.name)");
 
-        /*
-         * In DP, default XML default version 1.0 is used in XML Serialization.
-         * From JDK 19 onwards, to serialize such special characters, XML version 1.1 is required.
-         * To Enable XML version 1.1 declaration, consider this snippet.
-         */
-        System.out.println(mapping.toXml(true));
-    }
+		/*
+		 * Default XML version 1.0 is used in XML Serialization.
+		 * JDK 19 (and onwards) will throw an exception because of special character.
+		 */
+		//System.out.println(mapping.toXml());
+
+		/*
+		 * From JDK 19 onwards, to serialize such special characters, XML version 1.1 is required.
+		 * To Enable XML version 1.1 declaration, consider this snippet.
+		 */
+		System.out.println(mapping.toXml(true));
+	}
 
 }
