@@ -23,7 +23,13 @@ public class SerializeDataMappingContainingSpecialCharactersToXML {
 		 * Default XML version 1.0 is used in XML Serialization.
 		 * JDK 19 (and onwards) will throw an exception because of special character.
 		 */
-		//System.out.println(mapping.toXml());
+		try {
+			System.out.println(mapping.toXml());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("===============================================================================");
 
 		/*
 		 * From JDK 19 onwards, to serialize such special characters, XML version 1.1 is required.
