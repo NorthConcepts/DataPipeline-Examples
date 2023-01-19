@@ -28,6 +28,7 @@ public class WriteParquetFileWithSpacesInColumns {
                 .setFieldNamesInFirstRow(true);
 
         // Option 1: If there are limited and known fields, then use TranformingReader to rename field name.
+
         //        reader = new TransformingReader(reader)
         //                .add(new RenameField("Account No", "Account_No"))
         //                .add(new RenameField("Last Name", "Last_Name"))
@@ -37,6 +38,7 @@ public class WriteParquetFileWithSpacesInColumns {
         //                ;
 
         // Option 2: Change all field name with regular expression.
+
         reader = new ProxyReader(reader) {
 
             private List<String> targetFieldNames;
@@ -46,7 +48,7 @@ public class WriteParquetFileWithSpacesInColumns {
                 if (targetFieldNames == null) {
                     targetFieldNames = new ArrayList<>(record.getFieldCount());
                     for (Field field: record) {
-                        targetFieldNames.add(field.getName().replaceAll("(\s+)", "_")); // Replace all the whitespace characters with underscore.
+                        targetFieldNames.add(field.getName().replaceAll("(\\s+)", "_")); // Replace all the whitespace characters with underscore.
                     }
                 }
 
