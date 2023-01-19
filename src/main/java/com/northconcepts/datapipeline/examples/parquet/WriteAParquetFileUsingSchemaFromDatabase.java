@@ -1,46 +1,49 @@
 package com.northconcepts.datapipeline.examples.parquet;
 
 import java.io.File;
-import java.sql.SQLException;
+import java.sql.Connection;
 
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.StreamWriter;
-import com.northconcepts.datapipeline.internal.jdbc.JdbcFacade;
-import com.northconcepts.datapipeline.jdbc.JdbcConnectionFactory;
+import com.northconcepts.datapipeline.examples.database.DB;
 import com.northconcepts.datapipeline.jdbc.JdbcReader;
-import com.northconcepts.datapipeline.jdbc.JdbcValueReader;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.parquet.ParquetDataReader;
 import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
 
 public class WriteAParquetFileUsingSchemaFromDatabase {
 
-    public static void main(String[] args) throws SQLException {
-        JdbcConnectionFactory jdbcConnectionFactory = JdbcConnectionFactory.wrap("org.h2.Driver", "jdbc:h2:mem:jdbcTableSort;MODE=MySQL", "sa", "");
+    private static final String PARQUET_FILE = "example/data/output/WriteAParquetFileUsingSchemaFromDatabase.parquet";
 
-        JdbcFacade jdbcFacade = new JdbcFacade(jdbcConnectionFactory);
-        jdbcFacade.executeFile(new File("example/data/input/user_information.sql"));
+    public static void main(String[] args) throws Throwable {
+        DB db = new DB(); // creates HSQL DB
 
-        ParquetDataWriter writer = new ParquetDataWriter(new File("example/data/output/WriteAParquetFileUsingSchemaFromDatabase.parquet"));
-        // Set schema using a query
-        // writer.setSchema(jdbcConnectionFactory, "SELECT * FROM user");
+        Connection connection = db.getConnection();
 
-        // Set schema using a query with parameters
-        //writer.setSchema(jdbcConnectionFactory, "SELECT * FROM user WHERE user_role_id=?", 1);
+        db.executeFile(new File("example/data/input/user_information.sql"));
 
-        // Set schema using a query with parameters & JdbcValueReader (default is OPINIONATED)
-        writer.setSchema(jdbcConnectionFactory, JdbcValueReader.STRICT, "SELECT * FROM user WHERE user_role_id=?", 1);
+        DataReader reader = new JdbcReader(connection, "SELECT * FROM user").setAutoCloseConnection(true);
+
+        ParquetDataWriter writer = new ParquetDataWriter(new File(PARQUET_FILE));
+
+        // Set Parquet schema using a query
+        writer.setSchema(connection, "SELECT * FROM user");
+
+        // Set Parquet schema using a query with parameters
+        //writer.setSchema(connection, "SELECT * FROM user WHERE user_role_id=?", 1);
+
+        // Set Parquet schema using a query with parameters & JdbcValueReader (default is OPINIONATED)
+        // writer.setSchema(connection, JdbcValueReader.STRICT, "SELECT * FROM user WHERE user_role_id=?", 1);
 
         System.out.println("===================Generated Parquet Schema========================");
         System.out.println(writer.getSchema());
         System.out.println("===================================================================");
 
-        // Reading records from table user and writing to parquet file.
-        DataReader reader = new JdbcReader(jdbcConnectionFactory.createConnection(), "select * from user").setAutoCloseConnection(true);
         Job.run(reader, writer);
 
         System.out.println("=======================Reading Parquet File============================================");
-        reader = new ParquetDataReader(new File("example/data/output/WriteAParquetFileUsingSchemaFromDatabase.parquet"));
+        reader = new ParquetDataReader(new File(PARQUET_FILE));
         Job.run(reader, new StreamWriter(System.out));
     }
+
 }
