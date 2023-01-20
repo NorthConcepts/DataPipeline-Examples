@@ -1,21 +1,20 @@
 package com.northconcepts.datapipeline.examples.parquet;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DebugReader;
 import com.northconcepts.datapipeline.core.Field;
-import com.northconcepts.datapipeline.core.ProxyReader;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.parquet.ParquetDataReader;
 import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
+import com.northconcepts.datapipeline.transform.Transformer;
+import com.northconcepts.datapipeline.transform.TransformingReader;
 
-public class WriteParquetFileWithSpacesInColumns {
+public class WriteAParquetFileWithSpacesInColumns {
 
     private static final File PARQUET_FILE = new File("example/data/output/WriteParquetFileWithSpacesInColumns.parquet");
 
@@ -37,28 +36,18 @@ public class WriteParquetFileWithSpacesInColumns {
         //                .add(new RenameField("Account Created", "Account_Created"))
         //                ;
 
-        // Option 2: Change all field name with regular expression.
+        // Option 2: Replace space with underscore for all fields with regular expression.
 
-        reader = new ProxyReader(reader) {
-
-            private List<String> targetFieldNames;
-
-            @Override
-            protected Record interceptRecord(Record record) throws Throwable {
-                if (targetFieldNames == null) {
-                    targetFieldNames = new ArrayList<>(record.getFieldCount());
-                    for (Field field: record) {
-                        targetFieldNames.add(field.getName().replaceAll("(\\s+)", "_")); // Replace all the whitespace characters with underscore.
+        reader = new TransformingReader(reader)
+                .add(new Transformer() {
+                    @Override
+                    public boolean transform(Record record) throws Throwable {
+                        for (Field field : record) {
+                            field.setName(field.getName().replaceAll("(\\s+)", "_")); // Replace whitespace with underscore
+                        }
+                        return true;
                     }
-                }
-
-                for (int i = 0; i < targetFieldNames.size(); i++) {
-                    record.getField(i).setName(targetFieldNames.get(i));
-                }
-
-                return record;
-            }
-        };
+                });
 
         reader = new DebugReader(reader);
 
@@ -78,4 +67,5 @@ public class WriteParquetFileWithSpacesInColumns {
         Job.run(new ParquetDataReader(PARQUET_FILE), new StreamWriter(System.out));
 
     }
+
 }
