@@ -3,7 +3,6 @@ package com.northconcepts.datapipeline.examples.parquet;
 import java.io.File;
 
 import com.northconcepts.datapipeline.core.DataReader;
-import com.northconcepts.datapipeline.core.DebugReader;
 import com.northconcepts.datapipeline.core.Field;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.core.StreamWriter;
@@ -26,30 +25,17 @@ public class WriteAParquetFileWithSpacesInColumns {
         DataReader reader = new CSVReader(new File("example/data/input/bank_account_spaces_in_column_names.csv"))
                 .setFieldNamesInFirstRow(true);
 
-        // Option 1: If there are limited and known fields, then use TranformingReader to rename field name.
-
-        //        reader = new TransformingReader(reader)
-        //                .add(new RenameField("Account No", "Account_No"))
-        //                .add(new RenameField("Last Name", "Last_Name"))
-        //                .add(new RenameField("First Name", "First_Name"))
-        //                .add(new RenameField("Credit Limit", "Credit_Limit"))
-        //                .add(new RenameField("Account Created", "Account_Created"))
-        //                ;
-
-        // Option 2: Replace space with underscore for all fields with regular expression.
-
         reader = new TransformingReader(reader)
                 .add(new Transformer() {
                     @Override
                     public boolean transform(Record record) throws Throwable {
                         for (Field field : record) {
-                            field.setName(field.getName().replaceAll("(\\s+)", "_")); // Replace whitespace with underscore
+                            // Replace whitespace with underscore in field name
+                            field.setName(field.getName().replaceAll("(\\s+)", "_"));
                         }
                         return true;
                     }
                 });
-
-        reader = new DebugReader(reader);
 
         ParquetDataWriter writer = new ParquetDataWriter(PARQUET_FILE);
         Job.run(reader, writer);
