@@ -3,6 +3,7 @@ package com.northconcepts.datapipeline.examples.parquet;
 import java.io.File;
 
 import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.core.DebugReader;
 import com.northconcepts.datapipeline.core.Field;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.core.StreamWriter;
@@ -15,7 +16,7 @@ import com.northconcepts.datapipeline.transform.TransformingReader;
 
 public class WriteAParquetFileWithSpacesInColumns {
 
-    private static final File PARQUET_FILE = new File("example/data/output/WriteParquetFileWithSpacesInColumns.parquet");
+    private static final File PARQUET_FILE = new File("example/data/output/WriteAParquetFileWithSpacesInColumns.parquet");
 
     public static void main(String[] args) {
         System.out.println("============================================================");
@@ -24,6 +25,8 @@ public class WriteAParquetFileWithSpacesInColumns {
 
         DataReader reader = new CSVReader(new File("example/data/input/bank_account_spaces_in_column_names.csv"))
                 .setFieldNamesInFirstRow(true);
+
+        reader = new DebugReader(reader);
 
         reader = new TransformingReader(reader)
                 .add(new Transformer() {
