@@ -11,7 +11,7 @@ import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.parquet.ParquetDataReader;
 import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
 
-public class WriteAParquetFileUsingSchemaFromDatabase {
+public class WriteAParquetFileUsingSchemaFromDatabaseQuery {
 
     private static final String PARQUET_FILE = "example/data/output/WriteAParquetFileUsingSchemaFromDatabase.parquet";
 
