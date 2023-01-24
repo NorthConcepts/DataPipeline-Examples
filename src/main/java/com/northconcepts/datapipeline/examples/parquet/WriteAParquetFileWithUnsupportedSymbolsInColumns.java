@@ -14,7 +14,7 @@ import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
 import com.northconcepts.datapipeline.transform.Transformer;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 
-public class WriteAParquetFileWithSpacesInColumns {
+public class WriteAParquetFileWithUnsupportedSymbolsInColumns {
 
     private static final File PARQUET_FILE = new File("example/data/output/WriteAParquetFileWithSpacesInColumns.parquet");
 
@@ -33,8 +33,8 @@ public class WriteAParquetFileWithSpacesInColumns {
                     @Override
                     public boolean transform(Record record) throws Throwable {
                         for (Field field : record) {
-                            // Replace whitespace with underscore in field name
-                            field.setName(field.getName().replaceAll("(\\s+)", "_"));
+                            // Replace all unsupported symbols using regular expression with underscore in field name
+                            field.setName(field.getName().replaceAll("[\\s=()\\[\\]{},]+", "_"));
                         }
                         return true;
                     }
@@ -54,7 +54,6 @@ public class WriteAParquetFileWithSpacesInColumns {
         System.out.println("============================================================");
 
         Job.run(new ParquetDataReader(PARQUET_FILE), new StreamWriter(System.out));
-
     }
 
 }
