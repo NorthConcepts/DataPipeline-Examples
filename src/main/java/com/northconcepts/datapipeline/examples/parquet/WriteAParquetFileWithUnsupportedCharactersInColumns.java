@@ -14,7 +14,7 @@ import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
 import com.northconcepts.datapipeline.transform.Transformer;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 
-public class WriteAParquetFileWithUnsupportedSymbolsInColumns {
+public class WriteAParquetFileWithUnsupportedCharactersInColumns {
 
     private static final File PARQUET_FILE = new File("example/data/output/WriteAParquetFileWithSpacesInColumns.parquet");
 
