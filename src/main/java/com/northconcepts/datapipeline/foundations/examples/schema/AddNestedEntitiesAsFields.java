@@ -15,7 +15,7 @@ public class AddNestedEntitiesAsFields {
 
         schema.addEntity(new EntityDef("orders")
                 .addField(new NumericFieldDef("order_id", FieldType.LONG).setPrimaryKeyPosition(0).setPrimaryKeyType(PrimaryKeyType.TABLE))
-                .addField(new RecordFieldDef().setName("customers"))
+                .addField(new RecordFieldDef("customer", "customers"))
                 .addField(new TextFieldDef("product_name", FieldType.STRING))
                 .addField(new NumericFieldDef("quantity", FieldType.LONG))
                 );

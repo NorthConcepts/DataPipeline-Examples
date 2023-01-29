@@ -25,7 +25,7 @@ public class AddIndexesToEntities {
                         // index for supplier_name with ascending order.
                         .addIndexField(new IndexFieldDef("supplier_name", true))
                         .setUnique(true))
-                .addIndex(new IndexDef("idx_supplier_name_city", "supplier_name", "city"))
+                .addIndex(new IndexDef("idx_city_supplier_name", "city", "supplier_name"))
                 );
 
         System.out.println("=========================================================");

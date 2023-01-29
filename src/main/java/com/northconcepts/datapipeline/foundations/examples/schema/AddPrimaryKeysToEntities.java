@@ -9,7 +9,7 @@ import com.northconcepts.datapipeline.foundations.schema.TextFieldDef;
 public class AddPrimaryKeysToEntities {
 
     public static void main(String[] args) {
-SchemaDef schema = new SchemaDef("E-Commerce Schema");
+        SchemaDef schema = new SchemaDef("E-Commerce Schema");
         
         schema.addEntity(new EntityDef("suppliers")
                 // Primary Key
