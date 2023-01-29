@@ -2,11 +2,13 @@ package com.northconcepts.datapipeline.foundations.examples.schema;
 
 import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.foundations.schema.EntityDef;
+import com.northconcepts.datapipeline.foundations.schema.IndexDef;
+import com.northconcepts.datapipeline.foundations.schema.IndexFieldDef;
 import com.northconcepts.datapipeline.foundations.schema.NumericFieldDef;
 import com.northconcepts.datapipeline.foundations.schema.SchemaDef;
 import com.northconcepts.datapipeline.foundations.schema.TextFieldDef;
 
-public class AddPrimaryKeysToEntities {
+public class AddIndexesToEntities {
 
     public static void main(String[] args) {
         SchemaDef schema = new SchemaDef("E-Commerce Schema");
@@ -18,14 +20,12 @@ public class AddPrimaryKeysToEntities {
                 .addField(new TextFieldDef("city", FieldType.STRING))
                 .addField(new TextFieldDef("country", FieldType.STRING))
                 .addField(new TextFieldDef("contact_details", FieldType.STRING))
-                );
-
-        schema.addEntity(new EntityDef("products")
-                // Composite key of product_id & supplier_id
-                .addField(new NumericFieldDef("product_id", FieldType.LONG).setPrimaryKeyPosition(0))
-                .addField(new NumericFieldDef("supplier_id", FieldType.LONG).setPrimaryKeyPosition(1))
-                .addField(new TextFieldDef("product_name", FieldType.STRING))
-                .addField(new TextFieldDef("color", FieldType.STRING))
+                // A unique index for supplier_name
+                .addIndex(new IndexDef().setName("idx_supplier_name")
+                        // index for supplier_name with ascending order.
+                        .addIndexField(new IndexFieldDef("supplier_name", true))
+                        .setUnique(true))
+                .addIndex(new IndexDef("idx_city_supplier_name", "city", "supplier_name"))
                 );
 
         System.out.println("=========================================================");
