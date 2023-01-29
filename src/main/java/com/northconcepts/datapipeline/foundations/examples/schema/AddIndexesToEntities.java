@@ -29,11 +29,7 @@ public class AddIndexesToEntities {
                 );
 
         System.out.println("=========================================================");
-        System.out.println(schema.getEntity("suppliers").getIndexes());
-        System.out.println("=========================================================");
-        schema.getEntity("suppliers").getIndexes().forEach(p -> System.out.println(p.toRecord()));
-        System.out.println("=========================================================");
-        schema.getEntity("suppliers").getIndexes().forEach(p -> System.out.println(p.toXml()));
+        System.out.println(schema.toXml());
         System.out.println("=========================================================");
     }
 }
