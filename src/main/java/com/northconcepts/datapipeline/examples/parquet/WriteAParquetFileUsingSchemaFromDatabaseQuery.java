@@ -27,12 +27,15 @@ public class WriteAParquetFileUsingSchemaFromDatabaseQuery {
         ParquetDataWriter writer = new ParquetDataWriter(new File(PARQUET_FILE));
 
         // Set Parquet schema using a query
-        writer.setSchema(connection, "SELECT * FROM user");
+        // The query returns zero records as 1<0 condition is always false.
+        writer.setSchema(connection, "SELECT * FROM user where 1<0");
 
         // Set Parquet schema using a query with parameters
-        //writer.setSchema(connection, "SELECT * FROM user WHERE user_role_id=?", 1);
+        // Optimized query returns only one record for give user_id.
+        //writer.setSchema(connection, "SELECT * FROM user WHERE user_id=?", 1);
 
         // Set Parquet schema using a query with parameters & JdbcValueReader (default is OPINIONATED)
+        // Optimized query retruns only limited records.
         // writer.setSchema(connection, JdbcValueReader.STRICT, "SELECT * FROM user WHERE user_role_id=?", 1);
 
         System.out.println("===================Generated Parquet Schema========================");
