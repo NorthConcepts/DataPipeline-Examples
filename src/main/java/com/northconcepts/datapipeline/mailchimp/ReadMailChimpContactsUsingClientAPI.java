@@ -4,7 +4,7 @@ import com.northconcepts.datapipeline.mailchimp.list.ListMember;
 import com.northconcepts.datapipeline.mailchimp.list.ListMemberStatus;
 import com.northconcepts.datapipeline.mailchimp.list.ListMembers;
 
-public class ReadMailchimpContacts {
+public class ReadMailChimpContactsUsingClientAPI {
     private static final String apiKey = "api-key";
     private static final String listId = "list-id";
 
