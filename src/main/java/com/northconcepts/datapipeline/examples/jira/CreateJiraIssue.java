@@ -26,7 +26,7 @@ public class CreateJiraIssue {
             .setIssueType(10001)
             .setSummary("Create A Jira Issue")
             .setDescription("This is a story to understand how to create jira issue.")
-            .addCustomField("custom_field_01", "CustomValue")
+            //.addCustomField("custom_field_01", "CustomValue") // Set custom fields if any
             ;
 
         System.out.println(jiraIssue);
