@@ -16,7 +16,7 @@ import com.northconcepts.datapipeline.job.Job;
 import java.io.File;
 import java.io.FileInputStream;
 
-public class DeclarativelyExcludeFieldsAndMapDataAutomatically {
+public class AutomaticallyMapDataAndExcludeFieldsDeclaratively {
 
     public static void main(String[] args) throws Throwable {
     
