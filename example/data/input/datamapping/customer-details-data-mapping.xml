@@ -1,0 +1,9 @@
+<data-mapping autoMapping="true">
+  <field-mappings>
+    <field-mapping fieldName="Full_Name" sourceExpression="source.LastName + ' ' + source.FirstName"/>
+  </field-mappings>
+  <excluded-fields>
+    <excluded-field>AccountCreated</excluded-field>
+    <excluded-field>Rating</excluded-field>
+  </excluded-fields>
+</data-mapping>
