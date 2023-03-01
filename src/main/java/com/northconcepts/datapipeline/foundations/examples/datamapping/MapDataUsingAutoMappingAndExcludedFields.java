@@ -20,8 +20,8 @@ public class MapDataUsingAutoMappingAndExcludedFields {
     public static void main(String[] args) {
         DataMapping mapping = new DataMapping()
                 .setAutoMapping(true) // enable auto fields mapping
-                .addExcludedFields("AccountCreated", "Rating") // exclude fields from auto mapping.
-                .addFieldMapping("Full_Name", "source.LastName+ ' ' + source.FirstName"); // custom field mapping. (optional)
+                .addFieldMapping("Full_Name", "source.LastName+ ' ' + source.FirstName")
+                .addExcludedFields("AccountCreated", "Rating");
         
         DataReader reader = new CSVReader(new File("example/data/input/bank_account.csv"))
                 .setAllowMultiLineText(true)
