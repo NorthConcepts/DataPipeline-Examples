@@ -16,6 +16,11 @@ public class StreamArrayValues {
 
         ArrayValue arrayValue = record.getFieldValueAsArray("balance", null);
 
+        if(arrayValue == null) {
+            System.out.println("ArrayValue is null");
+            return;
+        }
+
         System.out.println("================================Using forEach================================");
         arrayValue.forEach(field -> System.out.println(field.getValueAsString()));
 
