@@ -26,16 +26,16 @@ public class StreamRecords {
         recordList.add(record2);
 
         System.out.println("================================Using forEach================================");
-        recordList.forEach(record -> System.out.println(record));
+        recordList.forEach(System.out::println);
 
         System.out.println("\n\n================================Using stream================================");
         recordList.stream()
                 .map(record -> Util.formatXml(record.toXml()))
-                .forEach(recordAsXml -> System.out.println(recordAsXml));
+                .forEach(System.out::println);
 
         System.out.println("\n\n================================Using parallelStream================================");
         recordList.parallelStream()
                 .map(record -> Util.formatXml(record.toXml()))
-                .forEach(recordAsXml -> System.out.println(recordAsXml));
+                .forEach(System.out::println);
     }
 }

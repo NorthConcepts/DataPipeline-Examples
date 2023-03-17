@@ -12,24 +12,23 @@ public class StreamArrayValues {
         record.setField("realName", "Marion Robert Morrison");
         record.setField("gender", "male");
         record.setField("city", "Winterset");
-        record.setField("balance", 156.35);
+        record.setField("balance", new double[]{156.35, 123.45, 789.01, 234.56, 345.67, 456.78, 567.89, 678.90, 789.01, 890.12});
 
-        ArrayValue arrayValue = new ArrayValue();
-        record.forEach(field -> arrayValue.addValue(field));
+        ArrayValue arrayValue = record.getFieldValueAsArray("balance", null);
 
         System.out.println("================================Using forEach================================");
         arrayValue.forEach(field -> System.out.println(field.getValueAsString()));
 
         System.out.println("\n\n================================Using stream================================");
         arrayValue.stream()
-                .filter(field -> !field.isArray())
-                .map(field -> field.getValueAsString().toUpperCase())
-                .forEach(fieldValue -> System.out.println(fieldValue));
+                .map(balance -> Double.valueOf(balance.getValueAsString()))
+                .filter(balance -> balance > 210.2)
+                .forEach(System.out::println);
 
         System.out.println("\n\n================================Using parallelStream================================");
         arrayValue.parallelStream()
-                .filter(field -> !field.isArray())
-                .map(field -> field.getValueAsString().toUpperCase())
-                .forEachOrdered(fieldValue -> System.out.println(fieldValue));
+                .map(balance -> Double.valueOf(balance.getValueAsString()))
+                .filter(balance -> balance > 210.2)
+                .forEach(System.out::println);
     }
 }

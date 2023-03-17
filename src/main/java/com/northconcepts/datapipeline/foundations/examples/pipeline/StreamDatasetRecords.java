@@ -22,11 +22,11 @@ public class StreamDatasetRecords {
         dataset.load().waitForRecordsToLoad();
 
         System.out.println("================================Using forEach================================");
-        dataset.forEach(record -> System.out.println(record));
+        dataset.forEach(System.out::println);
 
         System.out.println("\n\n================================Using stream================================");
         dataset.stream()
                 .map(record -> Util.formatXml(record.toXml()))
-                .forEach(recordAsXml -> System.out.println(recordAsXml));
+                .forEach(System.out::println);
     }
 }

@@ -19,12 +19,12 @@ public class StreamRecordFields {
         System.out.println("\n\n================================Using stream================================");
         record.stream()
                 .map(field -> field.getValueAsString().toUpperCase())
-                .forEach(fieldValue -> System.out.println(fieldValue));
+                .forEach(System.out::println);
 
         System.out.println("\n\n================================Using parallelStream================================");
         record.parallelStream()
                 .map(field -> field.getValueAsString().toUpperCase())
-                .forEachOrdered(fieldValue -> System.out.println(fieldValue));
+                .forEachOrdered(System.out::println);
 
     }
 }

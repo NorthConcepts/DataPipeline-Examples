@@ -17,17 +17,17 @@ public class StreamFieldNames {
         FieldList fieldList = record.getFieldNameList();
 
         System.out.println("================================Using forEach================================");
-        fieldList.forEach(fieldName -> System.out.println(fieldName));
+        fieldList.forEach(System.out::println);
 
         System.out.println("\n\n================================Using stream================================");
         fieldList.stream()
-                .map(fieldName -> fieldName.toUpperCase())
-                .forEach(fieldName -> System.out.println(fieldName));
+                .map(String::toUpperCase)
+                .forEach(System.out::println);
 
         System.out.println("\n\n================================Using parallelStream================================");
         fieldList.parallelStream()
-                .map(fieldName -> fieldName.toUpperCase())
-                .forEach(fieldName -> System.out.println(fieldName));
+                .map(String::toUpperCase)
+                .forEach(System.out::println);
 
     }
 }
