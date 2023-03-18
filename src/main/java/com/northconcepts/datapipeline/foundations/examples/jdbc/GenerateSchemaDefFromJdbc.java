@@ -13,8 +13,8 @@ class GenerateSchemaDefFromJdbc {
         JdbcConnection jdbcConnection = new JdbcConnection()
                 .setDriverClassName("com.mysql.jdbc.Driver")
                 .setUrl("jdbc:mysql://127.0.0.1:3306")
-                .setUsername("root")
-                .setPlainTextPassword("root");
+                .setUsername("username")
+                .setPlainTextPassword("password");
 
         GenerateSchemaFromJdbc generator = new GenerateSchemaFromJdbc(jdbcConnection);
         
