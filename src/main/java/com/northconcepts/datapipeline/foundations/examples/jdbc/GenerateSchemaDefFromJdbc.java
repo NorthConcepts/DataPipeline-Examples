@@ -4,8 +4,7 @@ import com.northconcepts.datapipeline.foundations.jdbc.JdbcConnection;
 import com.northconcepts.datapipeline.foundations.schema.SchemaDef;
 import com.northconcepts.datapipeline.foundations.tools.GenerateSchemaFromJdbc;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 class GenerateSchemaDefFromJdbc {
 
@@ -17,12 +16,8 @@ class GenerateSchemaDefFromJdbc {
                 .setPlainTextPassword("password");
 
         GenerateSchemaFromJdbc generator = new GenerateSchemaFromJdbc(jdbcConnection);
-        
-        List<String> tableNames = new ArrayList<>();
-        tableNames.add("tableName");
-        tableNames.add("tableName");
 
-        SchemaDef schema = generator.generate("databaseName", null, tableNames, "TABLE");
+        SchemaDef schema = generator.generate("databaseName", null, Arrays.asList("tableName1", "tableName2"), "TABLE");
         System.out.println(schema);
     }
 
