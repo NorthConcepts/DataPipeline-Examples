@@ -71,7 +71,8 @@ dependencies {
 
     compile "com.fasterxml.jackson:jackson-bom:2.13.4.20221012";
 
-    compile "mysql:mysql-connector-java:8.0.15"
+    implementation 'mysql:mysql-connector-java:8.0.31'
+
 
     compile 'junit:junit:4.13.2'
     
