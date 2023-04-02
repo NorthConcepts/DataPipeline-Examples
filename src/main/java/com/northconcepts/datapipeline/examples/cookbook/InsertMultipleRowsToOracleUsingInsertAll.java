@@ -1,11 +1,8 @@
 package com.northconcepts.datapipeline.examples.cookbook;
 
-import com.northconcepts.datapipeline.core.DataException;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
-import com.northconcepts.datapipeline.csv.CSVWriter;
-import com.northconcepts.datapipeline.jdbc.JdbcReader;
 import com.northconcepts.datapipeline.jdbc.JdbcWriter;
 import com.northconcepts.datapipeline.jdbc.insert.OracleMultiRowInsertAllStatementInsert;
 import com.northconcepts.datapipeline.job.Job;
@@ -13,12 +10,11 @@ import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 
 import java.io.File;
-import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-public class OracleInsertMultiRowsUsingInsertAll {
+public class InsertMultipleRowsToOracleUsingInsertAll {
 
     private static final String DATABASE_DRIVER = "oracle.jdbc.OracleDriver";
     private static final String DATABASE_URL = "jdbc:oracle:thin:system/oracle@localhost:1521:xe";
@@ -26,17 +22,11 @@ public class OracleInsertMultiRowsUsingInsertAll {
     private static final String DATABASE_PASSWORD = "oracle";
     private static final String DATABASE_TABLE = "CreditBalance";
 
-    public static void main(String[] args) {
-        Connection connection;
+    public static void main(String[] args) throws Throwable {
+        Class.forName(DATABASE_DRIVER);
 
-        try {
-            Class.forName(DATABASE_DRIVER);
-            connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
-
-            createTable(connection);
-        } catch (Throwable e) {
-            throw DataException.wrap(e);
-        }
+        Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+        createTable(connection);
 
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-insert-records.csv"))
                 .setFieldNamesInFirstRow(true);
@@ -48,13 +38,10 @@ public class OracleInsertMultiRowsUsingInsertAll {
 
         Job.run(reader, writer);
 
-        reader = new JdbcReader(connection, "Select * from CreditBalance;");
-        writer = new CSVWriter(new OutputStreamWriter(System.out));
-
-        Job.run(reader, writer);
+        connection.close();
     }
 
-    public static void createTable(Connection connection) throws Throwable{
+    public static void createTable(Connection connection) throws Throwable {
         PreparedStatement preparedStatement;
         String createTableQuery = "CREATE TABLE CreditBalance ("
                 + "Account INTEGER, "
@@ -67,6 +54,8 @@ public class OracleInsertMultiRowsUsingInsertAll {
 
         preparedStatement = connection.prepareStatement(createTableQuery);
         preparedStatement.execute();
+
+        preparedStatement.close();
     }
 
     public static DataReader transform(DataReader reader) {
