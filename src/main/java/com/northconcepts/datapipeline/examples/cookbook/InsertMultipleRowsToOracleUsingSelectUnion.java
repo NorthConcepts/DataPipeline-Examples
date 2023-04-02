@@ -12,6 +12,8 @@ import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.jdbc.JdbcWriter;
 import com.northconcepts.datapipeline.jdbc.insert.OracleMultiRowSelectUnionAllStatementInsert;
 import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
+import com.northconcepts.datapipeline.transform.TransformingReader;
 
 import java.io.File;
 import java.sql.Connection;
@@ -34,6 +36,8 @@ public class InsertMultipleRowsToOracleUsingSelectUnion {
 
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-insert-records.csv"))
                 .setFieldNamesInFirstRow(true);
+        reader = transform(reader);
+
         DataWriter writer = new JdbcWriter(connection, DATABASE_TABLE, new OracleMultiRowSelectUnionAllStatementInsert())
                 .setDebug(true) // log generated SQL
                 .setBatchSize(3); // set batch size
@@ -43,20 +47,31 @@ public class InsertMultipleRowsToOracleUsingSelectUnion {
         connection.close();
     }
 
-    public static void createTable(Connection connection) throws Throwable{
+    public static void createTable(Connection connection) throws Throwable {
         PreparedStatement preparedStatement;
         String createTableQuery = "CREATE TABLE CreditBalance ("
-                + "Account INTEGER, "
-                + "LastName VARCHAR(256), "
-                + "FirstName VARCHAR(256), "
-                + "Balance DOUBLE, "
-                + "CreditLimit DOUBLE, "
-                + "Rating CHAR, "
-                + "PRIMARY KEY (Account));";
+                + "Account NUMBER(10),"
+                + "LastName VARCHAR(256),"
+                + "FirstName VARCHAR(256),"
+                + "Balance NUMBER(19,4),"
+                + "CreditLimit NUMBER(19,4),"
+                + "Rating CHAR,"
+                + "PRIMARY KEY (Account)"
+                + ")";
 
         preparedStatement = connection.prepareStatement(createTableQuery);
         preparedStatement.execute();
 
         preparedStatement.close();
+    }
+
+    public static DataReader transform(DataReader reader) {
+        return new TransformingReader(reader).add(
+                new BasicFieldTransformer("Account").stringToInt(),
+                new BasicFieldTransformer("FirstName"),
+                new BasicFieldTransformer("LastName"),
+                new BasicFieldTransformer("Balance").stringToFloat(),
+                new BasicFieldTransformer("CreditLimit").stringToFloat(),
+                new BasicFieldTransformer("Rating").stringToChar());
     }
 }
