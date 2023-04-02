@@ -36,6 +36,12 @@ public class CustomJdbcInsertStrategy implements IInsert {
     }
 
     @Override
+    public IInsert clone() {
+        return new CustomJdbcInsertStrategy()
+                .setDebug(debug);
+    }
+
+    @Override
     public void executeBatch() throws Throwable {
         throw new DataException("Batch is not supported");
     }
