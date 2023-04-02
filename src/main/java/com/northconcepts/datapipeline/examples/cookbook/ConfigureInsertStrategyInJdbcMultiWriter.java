@@ -32,9 +32,8 @@ public class ConfigureInsertStrategyInJdbcMultiWriter {
 
         createTable(dataSource);
 
-        ExcelDocument doc = new ExcelDocument();
-        DataReader reader = new ExcelReader(doc.open(new File("example/data/input/call-center-inbound-call-2.xlsx")))
-                .setFieldNamesInFirstRow(true);
+        ExcelDocument doc = new ExcelDocument().open(new File("example/data/input/call-center-inbound-call-2.xlsx"));
+        DataReader reader = new ExcelReader(doc).setFieldNamesInFirstRow(true);
 
         // Configure MySqlPreparedStatementInsert strategy
         DataWriter writer = new JdbcMultiWriter(dataSource, 5, 10, DATABASE_TABLE, new MySqlPreparedStatementInsert().setDebug(true))
@@ -57,5 +56,7 @@ public class ConfigureInsertStrategyInJdbcMultiWriter {
 
         jdbcFacade.execute(dropTableQuery);
         jdbcFacade.execute(createTableQuery);
+
+        jdbcFacade.close();
     }
 }
