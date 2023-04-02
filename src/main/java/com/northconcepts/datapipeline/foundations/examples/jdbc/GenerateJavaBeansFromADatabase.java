@@ -9,8 +9,8 @@ package com.northconcepts.datapipeline.foundations.examples.jdbc;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcConnection;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcTable;
 import com.northconcepts.datapipeline.foundations.jdbc.JdbcTableColumn;
-import com.northconcepts.datapipeline.foundations.sourcecode.CodeWriter;
-import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
+import com.northconcepts.datapipeline.sourcecode.CodeWriter;
+import com.northconcepts.datapipeline.sourcecode.JavaCodeBuilder;
 
 
 public class GenerateJavaBeansFromADatabase {
