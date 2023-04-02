@@ -36,7 +36,7 @@ public class CustomJdbcInsertStrategy implements IInsert {
     }
 
     @Override
-    public IInsert clone() {
+    public CustomJdbcInsertStrategy clone() {
         return new CustomJdbcInsertStrategy()
                 .setDebug(debug);
     }
