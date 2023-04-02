@@ -6,42 +6,31 @@
  */
 package com.northconcepts.datapipeline.examples.cookbook;
 
-import com.northconcepts.datapipeline.core.DataException;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
-import com.northconcepts.datapipeline.csv.CSVWriter;
-import com.northconcepts.datapipeline.jdbc.JdbcReader;
 import com.northconcepts.datapipeline.jdbc.JdbcWriter;
 import com.northconcepts.datapipeline.jdbc.insert.OracleMultiRowSelectUnionAllStatementInsert;
 import com.northconcepts.datapipeline.job.Job;
 
 import java.io.File;
-import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
-public class OracleInsertMultiRowsUsingSelectUnionAll {
+public class InsertMultipleRowsToOracleUsingSelectUnion {
 
-    private static final String DATABASE_DRIVER = "org.h2.Driver";
-    private static final String DATABASE_URL = "jdbc:h2:mem:jdbcTableSort;MODE=Oracle"; // H2 in Oracle mode
-    private static final String DATABASE_USERNAME = "sa";
-    private static final String DATABASE_PASSWORD = "";
+    private static final String DATABASE_DRIVER = "oracle.jdbc.OracleDriver";
+    private static final String DATABASE_URL = "jdbc:oracle:thin:system/oracle@localhost:1521:xe";
+    private static final String DATABASE_USERNAME = "system";
+    private static final String DATABASE_PASSWORD = "oracle";
     private static final String DATABASE_TABLE = "CreditBalance";
 
+    public static void main(String[] args) throws Throwable {
+        Class.forName(DATABASE_DRIVER);
 
-    public static void main(String[] args) {
-        Connection connection;
-
-        try {
-            Class.forName(DATABASE_DRIVER);
-            connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
-
-            createTable(connection);
-        } catch (Throwable e) {
-            throw DataException.wrap(e);
-        }
+        Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+        createTable(connection);
 
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-insert-records.csv"))
                 .setFieldNamesInFirstRow(true);
@@ -51,10 +40,7 @@ public class OracleInsertMultiRowsUsingSelectUnionAll {
 
         Job.run(reader, writer);
 
-        reader = new JdbcReader(connection, "Select * from CreditBalance;");
-        writer = new CSVWriter(new OutputStreamWriter(System.out));
-
-        Job.run(reader, writer);
+        connection.close();
     }
 
     public static void createTable(Connection connection) throws Throwable{
@@ -70,5 +56,7 @@ public class OracleInsertMultiRowsUsingSelectUnionAll {
 
         preparedStatement = connection.prepareStatement(createTableQuery);
         preparedStatement.execute();
+
+        preparedStatement.close();
     }
 }
