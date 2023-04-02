@@ -21,7 +21,7 @@ import java.sql.PreparedStatement;
 public class OracleInsertMultiRowsUsingInsertAll {
 
     private static final String DATABASE_DRIVER = "oracle.jdbc.OracleDriver";
-    private static final String DATABASE_URL = "jdbc:oracle:thin:system/oracle@localhost:49161:xe";
+    private static final String DATABASE_URL = "jdbc:oracle:thin:system/oracle@localhost:1521:xe";
     private static final String DATABASE_USERNAME = "system";
     private static final String DATABASE_PASSWORD = "oracle";
     private static final String DATABASE_TABLE = "CreditBalance";
