@@ -9,6 +9,8 @@ import com.northconcepts.datapipeline.jdbc.JdbcReader;
 import com.northconcepts.datapipeline.jdbc.JdbcWriter;
 import com.northconcepts.datapipeline.jdbc.insert.OracleMultiRowInsertAllStatementInsert;
 import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
+import com.northconcepts.datapipeline.transform.TransformingReader;
 
 import java.io.File;
 import java.io.OutputStreamWriter;
@@ -18,15 +20,15 @@ import java.sql.PreparedStatement;
 
 public class OracleInsertMultiRowsUsingInsertAll {
 
+    private static final String DATABASE_DRIVER = "oracle.jdbc.OracleDriver";
+    private static final String DATABASE_URL = "jdbc:oracle:thin:system/oracle@localhost:49161:xe";
+    private static final String DATABASE_USERNAME = "system";
+    private static final String DATABASE_PASSWORD = "oracle";
+    private static final String DATABASE_TABLE = "CreditBalance";
+
     public static void main(String[] args) {
-
-        final String DATABASE_DRIVER = "org.hsqldb.jdbcDriver";
-        final String DATABASE_URL = "jdbc:hsqldb:mem:aname";
-        final String DATABASE_USERNAME = "sa";
-        final String DATABASE_PASSWORD = "";
-        final String DATABASE_TABLE = "CreditBalance";
-
         Connection connection;
+
         try {
             Class.forName(DATABASE_DRIVER);
             connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
@@ -38,7 +40,10 @@ public class OracleInsertMultiRowsUsingInsertAll {
 
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-insert-records.csv"))
                 .setFieldNamesInFirstRow(true);
-        DataWriter writer = new JdbcWriter(connection, DATABASE_TABLE, new OracleMultiRowInsertAllStatementInsert().setDebug(true))
+        reader = transform(reader);
+
+        DataWriter writer = new JdbcWriter(connection, DATABASE_TABLE, new OracleMultiRowInsertAllStatementInsert())
+                .setDebug(true) // log generated SQL
                 .setBatchSize(3); // set batch size
 
         Job.run(reader, writer);
@@ -62,5 +67,15 @@ public class OracleInsertMultiRowsUsingInsertAll {
 
         preparedStatement = connection.prepareStatement(createTableQuery);
         preparedStatement.execute();
+    }
+
+    public static DataReader transform(DataReader reader) {
+        return new TransformingReader(reader).add(
+                new BasicFieldTransformer("Account").stringToInt(),
+                new BasicFieldTransformer("FirstName"),
+                new BasicFieldTransformer("LastName"),
+                new BasicFieldTransformer("Balance").stringToFloat(),
+                new BasicFieldTransformer("CreditLimit").stringToFloat(),
+                new BasicFieldTransformer("Rating").stringToChar());
     }
 }
