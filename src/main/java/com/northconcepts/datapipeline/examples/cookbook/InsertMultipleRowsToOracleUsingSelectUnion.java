@@ -18,7 +18,6 @@ import com.northconcepts.datapipeline.transform.TransformingReader;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 public class InsertMultipleRowsToOracleUsingSelectUnion {
@@ -60,7 +59,7 @@ public class InsertMultipleRowsToOracleUsingSelectUnion {
                 + ")";
 
         Statement statement = connection.createStatement();
-        statement.executeUpdate(createTableQuery);;
+        statement.executeUpdate(createTableQuery);
 
         statement.close();
     }
