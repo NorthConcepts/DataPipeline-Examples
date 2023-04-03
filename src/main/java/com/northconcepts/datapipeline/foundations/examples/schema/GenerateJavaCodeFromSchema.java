@@ -12,8 +12,8 @@ import com.northconcepts.datapipeline.foundations.schema.EntityRelationshipDef;
 import com.northconcepts.datapipeline.foundations.schema.RelationshipCardinality;
 import com.northconcepts.datapipeline.foundations.schema.ForeignKeyAction;
 import com.northconcepts.datapipeline.foundations.schema.PrimaryKeyType;
-import com.northconcepts.datapipeline.foundations.sourcecode.CodeWriter;
-import com.northconcepts.datapipeline.foundations.sourcecode.JavaCodeBuilder;
+import com.northconcepts.datapipeline.sourcecode.CodeWriter;
+import com.northconcepts.datapipeline.sourcecode.JavaCodeBuilder;
 
 public class GenerateJavaCodeFromSchema {
 
