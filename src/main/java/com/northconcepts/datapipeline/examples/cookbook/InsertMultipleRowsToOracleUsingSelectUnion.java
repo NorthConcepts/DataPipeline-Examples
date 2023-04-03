@@ -19,6 +19,7 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 public class InsertMultipleRowsToOracleUsingSelectUnion {
 
@@ -48,7 +49,6 @@ public class InsertMultipleRowsToOracleUsingSelectUnion {
     }
 
     public static void createTable(Connection connection) throws Throwable {
-        PreparedStatement preparedStatement;
         String createTableQuery = "CREATE TABLE CreditBalance ("
                 + "Account NUMBER(10),"
                 + "LastName VARCHAR(256),"
@@ -59,10 +59,10 @@ public class InsertMultipleRowsToOracleUsingSelectUnion {
                 + "PRIMARY KEY (Account)"
                 + ")";
 
-        preparedStatement = connection.prepareStatement(createTableQuery);
-        preparedStatement.execute();
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(createTableQuery);;
 
-        preparedStatement.close();
+        statement.close();
     }
 
     public static DataReader transform(DataReader reader) {
