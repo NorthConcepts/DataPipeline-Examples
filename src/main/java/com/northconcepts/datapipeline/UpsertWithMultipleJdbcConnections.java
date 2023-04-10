@@ -13,7 +13,7 @@ import com.northconcepts.datapipeline.job.Job;
 import javax.sql.DataSource;
 import java.io.File;
 
-public class UpsertWithJdbcMultiUpsertWriter {
+public class UpsertWithMultipleJdbcConnections {
 
     private static final String SERVER_NAME = "localhost";
     private static final String DATABASE_NAME = "datapipeline"; // create this database if not exists.
