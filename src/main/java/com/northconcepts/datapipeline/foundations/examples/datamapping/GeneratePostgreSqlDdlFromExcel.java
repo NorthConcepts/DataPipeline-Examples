@@ -15,18 +15,20 @@ public class GeneratePostgreSqlDdlFromExcel {
 
     public static void main(String[] args) {
         ExcelDocument document = new ExcelDocument(ProviderType.POI_XSSF)
-                .open(new File("example/data/input/jewelry.xlsx"));
+                .open(new File("example/data/input/credit-balance-01.xls"));
 
         DataReader reader = new ExcelReader(document).setFieldNamesInFirstRow(true);
 
         GenerateEntityFromDataset generator = new GenerateEntityFromDataset();
-        EntityDef entity = generator.generateEntity(reader);
+        EntityDef entity = generator.generateEntity(reader).setName("creditBalance");
 
-        SchemaDef schema = new SchemaDef("jewellery")
+        SchemaDef schema = new SchemaDef("credit-balance-01")
                 .addEntity(entity);
 
         CreatePostgreSqlDdlFromSchemaDef postgresDdl = new CreatePostgreSqlDdlFromSchemaDef(schema)
                 .setPretty(true);
+
+        System.out.println(postgresDdl);
     }
     
 }
