@@ -18,7 +18,7 @@ public class GeneratePostgreSqlDdlFromCsv {
         GenerateEntityFromDataset generator = new GenerateEntityFromDataset();
         EntityDef entity = generator.generateEntity(reader).setName("creditBalance");
 
-        SchemaDef schema = new SchemaDef("credit-balance-01")
+        SchemaDef schema = new SchemaDef("accountInfo")
                 .addEntity(entity);
 
         CreatePostgreSqlDdlFromSchemaDef postgresDdl = new CreatePostgreSqlDdlFromSchemaDef(schema)
