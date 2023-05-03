@@ -14,15 +14,15 @@ import com.northconcepts.datapipeline.sql.postgresql.CreatePostgreSqlDdlFromSche
 public class GeneratePostgreSqlDdlFromExcel {
 
     public static void main(String[] args) {
-        ExcelDocument document = new ExcelDocument(ProviderType.POI_XSSF)
-                .open(new File("example/data/input/credit-balance-01.xls"));
+        ExcelDocument document = new ExcelDocument()
+                .open(new File("example/data/input/call-center-inbound-call.xlsx"));
 
         DataReader reader = new ExcelReader(document).setFieldNamesInFirstRow(true);
 
         GenerateEntityFromDataset generator = new GenerateEntityFromDataset();
-        EntityDef entity = generator.generateEntity(reader).setName("creditBalance");
+        EntityDef entity = generator.generateEntity(reader).setName("callingInfo");
 
-        SchemaDef schema = new SchemaDef("credit-balance-01")
+        SchemaDef schema = new SchemaDef("callCenter")
                 .addEntity(entity);
 
         CreatePostgreSqlDdlFromSchemaDef postgresDdl = new CreatePostgreSqlDdlFromSchemaDef(schema)
