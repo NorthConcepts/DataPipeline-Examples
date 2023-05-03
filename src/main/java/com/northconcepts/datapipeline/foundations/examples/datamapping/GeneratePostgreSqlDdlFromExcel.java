@@ -4,7 +4,6 @@ import java.io.File;
 
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.excel.ExcelDocument;
-import com.northconcepts.datapipeline.excel.ExcelDocument.ProviderType;
 import com.northconcepts.datapipeline.excel.ExcelReader;
 import com.northconcepts.datapipeline.foundations.schema.EntityDef;
 import com.northconcepts.datapipeline.foundations.schema.SchemaDef;
