@@ -14,7 +14,7 @@ import com.northconcepts.datapipeline.parquet.ParquetDataWriter;
 
 public class GenerateParquetSchemaByAnalyzingInitialRecords {
 
-    private static final long INITIAL_RECORDS_TO_ANALYZE = 500L;
+    private static final Long INITIAL_RECORDS_TO_ANALYZE = 500L;
     
     private static final File PARQUET_FILE = new File("example/data/output/GenerateParquetSchemaFor500Records.parquet");
 
