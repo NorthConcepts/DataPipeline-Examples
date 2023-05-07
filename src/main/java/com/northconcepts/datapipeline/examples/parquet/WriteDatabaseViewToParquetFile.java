@@ -27,8 +27,7 @@ public class WriteDatabaseViewToParquetFile {
                 .setAutoCloseConnection(false);
 
         ParquetDataWriter writer = new ParquetDataWriter(new File(PARQUET_FILE));
-
-        writer.setSchema(connection, "SELECT * FROM users_with_lastname_as_doe");
+        writer.setSchema(connection, null, "PUBLIC", "USER");
 
         System.out.println("===================Generated Parquet Schema========================");
         System.out.println(writer.getSchema());

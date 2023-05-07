@@ -8,6 +8,17 @@ This repo contains [DataPipeline's Java code examples](https://northconcepts.com
 2. Once you receive your license by email, place the attached `NorthConcepts-DataPipeline.license` file from the email into the `src/main/resources` folder.
 3. Start running the examples. 
 
+## Setting up development environment
+Developers on Windows need to
+1. Have the HADOOP_HOME environment variable set
+2. Add %HADOOP_HOME%\bin to PATH in my environment variable
+
+See the following info:
+- https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
+- https://github.com/steveloughran/winutils
+- https://github.com/steveloughran/winutils/tree/master/hadoop-3.0.0
+- https://stackoverflow.com/questions/41851066/exception-in-thread-main-java-lang-unsatisfiedlinkerror-org-apache-hadoop-io
+
 ## Running Examples
 This repo relies on the Gradle tool for build automation.  It also contains project files for the Eclipse IDE.
 
