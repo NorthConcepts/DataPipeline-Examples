@@ -23,7 +23,7 @@ public class WriteDatabaseViewToParquetFile {
         db.executeFile(new File("example/data/input/user_information.sql"));
         db.executeFile(new File("example/data/input/user_information_view.sql"));
         
-        DataReader reader = new JdbcReader(connection, "SELECT * FROM users_with_lastname_as_doe")
+        DataReader reader = new JdbcReader(connection, "SELECT * FROM USERS_WITH_LASTNAME_AS_DOE")
                 .setAutoCloseConnection(false);
 
         ParquetDataWriter writer = new ParquetDataWriter(new File(PARQUET_FILE));
