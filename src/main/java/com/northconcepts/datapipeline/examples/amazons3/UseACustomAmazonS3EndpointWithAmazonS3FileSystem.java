@@ -9,7 +9,7 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.northconcepts.datapipeline.amazons3.AmazonS3FileSystem;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
-import com.northconcepts.datapipeline.core.NullWriter;
+import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.job.Job;
 
@@ -34,7 +34,7 @@ public class UseACustomAmazonS3EndpointWithAmazonS3FileSystem {
 			InputStream inputStream = s3.readFile("datapipeline-test-01", "output/trades.csv");
 
 			DataReader reader = new CSVReader(new InputStreamReader(inputStream));
-			DataWriter writer = new NullWriter();
+			DataWriter writer = StreamWriter.newSystemOutWriter();
 
 			Job.run(reader, writer);
 
