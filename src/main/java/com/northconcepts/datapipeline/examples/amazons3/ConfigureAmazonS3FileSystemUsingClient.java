@@ -7,7 +7,6 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.northconcepts.datapipeline.amazons3.AmazonS3FileSystem;
 import com.northconcepts.datapipeline.core.DataReader;
@@ -31,7 +30,7 @@ public class ConfigureAmazonS3FileSystemUsingClient {
             .build();
         
         AmazonS3FileSystem s3 = new AmazonS3FileSystem();
-        s3.setClient((AmazonS3Client) s3Client);
+        s3.setClient(s3Client);
         s3.open();
 
         try {
