@@ -13,6 +13,6 @@ public class ParseAnExpression {
         expressionContext.setValue("a", 2);
         expressionContext.setValue("b", 2);
         
-        System.out.println("(a + b) * 2 = " + expression.evaluate(expressionContext));
+        System.out.println(expression.getSourceString() + " = " + expression.evaluate(expressionContext));
     }
 }
