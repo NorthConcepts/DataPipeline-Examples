@@ -11,8 +11,7 @@ public class GenerateSqlQueriesProgrammatically {
                 .where("id = ? AND role = ?", 12, "admin")
                 .orderBy("firstName");
         
-        String query = select.getSqlFragment();
-        System.out.println("Select query: " + query);
+        System.out.println("Select query: " + select.getSqlFragment());
         
         System.out.println("Query parameters: ");
         for (Object value : select.getParameterValues()) {
