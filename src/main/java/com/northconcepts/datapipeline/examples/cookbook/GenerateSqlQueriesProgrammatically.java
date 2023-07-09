@@ -1,11 +1,12 @@
 package com.northconcepts.datapipeline.examples.cookbook;
 
+import com.northconcepts.datapipeline.jdbc.sql.SqlPart;
 import com.northconcepts.datapipeline.jdbc.sql.select.Select;
 
 public class GenerateSqlQueriesProgrammatically {
 
     public static void main(String[] args) {
-        Select select = new Select("user")
+        SqlPart select = new Select("user")
                 .select("*")
                 .where("id = ? AND role = ?", 12, "admin")
                 .orderBy("firstName");
