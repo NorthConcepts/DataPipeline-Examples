@@ -10,6 +10,8 @@ import com.northconcepts.datapipeline.foundations.pipeline.dataset.MemoryDataset
 import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class FilterColumnsWithAllNullValues {
 
@@ -28,7 +30,7 @@ public class FilterColumnsWithAllNullValues {
             .setOutput(pipelineOutput);
 
         Dataset dataset = new MemoryDataset(pipeline);
-        dataset.load().waitForRecordsToLoad();
+        dataset.load().waitForRecordsToLoad(100, TimeUnit.SECONDS.toMillis(4));
 
         SelectArrangeFieldsAction action = new SelectArrangeFieldsAction();
 
