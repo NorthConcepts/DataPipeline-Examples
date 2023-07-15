@@ -25,19 +25,19 @@ public class UseAnEventBusInAPipeline {
         // read bus, write purchases to console
         reader = new EventBusReader(bus, PURCHASES_TOPIC);
         writer = new StreamWriter(System.out);
-        new Job(reader, writer).runAsync();
+        Job.runAsync(reader, writer);
 
         // read bus, write purchases to file
         reader = new EventBusReader(bus, PURCHASES_TOPIC);
         writer = new SimpleXmlWriter(new File("example/data/output/purchases.xml"))
                 .setPretty(true);
-        new Job(reader, writer).runAsync();
+        Job.runAsync(reader, writer);
 
         // write purchases to bus
         reader = new CSVReader(new File("example/data/input/purchases.csv"))
                 .setFieldNamesInFirstRow(true);
         writer = new EventBusWriter(bus, PURCHASES_TOPIC);
-        new Job(reader, writer).run();
+        Job.run(reader, writer);
 
         bus.shutdown();
     }
