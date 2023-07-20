@@ -28,14 +28,14 @@ public class TransformRecordsUsingSchema {
         
         Record record1 = new Record();
         record1.addField("name", "John Smith");
-        record1.addField("age", "76");
+        record1.addField("age", "72");
         record1.addField("balance", "31.05");
         record1.addField("active", "true"); // "yes" and non-zero numbers also map to true 
         record1.addField("lastUpdated", "2019-12-19");
 
         Record record2 = new Record();
         record2.addField("name", "Jane Powers");
-        record2.addField("age", "22");
+        record2.addField("age", "26");
         record2.addField("balance", null);
         record2.addField("active", "false"); // "yes" and non-zero numbers also map to true 
         record2.addField("lastUpdated", "2020-10-30");
