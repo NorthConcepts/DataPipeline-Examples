@@ -29,6 +29,7 @@ public class FilterColumnsWithAllNullValues {
 
         Dataset dataset = new MemoryDataset(pipeline);
         dataset.load().waitForRecordsToLoad();
+        dataset.waitForColumnStatsToLoad();
 
         SelectArrangeFieldsAction action = new SelectArrangeFieldsAction();
 
