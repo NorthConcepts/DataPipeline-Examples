@@ -22,12 +22,13 @@ public class ShowUniqueValuesInColumn {
 
         pipeline.setInput(pipelineInput);
 
-        Dataset dataset = new MemoryDataset(pipeline);
+        Dataset dataset = new MemoryDataset(pipeline).setCollectUniqueValues(true);
         dataset.load().waitForRecordsToLoad();
+        dataset.load().waitForColumnStatsToLoad();
 
-        for(Column column : dataset.getColumns()) {
+        for (Column column : dataset.getColumns()) {
             System.out.println("Column Name: " + column.getName());
-            for(Map.Entry<Object, LongAdder> entry : column.getUniqueValuesByCount()) {
+            for (Map.Entry<Object, LongAdder> entry : column.getUniqueValuesByCount()) {
                 System.out.println("  " + entry.getKey() + ": " + entry.getValue());
             }
             System.out.println("===============================");
