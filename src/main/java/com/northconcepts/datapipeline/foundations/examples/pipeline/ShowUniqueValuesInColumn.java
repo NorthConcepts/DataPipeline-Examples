@@ -22,9 +22,9 @@ public class ShowUniqueValuesInColumn {
 
         pipeline.setInput(pipelineInput);
 
-        Dataset dataset = new MemoryDataset(pipeline).setCollectUniqueValues(true); //enables calculating unique values within a dataset
+        Dataset dataset = new MemoryDataset(pipeline).setCollectUniqueValues(true);
         dataset.load().waitForRecordsToLoad();
-        dataset.load().waitForColumnStatsToLoad(); //loads all columns
+        dataset.load().waitForColumnStatsToLoad();
 
         for (Column column : dataset.getColumns()) {
             System.out.println("Column Name: " + column.getName());
