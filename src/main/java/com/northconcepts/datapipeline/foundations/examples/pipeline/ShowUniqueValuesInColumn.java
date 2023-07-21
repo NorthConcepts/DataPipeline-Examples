@@ -1,8 +1,6 @@
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.LongAdder;
 
 import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
@@ -28,9 +26,9 @@ public class ShowUniqueValuesInColumn {
         dataset.load().waitForRecordsToLoad();
         dataset.load().waitForColumnStatsToLoad(); //loads all columns
 
-        for(Column column : dataset.getColumns()) {
+        for (Column column : dataset.getColumns()) {
             System.out.println("Column Name: " + column.getName());
-            for(Map.Entry<Object, LongAdder> entry : column.getUniqueValuesByCount()) {
+            for (Map.Entry<Object, LongAdder> entry : column.getUniqueValuesByCount()) {
                 System.out.println("  " + entry.getKey() + ": " + entry.getValue());
             }
             System.out.println("===============================");
