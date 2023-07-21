@@ -1,6 +1,8 @@
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.LongAdder;
 
 import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
@@ -22,8 +24,9 @@ public class ShowUniqueValuesInColumn {
 
         pipeline.setInput(pipelineInput);
 
-        Dataset dataset = new MemoryDataset(pipeline);
+        Dataset dataset = new MemoryDataset(pipeline).setCollectUniqueValues(true); //enables calculating unique values within a dataset
         dataset.load().waitForRecordsToLoad();
+        dataset.load().waitForColumnStatsToLoad(); //loads all columns
 
         for(Column column : dataset.getColumns()) {
             System.out.println("Column Name: " + column.getName());
