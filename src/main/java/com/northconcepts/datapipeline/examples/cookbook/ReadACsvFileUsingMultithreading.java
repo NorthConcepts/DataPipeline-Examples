@@ -18,7 +18,6 @@ public class ReadACsvFileUsingMultithreading {
         reader = new AsyncReader(reader).setMaxBufferSizeInBytes(1024 * 1024 * 10);
 
         DB db = new DB();
-        Connection connection = db.getConnection();
         db.execute("CREATE TABLE credit_balance (" +
                 " account INT NOT NULL," +
                 " lastname VARCHAR(32)," +
@@ -29,6 +28,7 @@ public class ReadACsvFileUsingMultithreading {
                 " rating VARCHAR(5)," +
                 " PRIMARY KEY (account));");
 
+        Connection connection = db.getConnection();
         DataWriter writer = new JdbcWriter(connection, "credit_balance");
 
         Job.run(reader, writer);
