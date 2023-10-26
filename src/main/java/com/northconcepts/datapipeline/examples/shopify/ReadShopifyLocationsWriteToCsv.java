@@ -8,7 +8,6 @@ import com.northconcepts.datapipeline.foundations.pipeline.input.DataReaderPipel
 import com.northconcepts.datapipeline.foundations.pipeline.output.CsvPipelineOutput;
 import com.northconcepts.datapipeline.shopify.ShopifyLocationReader;
 
-import java.io.File;
 
 public class ReadShopifyLocationsWriteToCsv {
 

@@ -5,11 +5,8 @@ import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.PipelineInput;
 import com.northconcepts.datapipeline.foundations.pipeline.PipelineOutput;
 import com.northconcepts.datapipeline.foundations.pipeline.input.DataReaderPipelineInput;
-import com.northconcepts.datapipeline.foundations.pipeline.output.ExcelPipelineOutput;
 import com.northconcepts.datapipeline.foundations.pipeline.output.JsonRecordPipelineOutput;
 import com.northconcepts.datapipeline.shopify.ShopifyInventoryItemReader;
-import com.northconcepts.datapipeline.shopify.ShopifyInventoryLevelReader;
-import com.northconcepts.datapipeline.shopify.client.ShopifyInventoryLevelCriteria;
 
 public class ReadShopifyInventoryItemsWriteToJson {
 
