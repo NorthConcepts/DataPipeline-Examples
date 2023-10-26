@@ -10,8 +10,8 @@ import com.northconcepts.datapipeline.shopify.client.ShopifyInventoryLevelCriter
 
 public class ReadShopifyInventoryLevelsWriteToExcel {
 
-    private static final String DOMAIN = "https://north-concepts-datapipeline-01.myshopify.com";
-    private static final String TOKEN = "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";
+    private static final String DOMAIN = "https://your-store-domain.com";
+    private static final String TOKEN = "store-token";
     
     public static void main(String[] args) {
         PipelineInput pipelineInput = new DataReaderPipelineInput(() ->
