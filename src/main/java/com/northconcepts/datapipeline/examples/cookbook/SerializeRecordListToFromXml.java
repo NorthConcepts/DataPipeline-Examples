@@ -23,7 +23,10 @@ public class SerializeRecordListToFromXml {
         System.out.println(xml);
 
         Record record = Record.fromXml(xml);
+        Record document = record.getFieldValueAsRecord("document", new Record());
+        RecordList recordList1 = new RecordList();
+        recordList1.fromRecord(document);
         System.out.println("\nDeserialization of record list from XML completed");
-        System.out.println(record);
+        System.out.println(recordList1);
     }
 }
