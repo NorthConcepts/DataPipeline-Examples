@@ -20,7 +20,7 @@ import java.io.OutputStreamWriter;
 public class ReadShopifyInventoryItems {
 
     private static final String DOMAIN = "https://your-store-domain.com";
-    private static final String TOKEN = "store-token";
+    private static final String TOKEN = "access-token";
     
     public static void main(String[] args) throws FileNotFoundException {
         DataReader reader = new ShopifyInventoryItemReader(DOMAIN, TOKEN)
