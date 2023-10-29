@@ -18,10 +18,10 @@ import java.io.File;
 public class ReadShopifyInventoryLevels {
 
     private static final String DOMAIN = "https://your-store-domain.com";
-    private static final String TOKEN = "access-token";
+    private static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     
     public static void main(String[] args) {
-        DataReader reader = new ShopifyInventoryLevelReader(DOMAIN, TOKEN)
+        DataReader reader = new ShopifyInventoryLevelReader(DOMAIN, ACCESS_TOKEN)
             .setInventoryLevelCriteria(new ShopifyInventoryLevelCriteria()
                 .setLocationIds("92972351787")
                 .setInventoryItemIds("49129939829035", "49129939796267", "49129939763499"));

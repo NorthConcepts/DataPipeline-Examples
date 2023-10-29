@@ -13,10 +13,10 @@ import java.io.File;
 public class ReadShopifyLocations {
 
     private static final String DOMAIN = "https://your-store-domain.com";
-    private static final String TOKEN = "access-token";
+    private static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     
     public static void main(String[] args) {
-        DataReader reader = new ShopifyLocationReader(DOMAIN, TOKEN);
+        DataReader reader = new ShopifyLocationReader(DOMAIN, ACCESS_TOKEN);
         DataWriter writer = new CSVWriter(new File("data/output/orders.csv"));
 
         Job.run(reader, writer);
