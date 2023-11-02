@@ -2,7 +2,7 @@ package com.northconcepts.datapipeline.examples.csv;
 
 import com.northconcepts.datapipeline.csv.CommaSeparatedValues;
 
-public class ReadAndWriteCSVAsString {
+public class ReadAndWriteCsvAsString {
 
     private static final String[] CONTINENTS = {"Africa", "Antarctica", "Asia", "Australia", "Europe", "North America", "South America"};
 
