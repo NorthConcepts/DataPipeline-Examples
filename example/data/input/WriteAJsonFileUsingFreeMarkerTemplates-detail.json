@@ -1,0 +1,9 @@
+{
+  "stageName": "${stageName}",
+  "realName": "${realName}",
+  "gender": "${gender}",
+  "city": "${city}"
+  <#if (balance >= 0)>
+  ,"balance": "${balance}"
+  </#if>
+},
