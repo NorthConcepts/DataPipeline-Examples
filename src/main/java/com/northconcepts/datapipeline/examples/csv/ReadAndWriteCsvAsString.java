@@ -13,5 +13,10 @@ public class ReadAndWriteCsvAsString {
 
         commaSeparatedValues.remove(1);
         System.out.println(commaSeparatedValues.toCsvString());
+
+        CommaSeparatedValues csvFromString = CommaSeparatedValues.fromValue(commaSeparatedValues.toCsvString());
+        System.out.println(csvFromString);
+
+        System.out.println(csvFromString.subList(2,5).toCsvString());
     }
 }
