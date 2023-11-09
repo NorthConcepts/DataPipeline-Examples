@@ -67,6 +67,7 @@ dependencies {
     compile "com.northconcepts:northconcepts-datapipeline-integrations-twitter2:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-jira:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-sql-postgresql:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-sql-mysql:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-shopify:${version}"
 
 
