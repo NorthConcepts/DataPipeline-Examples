@@ -7,14 +7,14 @@ public class GenerateMySqlDdlProgrammatically {
     public static void main(String[] args) {
         MySqlPart createUsersTable = new CreateTable("employee")
                 .addColumn(new CreateTableColumn("id", TableColumnType.INT).setAutoIncrement(true).setPrimaryKey(true))
-                .addColumn(new CreateTableColumn("name", TableColumnType.TEXT).setNullable(false))
-                .addColumn(new CreateTableColumn("email", TableColumnType.TEXT).setUnique(true))
+                .addColumn(new CreateTableColumn("name", TableColumnType.VARCHAR).setNullable(false))
+                .addColumn(new CreateTableColumn("email", TableColumnType.VARCHAR).setUnique(true))
                 .addColumn(new CreateTableColumn("departmentId", TableColumnType.INT))
                 .setPretty(true);
 
         SqlPart createAddressTable = new CreateTable("department")
                 .addColumn(new CreateTableColumn("id", TableColumnType.INT).setAutoIncrement(true).setPrimaryKey(true))
-                .addColumn(new CreateTableColumn("name", TableColumnType.TEXT))
+                .addColumn(new CreateTableColumn("name", TableColumnType.VARCHAR))
                 .addColumn(new CreateTableColumn("description", TableColumnType.TEXT))
                 .addColumn(new CreateTableColumn("managerId", TableColumnType.INT))
                 .setPretty(true);
