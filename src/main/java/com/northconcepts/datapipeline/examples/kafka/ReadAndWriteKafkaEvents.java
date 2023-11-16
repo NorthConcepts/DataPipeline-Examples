@@ -32,7 +32,7 @@ public class ReadAndWriteKafkaEvents {
         readerProps.put("group.id", GROUP_ID);
 
         reader = new KafkaReader(readerProps, "jewelry", 500L).setKeepPolling(false);
-        writer = new CSVWriter(new File("data/output/orders.csv"));
+        writer = new CSVWriter(new File("data/output/jewelry-events.csv"));
 
         Job.run(reader, writer);
     }
