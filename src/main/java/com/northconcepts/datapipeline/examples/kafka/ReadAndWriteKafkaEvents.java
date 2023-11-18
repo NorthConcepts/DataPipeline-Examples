@@ -25,13 +25,13 @@ public class ReadAndWriteKafkaEvents {
         writerProps.put("bootstrap.servers", BOOTSTRAP_SERVERS);
         DataWriter writer = new KafkaWriter(writerProps, "jewelry");
 
-        Job.run(reader, writer);
+        Job.runAsync(reader, writer);
 
         Properties readerProps = new Properties();
         readerProps.put("bootstrap.servers", BOOTSTRAP_SERVERS);
         readerProps.put("group.id", GROUP_ID);
 
-        reader = new KafkaReader(readerProps, "jewelry", 500L).setKeepPolling(false);
+        reader = new KafkaReader(readerProps, "jewelry", 5000L).setKeepPolling(false);
         writer = new CSVWriter(new File("data/output/jewelry-events.csv"));
 
         Job.run(reader, writer);
