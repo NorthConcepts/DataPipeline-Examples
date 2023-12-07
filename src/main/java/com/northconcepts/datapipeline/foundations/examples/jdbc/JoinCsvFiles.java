@@ -24,7 +24,7 @@ public class JoinCsvFiles {
         createCreditBalanceTable(connection);
 
         DataWriter writer = new JdbcWriter(connection, "CreditBalance");
-        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-insert-records.csv")).setFieldNamesInFirstRow(true);
+        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-insert-records2.csv")).setFieldNamesInFirstRow(true);
         Job job1 = Job.runAsync(reader, writer);
 
 
@@ -40,7 +40,7 @@ public class JoinCsvFiles {
         job2.waitUntilFinished();
 
         Select select = new Select("CreditBalance")
-            .select("CreditBalance.*", "Account.Id", "Account.DoB", "Account.Country")
+            .select("CreditBalance.*", "Account.*")
             .leftJoin("Account", "CreditBalance.Account=Account.AccountNo");
 
         reader = new JdbcReader(connection, select.getSqlFragment());
@@ -52,8 +52,6 @@ public class JoinCsvFiles {
         String dropTableQuery = "DROP TABLE CreditBalance IF EXISTS;";
         String createTableQuery = "CREATE TABLE CreditBalance ("
             + "Account INTEGER, "
-            + "LastName VARCHAR(256), "
-            + "FirstName VARCHAR(256), "
             + "Balance DOUBLE, "
             + "CreditLimit DOUBLE, "
             + "AccountCreated DATE,"
