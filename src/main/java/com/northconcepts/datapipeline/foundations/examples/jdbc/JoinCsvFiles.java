@@ -4,6 +4,7 @@ import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
+import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.jdbc.JdbcConnectionFactory;
 import com.northconcepts.datapipeline.jdbc.JdbcReader;
 import com.northconcepts.datapipeline.jdbc.JdbcWriter;
@@ -44,7 +45,7 @@ public class JoinCsvFiles {
             .leftJoin("Account", "CreditBalance.Account=Account.AccountNo");
 
         reader = new JdbcReader(connection, select.getSqlFragment());
-        Job.run(reader, StreamWriter.newSystemOutWriter());
+        Job.run(reader, new CSVWriter(new File("example/data/output/joined-csv.csv")));
     }
 
     public static void createCreditBalanceTable(Connection connection) throws Throwable{
