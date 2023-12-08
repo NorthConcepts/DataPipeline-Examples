@@ -4,11 +4,15 @@ import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.csv.CSVWriter;
+import com.northconcepts.datapipeline.foundations.schema.EntityDef;
+import com.northconcepts.datapipeline.foundations.schema.SchemaDef;
+import com.northconcepts.datapipeline.foundations.tools.GenerateEntityFromDataset;
 import com.northconcepts.datapipeline.jdbc.JdbcConnectionFactory;
 import com.northconcepts.datapipeline.jdbc.JdbcReader;
 import com.northconcepts.datapipeline.jdbc.JdbcWriter;
 import com.northconcepts.datapipeline.jdbc.sql.select.Select;
 import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.sql.mysql.CreateMySqlDdlFromSchemaDef;
 import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 
@@ -18,20 +22,19 @@ import java.sql.PreparedStatement;
 
 public class JoinCsvFiles {
 
+    public static final String databaseFilePath = new File("example/data/output/JoinCSVFiles.h2").getAbsolutePath();
+
     public static void main(String[] args) throws Throwable {
 
-        Connection connection = JdbcConnectionFactory.wrap("org.h2.Driver", "jdbc:h2:mem:jdbcTableSort;MODE=MySQL", "sa", "").createConnection();
-        createCreditBalanceTable(connection);
+        JdbcConnectionFactory connectionFactory = JdbcConnectionFactory.wrap("org.h2.Driver", "jdbc:h2:file:" + databaseFilePath + ";MODE=MySQL", "sa", "");
+        Connection connection = connectionFactory.createConnection();
+        createTables(connection);
 
         DataWriter writer = new JdbcWriter(connection, "CreditBalance");
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-insert-records2.csv")).setFieldNamesInFirstRow(true);
         Job job1 = Job.runAsync(reader, writer);
 
-
-        connection = JdbcConnectionFactory.wrap("org.h2.Driver", "jdbc:h2:mem:jdbcTableSort;MODE=MySQL", "sa", "").createConnection();
-        createAccountTable(connection);
-
-        writer = new JdbcWriter(JdbcConnectionFactory.wrap("org.h2.Driver", "jdbc:h2:mem:jdbcTableSort;MODE=MySQL", "sa", ""), "Account");
+        writer = new JdbcWriter(connection, "Account");
         reader = new CSVReader(new File("example/data/input/user_account.csv")).setFieldNamesInFirstRow(true);
         reader = new TransformingReader(reader).add(new BasicFieldTransformer("DoB").stringToDate("yyyy-MM-dd"));
         Job job2 = Job.runAsync(reader, writer);
@@ -41,46 +44,34 @@ public class JoinCsvFiles {
 
         Select select = new Select("CreditBalance")
             .select("CreditBalance.*", "Account.*")
-            .leftJoin("Account", "CreditBalance.Account=Account.AccountNo");
+            .leftJoin("Account", "CreditBalance.Account=Account.AccountNo")
+            ;
 
         reader = new JdbcReader(connection, select.getSqlFragment());
         Job.run(reader, new CSVWriter(new File("example/data/output/joined-csv.csv")));
     }
 
-    public static void createCreditBalanceTable(Connection connection) throws Throwable{
-        PreparedStatement preparedStatement;
-        String dropTableQuery = "DROP TABLE CreditBalance IF EXISTS;";
-        String createTableQuery = "CREATE TABLE CreditBalance ("
-            + "Account INTEGER, "
-            + "Balance DOUBLE, "
-            + "CreditLimit DOUBLE, "
-            + "AccountCreated DATE,"
-            + "Rating CHAR, "
-            + "PRIMARY KEY (Account));";
+    public static void createTables(Connection connection) throws Throwable {
+        GenerateEntityFromDataset generator = new GenerateEntityFromDataset();
+        SchemaDef schemaDef = new SchemaDef();
 
-        preparedStatement = connection.prepareStatement(dropTableQuery);
-        preparedStatement.execute();
+        EntityDef entityDef = generator.generateEntity(
+            new CSVReader(new File("example/data/input/credit-balance-insert-records2.csv")).setFieldNamesInFirstRow(true)
+        ).setName("CreditBalance");
+        schemaDef.addEntity(entityDef);
 
-        preparedStatement = connection.prepareStatement(createTableQuery);
-        preparedStatement.execute();
-    }
+        entityDef = generator.generateEntity(
+            new CSVReader(new File("example/data/input/user_account.csv")).setFieldNamesInFirstRow(true)
+        ).setName("Account");
+        schemaDef.addEntity(entityDef);
 
-    public static void createAccountTable(Connection connection) throws Throwable{
-        PreparedStatement preparedStatement;
-        String dropTableQuery = "DROP TABLE Account IF EXISTS;";
-        String createTableQuery = "CREATE TABLE Account ("
-            + "Id INTEGER, "
-            + "AccountNo INTEGER, "
-            + "LastName VARCHAR(256), "
-            + "FirstName VARCHAR(256), "
-            + "DoB DATE,"
-            + "Country CHAR, "
-            + "PRIMARY KEY (Id));";
+        CreateMySqlDdlFromSchemaDef ddl = new CreateMySqlDdlFromSchemaDef(schemaDef)
+            .setPretty(true)
+            .setDropTable(true)
+            .setCheckIfTableNotExists(false)
+            ;
 
-        preparedStatement = connection.prepareStatement(dropTableQuery);
-        preparedStatement.execute();
-
-        preparedStatement = connection.prepareStatement(createTableQuery);
+        PreparedStatement preparedStatement = connection.prepareStatement(ddl.getSqlFragment());
         preparedStatement.execute();
     }
 }
