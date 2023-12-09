@@ -27,14 +27,13 @@ public class JoinCsvFiles {
     public static void main(String[] args) throws Throwable {
 
         JdbcConnectionFactory connectionFactory = JdbcConnectionFactory.wrap("org.h2.Driver", "jdbc:h2:file:" + databaseFilePath + ";MODE=MySQL", "sa", "");
-        Connection connection = connectionFactory.createConnection();
-        createTables(connection);
+        createTables(connectionFactory);
 
-        DataWriter writer = new JdbcWriter(connection, "CreditBalance");
+        DataWriter writer = new JdbcWriter(connectionFactory, "CreditBalance");
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-insert-records2.csv")).setFieldNamesInFirstRow(true);
         Job job1 = Job.runAsync(reader, writer);
 
-        writer = new JdbcWriter(connection, "Account");
+        writer = new JdbcWriter(connectionFactory, "Account");
         reader = new CSVReader(new File("example/data/input/user_account.csv")).setFieldNamesInFirstRow(true);
         reader = new TransformingReader(reader).add(new BasicFieldTransformer("DoB").stringToDate("yyyy-MM-dd"));
         Job job2 = Job.runAsync(reader, writer);
@@ -47,11 +46,11 @@ public class JoinCsvFiles {
             .leftJoin("Account", "CreditBalance.Account=Account.AccountNo")
             ;
 
-        reader = new JdbcReader(connection, select.getSqlFragment());
+        reader = new JdbcReader(connectionFactory, select.getSqlFragment());
         Job.run(reader, new CSVWriter(new File("example/data/output/joined-csv.csv")));
     }
 
-    public static void createTables(Connection connection) throws Throwable {
+    public static void createTables(JdbcConnectionFactory jdbcConnectionFactory) throws Throwable {
         GenerateEntityFromDataset generator = new GenerateEntityFromDataset();
         SchemaDef schemaDef = new SchemaDef();
 
@@ -71,7 +70,11 @@ public class JoinCsvFiles {
             .setCheckIfTableNotExists(false)
             ;
 
-        PreparedStatement preparedStatement = connection.prepareStatement(ddl.getSqlFragment());
-        preparedStatement.execute();
+        try (Connection connection = jdbcConnectionFactory.createConnection()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(ddl.getSqlFragment())) {
+                preparedStatement.execute();
+            }
+        }
+
     }
 }
