@@ -2,10 +2,12 @@ package com.northconcepts.datapipeline.foundations.examples.jdbc;
 
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
+import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.foundations.schema.EntityDef;
 import com.northconcepts.datapipeline.foundations.schema.SchemaDef;
+import com.northconcepts.datapipeline.foundations.schema.SchemaTransformer;
 import com.northconcepts.datapipeline.foundations.tools.GenerateEntityFromDataset;
 import com.northconcepts.datapipeline.jdbc.JdbcConnectionFactory;
 import com.northconcepts.datapipeline.jdbc.JdbcReader;
@@ -27,7 +29,7 @@ public class JoinCsvFiles {
     public static void main(String[] args) throws Throwable {
 
         JdbcConnectionFactory connectionFactory = JdbcConnectionFactory.wrap("org.h2.Driver", "jdbc:h2:file:" + databaseFilePath + ";MODE=MySQL", "sa", "");
-        createTables(connectionFactory);
+        SchemaDef schemaDef = createTables(connectionFactory);
 
         DataWriter writer = new JdbcWriter(connectionFactory, "CreditBalance");
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-insert-records2.csv")).setFieldNamesInFirstRow(true);
@@ -35,7 +37,7 @@ public class JoinCsvFiles {
 
         writer = new JdbcWriter(connectionFactory, "Account");
         reader = new CSVReader(new File("example/data/input/user_account.csv")).setFieldNamesInFirstRow(true);
-        reader = new TransformingReader(reader).add(new BasicFieldTransformer("DoB").stringToDate("yyyy-MM-dd"));
+        reader = new TransformingReader(reader).add(new SchemaTransformer(schemaDef.getEntity("Account")));
         Job job2 = Job.runAsync(reader, writer);
 
         job1.waitUntilFinished();
@@ -50,7 +52,7 @@ public class JoinCsvFiles {
         Job.run(reader, new CSVWriter(new File("example/data/output/joined-csv.csv")));
     }
 
-    public static void createTables(JdbcConnectionFactory jdbcConnectionFactory) throws Throwable {
+    public static SchemaDef createTables(JdbcConnectionFactory jdbcConnectionFactory) throws Throwable {
         GenerateEntityFromDataset generator = new GenerateEntityFromDataset();
         SchemaDef schemaDef = new SchemaDef();
 
@@ -62,6 +64,7 @@ public class JoinCsvFiles {
         entityDef = generator.generateEntity(
             new CSVReader(new File("example/data/input/user_account.csv")).setFieldNamesInFirstRow(true)
         ).setName("Account");
+        entityDef.getField("DoB").setType(FieldType.DATE);
         schemaDef.addEntity(entityDef);
 
         CreateMySqlDdlFromSchemaDef ddl = new CreateMySqlDdlFromSchemaDef(schemaDef)
@@ -75,6 +78,6 @@ public class JoinCsvFiles {
                 preparedStatement.execute();
             }
         }
-
+        return schemaDef;
     }
 }
