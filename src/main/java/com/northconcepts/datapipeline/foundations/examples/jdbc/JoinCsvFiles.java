@@ -15,7 +15,6 @@ import com.northconcepts.datapipeline.jdbc.JdbcWriter;
 import com.northconcepts.datapipeline.jdbc.sql.select.Select;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.sql.mysql.CreateMySqlDdlFromSchemaDef;
-import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 
 import java.io.File;
@@ -29,7 +28,7 @@ public class JoinCsvFiles {
     public static void main(String[] args) throws Throwable {
 
         JdbcConnectionFactory connectionFactory = JdbcConnectionFactory.wrap("org.h2.Driver", "jdbc:h2:file:" + databaseFilePath + ";MODE=MySQL", "sa", "");
-        SchemaDef schemaDef = createTables(connectionFactory);
+        SchemaDef schemaDef = createSchemaDef(connectionFactory);
 
         DataWriter writer = new JdbcWriter(connectionFactory, "CreditBalance");
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-insert-records2.csv")).setFieldNamesInFirstRow(true);
@@ -52,7 +51,7 @@ public class JoinCsvFiles {
         Job.run(reader, new CSVWriter(new File("example/data/output/joined-csv.csv")));
     }
 
-    public static SchemaDef createTables(JdbcConnectionFactory jdbcConnectionFactory) throws Throwable {
+    public static SchemaDef createSchemaDef(JdbcConnectionFactory jdbcConnectionFactory) throws Throwable {
         GenerateEntityFromDataset generator = new GenerateEntityFromDataset();
         SchemaDef schemaDef = new SchemaDef();
 
@@ -67,6 +66,11 @@ public class JoinCsvFiles {
         entityDef.getField("DoB").setType(FieldType.DATE);
         schemaDef.addEntity(entityDef);
 
+        createTables(schemaDef, jdbcConnectionFactory);
+        return schemaDef;
+    }
+
+    private static void createTables(SchemaDef schemaDef, JdbcConnectionFactory jdbcConnectionFactory) throws Throwable {
         CreateMySqlDdlFromSchemaDef ddl = new CreateMySqlDdlFromSchemaDef(schemaDef)
             .setPretty(true)
             .setDropTable(true)
@@ -78,6 +82,6 @@ public class JoinCsvFiles {
                 preparedStatement.execute();
             }
         }
-        return schemaDef;
     }
+
 }
