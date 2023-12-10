@@ -28,7 +28,8 @@ public class JoinCsvFiles {
     public static void main(String[] args) throws Throwable {
 
         JdbcConnectionFactory connectionFactory = JdbcConnectionFactory.wrap("org.h2.Driver", "jdbc:h2:file:" + databaseFilePath + ";MODE=MySQL", "sa", "");
-        SchemaDef schemaDef = createSchemaDef(connectionFactory);
+        SchemaDef schemaDef = createSchemaDef();
+        createTables(schemaDef, connectionFactory);
 
         DataWriter writer = new JdbcWriter(connectionFactory, "CreditBalance");
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-insert-records2.csv")).setFieldNamesInFirstRow(true);
@@ -51,7 +52,7 @@ public class JoinCsvFiles {
         Job.run(reader, new CSVWriter(new File("example/data/output/joined-csv.csv")));
     }
 
-    public static SchemaDef createSchemaDef(JdbcConnectionFactory jdbcConnectionFactory) throws Throwable {
+    private static SchemaDef createSchemaDef() throws Throwable {
         GenerateEntityFromDataset generator = new GenerateEntityFromDataset();
         SchemaDef schemaDef = new SchemaDef();
 
@@ -66,7 +67,6 @@ public class JoinCsvFiles {
         entityDef.getField("DoB").setType(FieldType.DATE);
         schemaDef.addEntity(entityDef);
 
-        createTables(schemaDef, jdbcConnectionFactory);
         return schemaDef;
     }
 
