@@ -2,7 +2,6 @@ package com.northconcepts.datapipeline.foundations.examples.jdbc;
 
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
-import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.foundations.schema.EntityDef;
@@ -13,6 +12,7 @@ import com.northconcepts.datapipeline.jdbc.JdbcConnectionFactory;
 import com.northconcepts.datapipeline.jdbc.JdbcReader;
 import com.northconcepts.datapipeline.jdbc.JdbcWriter;
 import com.northconcepts.datapipeline.jdbc.sql.select.Select;
+import com.northconcepts.datapipeline.job.DataReaderFactory;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.sql.mysql.CreateMySqlDdlFromSchemaDef;
 import com.northconcepts.datapipeline.transform.TransformingReader;
@@ -23,51 +23,49 @@ import java.sql.PreparedStatement;
 
 public class JoinCsvFiles {
 
-    public static final String databaseFilePath = new File("example/data/output/JoinCSVFiles.h2").getAbsolutePath();
+    private static final File FILE1 = new File("example/data/input/user_account.csv");
+    private static final File FILE2 = new File("example/data/input/credit-balance-insert-records2.csv");
+    
+    private static final String TABLE1 = "Account";
+    private static final String TABLE2 = "CreditBalance";
+    
+    public static final String DATABASE_FILE = new File("example/data/output/JoinCSVFiles.h2").getAbsolutePath();
 
+    
     public static void main(String[] args) throws Throwable {
+        
+        DataReaderFactory dataReaderFactory1 = () -> new CSVReader(FILE1).setFieldNamesInFirstRow(true);
+        DataReaderFactory dataReaderFactory2 = () -> new CSVReader(FILE2).setFieldNamesInFirstRow(true);
+        
+        GenerateEntityFromDataset entityGenerator = new GenerateEntityFromDataset();
+        EntityDef entityDef1 = entityGenerator.generateEntity(dataReaderFactory1.createDataReader()).setName(TABLE1);
+        EntityDef entityDef2 = entityGenerator.generateEntity(dataReaderFactory2.createDataReader()).setName(TABLE2);
+        SchemaDef schemaDef = new SchemaDef().addEntity(entityDef1).addEntity(entityDef2);
+        
 
-        JdbcConnectionFactory connectionFactory = JdbcConnectionFactory.wrap("org.h2.Driver", "jdbc:h2:file:" + databaseFilePath + ";MODE=MySQL", "sa", "");
-        SchemaDef schemaDef = createSchemaDef();
+        JdbcConnectionFactory connectionFactory = JdbcConnectionFactory.wrap("org.h2.Driver", "jdbc:h2:file:" + DATABASE_FILE + ";MODE=MySQL", "sa", "");
+        
         createTables(schemaDef, connectionFactory);
 
-        DataWriter writer = new JdbcWriter(connectionFactory, "CreditBalance");
-        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-insert-records2.csv")).setFieldNamesInFirstRow(true);
-        Job job1 = Job.runAsync(reader, writer);
-
-        writer = new JdbcWriter(connectionFactory, "Account");
-        reader = new CSVReader(new File("example/data/input/user_account.csv")).setFieldNamesInFirstRow(true);
-        reader = new TransformingReader(reader).add(new SchemaTransformer(schemaDef.getEntity("Account")));
-        Job job2 = Job.runAsync(reader, writer);
+        Job job1 = importFileToDatabase(dataReaderFactory1, entityDef1, connectionFactory, TABLE1);
+        Job job2 = importFileToDatabase(dataReaderFactory2, entityDef2, connectionFactory, TABLE2);
 
         job1.waitUntilFinished();
         job2.waitUntilFinished();
 
         Select select = new Select("CreditBalance")
-            .select("CreditBalance.*", "Account.*")
             .leftJoin("Account", "CreditBalance.Account=Account.AccountNo")
             ;
 
-        reader = new JdbcReader(connectionFactory, select.getSqlFragment());
-        Job.run(reader, new CSVWriter(new File("example/data/output/joined-csv.csv")));
+        DataReader reader = new JdbcReader(connectionFactory, select.getSqlFragment());
+        DataWriter writer = new CSVWriter(new File("example/data/output/joined-csv.csv"));
+        Job.run(reader, writer);
     }
 
-    private static SchemaDef createSchemaDef() throws Throwable {
-        GenerateEntityFromDataset generator = new GenerateEntityFromDataset();
-        SchemaDef schemaDef = new SchemaDef();
-
-        EntityDef entityDef = generator.generateEntity(
-            new CSVReader(new File("example/data/input/credit-balance-insert-records2.csv")).setFieldNamesInFirstRow(true)
-        ).setName("CreditBalance");
-        schemaDef.addEntity(entityDef);
-
-        entityDef = generator.generateEntity(
-            new CSVReader(new File("example/data/input/user_account.csv")).setFieldNamesInFirstRow(true)
-        ).setName("Account");
-        entityDef.getField("DoB").setType(FieldType.DATE);
-        schemaDef.addEntity(entityDef);
-
-        return schemaDef;
+    private static Job importFileToDatabase(DataReaderFactory dataReaderFactory, EntityDef entityDef, JdbcConnectionFactory connectionFactory, String tableName) {
+        DataReader reader = dataReaderFactory.createDataReader();
+        reader = new TransformingReader(reader).add(new SchemaTransformer(entityDef));
+        return Job.runAsync(reader, new JdbcWriter(connectionFactory, tableName));
     }
 
     private static void createTables(SchemaDef schemaDef, JdbcConnectionFactory jdbcConnectionFactory) throws Throwable {
@@ -77,8 +75,13 @@ public class JoinCsvFiles {
             .setCheckIfTableNotExists(false)
             ;
 
+        String sql = ddl.getSqlFragment();
+        
+        System.out.println(sql);
+        System.out.println("--------------------------");
+        
         try (Connection connection = jdbcConnectionFactory.createConnection()) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(ddl.getSqlFragment())) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.execute();
             }
         }
