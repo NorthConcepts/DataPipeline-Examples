@@ -1,28 +1,23 @@
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
-import com.northconcepts.datapipeline.foundations.file.LocalFileSource;
+import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.MemoryDataset;
-import com.northconcepts.datapipeline.foundations.pipeline.input.CsvPipelineInput;
 import com.northconcepts.datapipeline.foundations.time.DateTimePattern;
 
+import java.io.File;
 import java.util.Map;
 import java.util.concurrent.atomic.LongAdder;
 
 public class InferDateTimeFromCSVFile {
     public static void main(String[] args) {
-        CsvPipelineInput pipelineInput = new CsvPipelineInput()
-                .setFileSource(new LocalFileSource().setPath("example/data/input/DateTimeData.csv"))
-                .setFieldNamesInFirstRow(true);
-
         Pipeline pipeline = new Pipeline();
-        pipeline.setInput(pipelineInput);
+        pipeline.setInputAsDataReaderFactory(() -> new CSVReader(new File("example/data/input/DateTimeData.csv")).setFieldNamesInFirstRow(true));
 
         Dataset dataset = new MemoryDataset(pipeline);
         dataset.load().waitForColumnStatsToLoad();
-        dataset.setCollectUniqueValues(true);
 
         System.out.println("Column Count: " + dataset.getColumnCount());
         System.out.println("Record Count: " + dataset.getRecordCount());
