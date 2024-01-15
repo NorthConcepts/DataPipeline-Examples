@@ -1,8 +1,8 @@
 package com.northconcepts.datapipeline.examples.cookbook;
 
-import com.northconcepts.datapipeline.foundations.tools.GenerateRecordSerializers;
-
 import java.util.HashSet;
+
+import com.northconcepts.datapipeline.foundations.tools.GenerateRecordSerializers;
 
 public class GenerateRecordSerializersExample {
     public static void main(String[] args) throws Throwable {
@@ -14,17 +14,17 @@ public class GenerateRecordSerializersExample {
         serializers.generate(types);
     }
 
-    public static class SimpleUser {
-        private int id;
-        private String name;
-        private String address;
-        private String phoneNumber;
-    }
+}
 
-    public static class SimpleOrganization {
-        private int id;
-        private String name;
-        private SimpleUser manager;
-    }
+class SimpleUser {
+    private int id;
+    private String name;
+    private String address;
+    private String phoneNumber;
+}
 
+class SimpleOrganization {
+    private int id;
+    private String name;
+    private SimpleUser manager;
 }
