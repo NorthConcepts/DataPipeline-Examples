@@ -34,6 +34,6 @@ public class CompareRecords {
         // Spanish - ADDED
         // height and newIncome will not be reported as they are excluded from comparison.
 
-        System.out.println("Record Diff" + diff);
+        System.out.println("Record Diff: " + diff);
     }
 }
