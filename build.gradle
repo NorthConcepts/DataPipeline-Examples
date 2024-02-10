@@ -7,6 +7,12 @@ repositories {
     mavenLocal()
     jcenter()
     maven {
+        url = 'https://maven.twttr.com/'
+    }
+    maven {
+        url = 'https://jitpack.io'
+    }
+    maven {
         url = 'https://maven.northconcepts.com/public/repositories/datapipeline'
     }
 }
@@ -76,6 +82,8 @@ dependencies {
     compile "com.fasterxml.jackson:jackson-bom:2.13.4.20221012";
 
     implementation 'mysql:mysql-connector-java:8.0.31'
+    implementation 'com.hadoop.gplcompression:hadoop-lzo:0.4.20'
+    implementation 'com.github.rdblue:brotli-codec:0.1.1'
 
 
     compile 'junit:junit:4.13.2'
