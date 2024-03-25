@@ -13,19 +13,27 @@ import com.northconcepts.datapipeline.job.Job;
 public class ReadUuidFromPostgreSQL extends DataPipelineUnitTest {
 
     final static String DATABASE_DRIVER = "org.postgresql.Driver";
-    final static String DATABASE_URL = "jdbc:postgresql://localhost:52200/test";
+    final static String DATABASE_URL = "jdbc:postgresql://localhost:5432/contacts?&stringtype=unspecified";
     final static String DATABASE_USERNAME = "test";
     final static String DATABASE_PASSWORD = "test";
     
     public static void main(String[] args) throws Throwable {
-        Class.forName(DATABASE_DRIVER);
-        Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
-        createTableAndInsertRecords(connection);
+        Connection connection = null;
         
-        JdbcReader reader = new JdbcReader(connection, "SELECT * FROM contacts");
-        DataWriter writer = StreamWriter.newSystemOutWriter();
-        
-        Job.run(reader, writer);
+        try {
+            Class.forName(DATABASE_DRIVER);
+            connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+            createTableAndInsertRecords(connection);
+            
+            JdbcReader reader = new JdbcReader(connection, "SELECT * FROM contacts");
+            DataWriter writer = StreamWriter.newSystemOutWriter();
+            
+            Job.run(reader, writer);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
     }
     
     public static void createTableAndInsertRecords(Connection connection) throws Throwable{
@@ -50,11 +58,14 @@ public class ReadUuidFromPostgreSQL extends DataPipelineUnitTest {
 
         preparedStatement = connection.prepareStatement(dropTableQuery);
         preparedStatement.execute();
+        preparedStatement.close();
 
         preparedStatement = connection.prepareStatement(createTableQuery);
         preparedStatement.execute();
+        preparedStatement.close();
         
         preparedStatement = connection.prepareStatement(insertRecords);
         preparedStatement.execute();
+        preparedStatement.close();
     }
 }
