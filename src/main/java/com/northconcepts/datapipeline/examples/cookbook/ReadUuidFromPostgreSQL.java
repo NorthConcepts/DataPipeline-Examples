@@ -12,17 +12,15 @@ import com.northconcepts.datapipeline.job.Job;
 
 public class ReadUuidFromPostgreSQL extends DataPipelineUnitTest {
 
-    final static String DATABASE_DRIVER = "org.postgresql.Driver";
-    final static String DATABASE_URL = "jdbc:postgresql://localhost:5432/contacts?&stringtype=unspecified";
-    final static String DATABASE_USERNAME = "test";
-    final static String DATABASE_PASSWORD = "test";
+    private final static String DATABASE_DRIVER = "org.postgresql.Driver";
+    private final static String DATABASE_URL = "jdbc:postgresql://localhost:5432/contacts?stringtype=unspecified";
+    private final static String DATABASE_USERNAME = "test";
+    private final static String DATABASE_PASSWORD = "test";
     
     public static void main(String[] args) throws Throwable {
-        Connection connection = null;
-        
+        Class.forName(DATABASE_DRIVER);
+        Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
         try {
-            Class.forName(DATABASE_DRIVER);
-            connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
             createTableAndInsertRecords(connection);
             
             JdbcReader reader = new JdbcReader(connection, "SELECT * FROM contacts");
@@ -30,9 +28,7 @@ public class ReadUuidFromPostgreSQL extends DataPipelineUnitTest {
             
             Job.run(reader, writer);
         } finally {
-            if (connection != null) {
-                connection.close();
-            }
+            connection.close();
         }
     }
     
