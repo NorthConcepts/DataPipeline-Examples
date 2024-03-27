@@ -1,10 +1,10 @@
 package com.northconcepts.datapipeline.foundations.examples.difference;
 
-import com.amazonaws.thirdparty.joda.time.LocalDate;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.foundations.difference.RecordDiff;
-
-import java.math.BigDecimal;
 
 public class CompareRecords {
 

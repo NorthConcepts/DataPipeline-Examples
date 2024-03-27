@@ -1,16 +1,11 @@
 package com.northconcepts.datapipeline.foundations.examples.difference;
 
-import com.amazonaws.thirdparty.joda.time.LocalDate;
-import com.northconcepts.datapipeline.core.FieldType;
-import com.northconcepts.datapipeline.core.Record;
-import com.northconcepts.datapipeline.foundations.difference.Diff;
-import com.northconcepts.datapipeline.foundations.difference.RecordDiff;
-import com.northconcepts.datapipeline.foundations.schema.EntityDef;
-import com.northconcepts.datapipeline.foundations.schema.NumericFieldDef;
-import com.northconcepts.datapipeline.foundations.schema.TextFieldDef;
-import com.northconcepts.datapipeline.foundations.schema.diff.EntityDefDiff;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import com.northconcepts.datapipeline.core.Record;
+import com.northconcepts.datapipeline.foundations.difference.RecordDiff;
 
 public class SaveDiffToAndFromRecord {
 
