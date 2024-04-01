@@ -1,15 +1,15 @@
 package com.northconcepts.datapipeline.foundations.examples.pipeline;
 
+import java.io.File;
+import java.util.Map;
+import java.util.concurrent.atomic.LongAdder;
+
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.foundations.pipeline.Pipeline;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Column;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.Dataset;
 import com.northconcepts.datapipeline.foundations.pipeline.dataset.MemoryDataset;
 import com.northconcepts.datapipeline.foundations.time.DateTimePattern;
-
-import java.io.File;
-import java.util.Map;
-import java.util.concurrent.atomic.LongAdder;
 
 public class InferDateTimeFromCSVFile {
     public static void main(String[] args) {
@@ -27,9 +27,9 @@ public class InferDateTimeFromCSVFile {
             System.out.println("Name: " + column.getName());
             System.out.println("Value Count: " + column.getValueCount());
 
-            System.out.println("Is Temporal Column: " + column.getTemporal());
+            System.out.println("Is Temporal Column: " + column.isTemporal());
             System.out.println("    Inferred Temporal Value Count: " + column.getInferredTemporalValueCount());
-            if (column.getTemporal()) {
+            if (column.isTemporal()) {
                 for (Map.Entry<DateTimePattern, LongAdder> entry : column.getTemporalPatterns().entrySet()) {
                     System.out.println("    " + entry.getKey().getPattern() + "  --  " + entry.getValue().longValue());
                 }

@@ -25,9 +25,9 @@ public class ShowJsonTreeNodeStatistics {
         System.out.println(spaces + "Null Count: " + treeNode.getNullCount());
         System.out.println(spaces + "Blank Count: " + treeNode.getBlankCount());
         System.out.println(spaces + "Unique Value Count " + treeNode.getUniqueValueCount());
-        System.out.println(spaces + "Is Numeric Column: " + treeNode.getNumeric());
-        System.out.println(spaces + "Is Temporal Column: " + treeNode.getTemporal());
-        System.out.println(spaces + "Is Boolean Column: " + treeNode.getBoolean());
+        System.out.println(spaces + "Is Numeric Column: " + treeNode.isNumeric());
+        System.out.println(spaces + "Is Temporal Column: " + treeNode.isTemporal());
+        System.out.println(spaces + "Is Boolean Column: " + treeNode.isBoolean());
         System.out.println(spaces + "Minimum Length: " + treeNode.getMinimumLength());
         System.out.println(spaces + "Maximum Length: " + treeNode.getMaximumLength());
         System.out.println(spaces + "Sample Value: " + treeNode.getSampleValue());
