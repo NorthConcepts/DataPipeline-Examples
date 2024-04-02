@@ -39,21 +39,21 @@ public class ShowColumnStatistics {
             System.out.println("Non Null Non Blank Count: " + column.getNonNullNonBlankCount());
             System.out.println("Unique Value Count: " + column.getUniqueValueCount());
 
-            System.out.println("Is Numeric Column: " + column.getNumeric());
+            System.out.println("Is Numeric Column: " + column.isNumeric());
             System.out.println("    Inferred Numeric Value Count: " + column.getInferredNumericValueCount());
-            if (column.getNumeric()) {
+            if (column.isNumeric()) {
                 System.out.println("    " + column.getNumberDescriptor() + " -- " + column.getNumberDescriptor().getFieldType());
             }
 
-            System.out.println("Is Temporal Column: " + column.getTemporal());
+            System.out.println("Is Temporal Column: " + column.isTemporal());
             System.out.println("    Inferred Temporal Value Count: " + column.getInferredTemporalValueCount());
-            if (column.getTemporal()) {
+            if (column.isTemporal()) {
                 for (Entry<DateTimePattern, LongAdder> entry : column.getTemporalPatterns().entrySet()) {
                     System.out.println("    " + entry.getKey().getPattern() + "  --  " + entry.getValue().longValue());
                 }
             }
 
-            System.out.println("Is Boolean Column: " + column.getBoolean());
+            System.out.println("Is Boolean Column: " + column.isBoolean());
             System.out.println("    Inferred Boolean Value Count: " + column.getInferredBooleanValueCount());
             System.out.println("Is Array Column: " + column.isArray());
             if(column.isArray()){
