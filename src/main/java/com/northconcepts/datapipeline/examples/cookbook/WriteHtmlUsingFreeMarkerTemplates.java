@@ -38,7 +38,7 @@ public class WriteHtmlUsingFreeMarkerTemplates {
 
         MemoryReader reader = new MemoryReader(new RecordList(record1, record2));
 
-        TemplateWriter writer = new TemplateWriter(new FileWriter("example/data/output/credit-balance-04.html"));
+        TemplateWriter writer = new TemplateWriter(new FileWriter("example/data/output/credit-balance-04.html"), false);
         writer.setFieldNamesInFirstRow(false);
         writer.getConfiguration().setDirectoryForTemplateLoading(new File("example/data/input"));
         // writer.setHeaderTemplate("WriteHtmlUsingFreeMarkerTemplates-header.html"); // No header in this example
