@@ -29,7 +29,7 @@ public class WriteCsvToXmlUsingFreeMarkerTemplates {
 
         DataReader reader = new CSVReader(new File(in)).setFieldNamesInFirstRow(true);
 
-        TemplateWriter writer = new TemplateWriter(new FileWriter(out));
+        TemplateWriter writer = new TemplateWriter(new FileWriter(out), false);
         writer.setFieldNamesInFirstRow(false);
         writer.getConfiguration().setDirectoryForTemplateLoading(new File("example/data/input"));
         writer.setHeaderTemplate("WriteAnXmlFileUsingFreeMarkerTemplates-header-2.xml");
