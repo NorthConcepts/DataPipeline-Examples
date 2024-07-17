@@ -3,8 +3,6 @@ package com.northconcepts.datapipeline.examples.cookbook;
 import java.io.File;
 import java.io.FileInputStream;
 
-import javax.xml.XMLConstants;
-import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 
 import org.apache.commons.io.ByteOrderMark;
@@ -14,6 +12,7 @@ import org.apache.log4j.Logger;
 import com.northconcepts.datapipeline.core.DataEndpoint;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.Record;
+import com.northconcepts.datapipeline.internal.lang.Util;
 import com.northconcepts.datapipeline.internal.xpath.XmlNodeReader;
 import com.northconcepts.datapipeline.xml.XmlReader;
 
@@ -29,13 +28,7 @@ public class ReadAnXmlFileWithByteOrderMark {
                 .setInclude(false)
                 .get();
         
-        XMLInputFactory factory = XMLInputFactory.newInstance();
-        factory.setProperty(XMLInputFactory.IS_VALIDATING, false);
-        factory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
-        factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
-        factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        
-        XMLStreamReader streamReader = factory.createXMLStreamReader(bomInputStream);
+        XMLStreamReader streamReader = Util.newXMLInputFactory().createXMLStreamReader(bomInputStream);
         DataReader reader = new XmlReader(new XmlNodeReader(streamReader))
         	.addField("title", "//book/title/text()")
         	.addField("language", "//book/title/@lang")
