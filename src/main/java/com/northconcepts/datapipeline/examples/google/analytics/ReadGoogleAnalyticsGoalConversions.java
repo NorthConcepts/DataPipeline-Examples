@@ -4,7 +4,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.analyticsreporting.v4.AnalyticsReportingScopes;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
@@ -21,7 +21,7 @@ public class ReadGoogleAnalyticsGoalConversions {
 
     private static final String CLIENT_SECRET = "/My Project-5ed7b6c44f35.json";
     private static final String APPLICATION_NAME = "Hello Analytics Reporting";
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     private static final String VIEW_ID = "80548296";
     /** Authorizes the installed application to access user's protected data. */
     private static GoogleCredential authorize(NetHttpTransport httpTransport) throws Throwable {
