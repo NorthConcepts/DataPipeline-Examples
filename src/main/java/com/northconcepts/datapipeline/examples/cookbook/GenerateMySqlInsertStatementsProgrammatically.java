@@ -7,7 +7,6 @@ public class GenerateMySqlInsertStatementsProgrammatically {
 
     public static void main(String[] args) {
         Insert insert = new Insert("users")
-                .setPretty(true) // pretty print the generated SQL
                 .add("id", 1)
                 .add("name", "'John Doe'")
                 .add("dateOfBirth", "'1990-01-01'")
@@ -26,6 +25,8 @@ public class GenerateMySqlInsertStatementsProgrammatically {
                 .add("email", "'charliebrown@gmail.com'")
                 .add("password_hash", "'#ag3!axx123111@'")
                 ;
+
+        insert.setPretty(true); // pretty print the generated SQL
 
         System.out.println(insert.getSqlFragment());
     }
