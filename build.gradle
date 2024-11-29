@@ -19,7 +19,7 @@ repositories {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-version = '9.0.0-SNAPSHOT'
+version = '9.1.0-SNAPSHOT'
 
 sourceSets {
     examples {
@@ -63,7 +63,9 @@ dependencies {
     compile "com.northconcepts:northconcepts-datapipeline-integrations-mailchimp:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-mongodb:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet-s3:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-orc:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-orc-s3:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-pdf:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-rtf:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-security:${version}"
