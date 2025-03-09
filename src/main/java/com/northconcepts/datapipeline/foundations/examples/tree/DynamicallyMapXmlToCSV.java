@@ -4,7 +4,7 @@ import java.io.File;
 
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.csv.CSVWriter;
-import com.northconcepts.datapipeline.foundations.pipeline.dataset.Tree;
+import com.northconcepts.datapipeline.foundations.pipeline.tree.Tree;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.xml.XmlReader;
 
