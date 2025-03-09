@@ -6,8 +6,8 @@ import java.util.Map.Entry;
 import java.util.concurrent.atomic.LongAdder;
 
 import com.northconcepts.datapipeline.core.FieldType;
-import com.northconcepts.datapipeline.foundations.pipeline.dataset.Tree;
-import com.northconcepts.datapipeline.foundations.pipeline.dataset.TreeNode;
+import com.northconcepts.datapipeline.foundations.pipeline.tree.Tree;
+import com.northconcepts.datapipeline.foundations.pipeline.tree.TreeNode;
 
 public class ShowJsonTreeNodeStatistics {
 

@@ -19,7 +19,7 @@ repositories {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-version = '9.1.0-SNAPSHOT'
+version = '9.2.0'
 
 sourceSets {
     examples {
