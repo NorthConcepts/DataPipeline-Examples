@@ -5,15 +5,20 @@ plugins {
 
 repositories {
     mavenLocal()
-    jcenter()
+    mavenCentral()
     maven {
-        url = 'https://maven.twttr.com/'
+        name = 'twttr.com'
+        url = 'https://maven.twttr.com' // for Parquet LZO compression
     }
     maven {
-        url = 'https://jitpack.io'
+        name = 'jitpack.io'
+        url = 'https://jitpack.io' // for Parquet BROTLI compression
     }
     maven {
         url = 'https://maven.northconcepts.com/public/repositories/datapipeline'
+        content {
+            includeGroup "com.northconcepts"
+        }
     }
 }
 
@@ -46,7 +51,7 @@ sourceSets {
 configurations.all {
     // Check for updates every 30 minutes (0 for every build)
     //resolutionStrategy.cacheChangingModulesFor 30, 'minutes'
-    //resolutionStrategy.cacheChangingModulesFor 0, 'minutes'
+    resolutionStrategy.cacheChangingModulesFor 0, 'minutes'
 }
 
 dependencies {
@@ -62,8 +67,12 @@ dependencies {
     compile "com.northconcepts:northconcepts-datapipeline-integrations-kafka:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-mailchimp:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-mongodb:${version}"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet:${version}"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet-s3:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet:${version}", {
+        //exclude group: 'com.hadoop.gplcompression', module: 'hadoop-lzo'
+    }
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet-s3:${version}", {
+        //exclude group: 'com.hadoop.gplcompression', module: 'hadoop-lzo'
+    }
     compile "com.northconcepts:northconcepts-datapipeline-integrations-orc:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-orc-s3:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-pdf:${version}"
