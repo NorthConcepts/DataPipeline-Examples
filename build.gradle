@@ -51,7 +51,7 @@ sourceSets {
 configurations.all {
     // Check for updates every 30 minutes (0 for every build)
     //resolutionStrategy.cacheChangingModulesFor 30, 'minutes'
-    resolutionStrategy.cacheChangingModulesFor 0, 'minutes'
+    //resolutionStrategy.cacheChangingModulesFor 0, 'minutes'
 }
 
 dependencies {
@@ -67,12 +67,8 @@ dependencies {
     compile "com.northconcepts:northconcepts-datapipeline-integrations-kafka:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-mailchimp:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-mongodb:${version}"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet:${version}", {
-        //exclude group: 'com.hadoop.gplcompression', module: 'hadoop-lzo'
-    }
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet-s3:${version}", {
-        //exclude group: 'com.hadoop.gplcompression', module: 'hadoop-lzo'
-    }
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet-s3:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-orc:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-orc-s3:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-pdf:${version}"
@@ -93,7 +89,7 @@ dependencies {
     compile "com.fasterxml.jackson:jackson-bom:2.13.4.20221012";
 
     implementation 'mysql:mysql-connector-java:8.0.31'
-    implementation 'com.hadoop.gplcompression:hadoop-lzo:0.4.20'
+    //implementation 'com.hadoop.gplcompression:hadoop-lzo:0.4.20'
     implementation 'com.github.rdblue:brotli-codec:0.1.1'
 
 
