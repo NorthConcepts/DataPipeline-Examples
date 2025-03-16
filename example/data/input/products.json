@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Laptop",
+      "Price ($)": 1200,
+      "currency*": "USD"
+    },
+    {
+      "id": 2,
+      "name": "Smartphone",
+      "Price (€)": 900,
+      "currency*": "EUR"
+    },
+    {
+      "id": 3,
+      "name": "Tablet",
+      "Price (£)": 750,
+      "currency*": "GBP"
+    },
+    {
+      "id": 4,
+      "name": "Headphones",
+      "Price (¥)": 5000,
+      "currency*": "JPY"
+    }
+  ]
+}
