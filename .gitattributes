@@ -1,3 +1,5 @@
+*.jar filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
 example/data/input/patient-visits-raw-10000.csv filter=lfs diff=lfs merge=lfs -text
 example/data/input/patient-visits-raw-100000.csv filter=lfs diff=lfs merge=lfs -text
 example/data/input/patient-visits-raw-1000000.csv filter=lfs diff=lfs merge=lfs -text
