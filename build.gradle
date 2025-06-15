@@ -71,7 +71,7 @@ dependencies {
     compile "com.northconcepts:northconcepts-datapipeline-integrations-parquet-s3:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-orc:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-orc-s3:${version}"
-    compile "com.northconcepts:northconcepts-datapipeline-integrations-pdf:${version}"
+    compile "com.northconcepts:northconcepts-datapipeline-integrations-pdf:9.3.0-SNAPSHOT"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-rtf:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-security:${version}"
     compile "com.northconcepts:northconcepts-datapipeline-integrations-template:${version}"
