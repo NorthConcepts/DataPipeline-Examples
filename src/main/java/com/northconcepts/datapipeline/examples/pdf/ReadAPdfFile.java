@@ -10,7 +10,8 @@ import java.io.File;
 public class ReadAPdfFile {
     public static void main(String[] args) {
         File file = new File("example/data/input/addresses.pdf");
-        PdfReader reader = new PdfReader(new PdfDocument(file));
+        PdfReader reader = new PdfReader(new PdfDocument(file))
+            .setFieldNamesInFirstRow(true);
 
         Job.run(reader, new StreamWriter(System.out));
     }
