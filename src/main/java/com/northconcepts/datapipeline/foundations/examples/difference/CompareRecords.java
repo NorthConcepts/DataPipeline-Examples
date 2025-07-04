@@ -35,5 +35,9 @@ public class CompareRecords {
         // height and newIncome will not be reported as they are excluded from comparison.
 
         System.out.println("Record Diff: " + diff);
+        System.out.println("----------------------");
+        System.out.println("Record Diff: " + diff.toRecord());
+        System.out.println("----------------------");
+        System.out.println("Record Diff: " + diff.toJson());
     }
 }
