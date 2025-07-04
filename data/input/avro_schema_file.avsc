@@ -1,0 +1,115 @@
+{
+    "type" : "record",
+    "name" : "SomePojoRoot",
+    "namespace" : "no.ssb.avro.j2avro.PojoTransformerTest$",
+    "fields" : [ {
+      "name" : "alistOfIntegers",
+      "type" : [ "null", {
+        "type" : "array",
+        "items" : {
+          "type" : "int",
+          "java-class" : "java.lang.Integer"
+        }
+      } ]
+    }, {
+      "name" : "alistOfPojos",
+      "type" : [ "null", {
+        "type" : "array",
+        "items" : {
+          "type" : "record",
+          "name" : "SomePojo",
+          "namespace" : "no.ssb.avro.j2avro.PojoTransformerTest$SomePojoRoot$",
+          "fields" : [ {
+            "name" : "aStringWithDefaultValueNull",
+            "type" : [ "null", "string" ],
+            "default" : null
+          }, {
+            "name" : "aboolean",
+            "type" : [ "null", "boolean" ]
+          }, {
+            "name" : "adate",
+            "type" : [ "null", {
+              "type" : "long",
+              "java-class" : "java.util.Date"
+            } ]
+          }, {
+            "name" : "afloat",
+            "type" : [ "null", {
+              "type" : "float",
+              "java-class" : "java.lang.Float"
+            } ]
+          }, {
+            "name" : "along",
+            "type" : [ "null", {
+              "type" : "long",
+              "java-class" : "java.lang.Long"
+            } ]
+          }, {
+            "name" : "anEnum",
+            "type" : [ "null", {
+              "type" : "enum",
+              "name" : "SomeEnum",
+              "symbols" : [ "YES", "NO" ]
+            } ]
+          }, {
+            "name" : "anInteger",
+            "type" : [ "null", {
+              "type" : "int",
+              "java-class" : "java.lang.Integer"
+            } ]
+          }, {
+            "name" : "arequiredBool",
+            "type" : "boolean"
+          }, {
+            "name" : "arequiredFloat",
+            "type" : {
+              "type" : "float",
+              "java-class" : "java.lang.Float"
+            }
+          }, {
+            "name" : "arequiredInt",
+            "type" : {
+              "type" : "int",
+              "java-class" : "java.lang.Integer"
+            }
+          }, {
+            "name" : "arequiredLong",
+            "type" : {
+              "type" : "long",
+              "java-class" : "java.lang.Long"
+            }
+          }, {
+            "name" : "astring",
+            "type" : [ "null", "string" ]
+          }, {
+            "name" : "astringWithDefaultValueNull",
+            "type" : [ "null", "string" ],
+            "default" : null
+          }, {
+            "name" : "blah",
+            "type" : [ "null", "string" ],
+            "default" : null
+          } ]
+        }
+      } ]
+    }, {
+      "name" : "alistOfStrings",
+      "type" : [ "null", {
+        "type" : "array",
+        "items" : "string"
+      } ]
+    }, {
+      "name" : "asetOfIntegers",
+      "type" : [ "null", {
+        "type" : "array",
+        "items" : "no.ssb.avro.j2avro.PojoTransformerTest$SomePojoRoot$.SomePojo",
+        "java-class" : "java.util.Set"
+      } ]
+    }, {
+      "name" : "astringToStringMap",
+      "type" : [ "null", {
+        "type" : "map",
+        "values" : "string"
+      } ]
+    } ]
+  }

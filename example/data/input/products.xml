@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<products>
+    <product>
+        <id>1</id>
+        <name>Laptop</name>
+        <Price_Usd>1200</Price_Usd>
+        <currency>USD</currency>
+    </product>
+    <product>
+        <id>2</id>
+        <name>Smartphone</name>
+        <Price_Eur>900</Price_Eur>
+        <currency>EUR</currency>
+    </product>
+    <product>
+        <id>3</id>
+        <name>Tablet</name>
+        <Price_Gbp>750</Price_Gbp>
+        <currency>GBP</currency>
+    </product>
+    <product>
+        <id>4</id>
+        <name>Headphones</name>
+        <Price_Jpy>5000</Price_Jpy>
+        <currency>JPY</currency>
+    </product>
+</products>
