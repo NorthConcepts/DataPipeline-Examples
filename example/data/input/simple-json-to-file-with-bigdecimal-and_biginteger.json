@@ -1,0 +1,23 @@
+[
+  {
+    "productId": 100000000000000000000000000001,
+    "productName": "UltraWidget Pro",
+    "price": 1499.99,
+    "availableStock": 5000000000000000,
+    "rating": 4.75
+  },
+  {
+    "productId": 100000000000000000000000000002,
+    "productName": "MegaGadget X",
+    "price": 2999.49,
+    "availableStock": 3000000000000000,
+    "rating": 4.9
+  },
+  {
+    "productId": 100000000000000000000000000003,
+    "productName": "SmartDevice Z",
+    "price": 799.95,
+    "availableStock": 750000000000000,
+    "rating": 4.6
+  }
+]
