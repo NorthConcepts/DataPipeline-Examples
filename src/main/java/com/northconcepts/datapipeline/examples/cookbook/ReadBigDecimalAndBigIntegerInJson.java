@@ -8,7 +8,7 @@ import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.json.JsonRecordReader;
 
-public class ReadBigDecimalAndBigIntegerInJSON {
+public class ReadBigDecimalAndBigIntegerInJson {
 
     public static void main(String[] args) {
         DataReader reader = new JsonRecordReader(new File("example/data/input/simple-json-to-file-with-bigdecimal-and_biginteger.json"))
