@@ -1,4 +1,4 @@
-Type-BOOLEAN,Type-BYTE,Type-CHAR,Type-DATE,Type-DATETIME,Type-DOUBLE,Type-FLOAT,Type-INT,Type-LONG,Type-SHORT,Type-STRING,Type-TIME,Type-UNDEFINED
-true,97,A,2014-12-25,21-12-2023 12:00:00 PM,2048.1024,4096.32,8192,1152921504606846976,30,A basic numeric constant is considered an integer.,13:41:57,"[J, A, V, A]"
-true,98,B,2015-12-26,14-12-2023 06:30:00 PM,2049.1027,4097.32,8193,1152921504606846977,31,A basic numeric constant is considered an integer.,13:42:58,"[J, A, V, A]"
-false,98,C,2018-12-27,07-12-2023 09:00:00 AM,2050.1026,4098.32,8194,1152921504606846978,32,A basic numeric constant is considered an integer.,14:43:59,"[J, A, V, A]"
+Type-BOOLEAN,Type-CHAR,Type-DATE,Type-DATETIME,Type-DOUBLE,Type-FLOAT,Type-INT,Type-LONG,Type-STRING,Type-TIME,Type-UNDEFINED
+true,A,2014-12-25,Fri Dec 26 02:41:57 PST 2014,2048.1024,4096.32,819,1152921504606846976,A basic numeric constant is considered an integer.,13:41:57,"[J, A, V, A]"
+true,B,2015-12-26,Fri Dec 26 02:41:57 PST 2014,2049.1027,4097.32,829,1152921504606846977,A basic numeric constant is considered an integer.,13:42:58,"[J, A, V, A]"
+false,C,2018-12-27,Fri Dec 26 02:41:57 PST 2014,2050.1026,4098.32,83,1152921504606846978,A basic numeric constant is considered an integer.,14:43:59,"[J, A, V, A]"
