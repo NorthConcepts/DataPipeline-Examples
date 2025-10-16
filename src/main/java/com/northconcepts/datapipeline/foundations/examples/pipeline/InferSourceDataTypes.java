@@ -8,12 +8,12 @@ import com.northconcepts.datapipeline.foundations.pipeline.dataset.MemoryDataset
 
 import java.io.File;
 
-public class InferTypesFromSourceData {
+public class InferSourceDataTypes {
     public static void main(String[] args) {
         Pipeline pipeline = new Pipeline();
-        pipeline.setInputAsDataReaderFactory(() -> new CSVReader(new File("example/data/input/allTypes.csv")).setFieldNamesInFirstRow(true));
+        pipeline.setInputAsDataReaderFactory(() -> new CSVReader(new File("example/data/input/mix-types.csv")).setFieldNamesInFirstRow(true));
 
-        try (Dataset dataset = new MemoryDataset(pipeline)){
+        try (Dataset dataset = new MemoryDataset(pipeline)) {
             dataset.load().waitForColumnStatsToLoad();
 
             System.out.println("Column Count: " + dataset.getColumnCount());
@@ -24,7 +24,8 @@ public class InferTypesFromSourceData {
                 System.out.println("Name: " + column.getName());
                 System.out.println("Value Count: " + column.getValueCount());
                 System.out.println("Sample Value: " + column.getSampleValue());
-                System.out.println("Inferred getBestFitInferredFieldType Type: " + column.getBestFitInferredFieldType());
+                System.out.println("Inferred Type Name: " + column.getInferredTypeName());
+                System.out.println("Inferred Field Type: " + column.getBestFitInferredFieldType());
             }
         }
     }
