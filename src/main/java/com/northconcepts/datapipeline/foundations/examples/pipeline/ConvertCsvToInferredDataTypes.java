@@ -17,7 +17,7 @@ public class ConvertCsvToInferredDataTypes {
         try (Dataset dataset = new MemoryDataset(pipeline)) {
 
             pipeline.setInputAsDataReaderFactory(() -> new CSVReader(new File("example/data/input/mix-types.csv")).setFieldNamesInFirstRow(true));
-            dataset.load();
+            dataset.load().waitForColumnStatsToLoad();
 
             GenerateEntityFromDataset generateEntityFromDataset = new GenerateEntityFromDataset();
             generateEntityFromDataset.setFieldTypeSelectionMode(GenerateEntityFromDataset.FieldTypeSelectionMode.BEST_FIT_INFERRED);
