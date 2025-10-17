@@ -1,0 +1,4 @@
+Type-BOOLEAN,Type-CHAR,Type-DATE,Type-DATETIME,Type-DOUBLE,Type-INT,Type-LONG,Type-STRING,Type-TIME
+true,A,2014-12-25,Fri Dec 26 02:41:57 PST 2014,2048.1024,819,1152921504606846976,A basic numeric constant is considered an integer.,13:41:57
+true,B,2015-12-26,Sat Dec 27 04:42:59 PST 2014,2049.1027542352,829,1152921504606846977,A basic numeric constant is considered an integer.,13:42:58
+false,C,2018-12-27,Sun Dec 28 03:43:58 PST 2014,2050.1026333,83,1152921504606846978,A basic numeric constant is considered an integer.,14:43:59
