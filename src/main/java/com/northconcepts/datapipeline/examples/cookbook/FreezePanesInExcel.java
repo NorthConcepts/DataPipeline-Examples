@@ -12,7 +12,7 @@ import com.northconcepts.datapipeline.job.Job;
 
 import org.apache.log4j.Logger;
 
-public class WriteToAnExcelFileWithFreezePane {
+public class FreezePanesInExcel {
 
     public static final Logger log = DataEndpoint.log;
 
