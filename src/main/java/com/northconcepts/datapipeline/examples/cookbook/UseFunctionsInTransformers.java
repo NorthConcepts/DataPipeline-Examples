@@ -11,7 +11,7 @@ import com.northconcepts.datapipeline.core.Field;
 
 import java.io.File;
 
-public class UseFunctionalInterfaceInTransformers {
+public class UseFunctionsInTransformers {
 
     public static void main(String[] args) {
         DataReader reader = new CSVReader(new File("example/data/input/credit-balance-01.csv"))
