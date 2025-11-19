@@ -1,6 +1,8 @@
 package com.northconcepts.datapipeline.examples.cookbook;
 
-import com.northconcepts.datapipeline.core.*;
+import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.core.Record;
+import com.northconcepts.datapipeline.core.RecordList;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.memory.MemoryReader;
 import com.northconcepts.datapipeline.template.TemplateWriter;
