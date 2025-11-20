@@ -1,6 +1,11 @@
 package com.northconcepts.datapipeline.foundations.examples.schema;
 
-import com.northconcepts.datapipeline.core.*;
+import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.core.Record;
+import com.northconcepts.datapipeline.core.RecordList;
+import com.northconcepts.datapipeline.core.FieldList;
+import com.northconcepts.datapipeline.core.DataWriter;
+import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.memory.MemoryReader;
 
