@@ -5,13 +5,12 @@ import java.io.File;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
 import com.northconcepts.datapipeline.core.Field;
-import com.northconcepts.datapipeline.core.ProxyWriter;
+import com.northconcepts.datapipeline.core.ProxyReader;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.excel.ExcelDocument;
 import com.northconcepts.datapipeline.excel.ExcelDocument.ProviderType;
 import com.northconcepts.datapipeline.excel.ExcelFieldMetadata;
-import com.northconcepts.datapipeline.excel.ExcelHyperlink;
 import com.northconcepts.datapipeline.excel.ExcelReader;
 import com.northconcepts.datapipeline.job.Job;
 
@@ -28,32 +27,27 @@ public class ReaderHyperlinksFromExcel {
                 .setAutoCloseDocument(true)
                 .setReadMetadata(true);
 
+        reader = new ExcelHyperlinkReader(reader);
+
         DataWriter writer = new CSVWriter(OUTPUT_FILE);
-        writer = new CsvProxyWriter(writer);
 
         Job.run(reader, writer);
     }
 }
 
-class CsvProxyWriter extends ProxyWriter {
+class ExcelHyperlinkReader extends ProxyReader {
 
     private ExcelFieldMetadata metadata = new ExcelFieldMetadata();
 
-    public CsvProxyWriter(DataWriter nestedDataWriter) {
-        super(nestedDataWriter);
+    public ExcelHyperlinkReader(DataReader dataReader) {
+        super(dataReader);
     }
 
     @Override
     protected Record interceptRecord(Record record) throws Throwable {
-        for (int i = 0; i < record.getFields().size(); i++) {
-            Field field = record.getFields().get(i);
+        for (Field field: record) {
             metadata.setField(field);
-
-            ExcelHyperlink excelHyperlink = metadata.getExcelHyperlink();
-
-            if (excelHyperlink != null) {
-                record.addField("product_link", excelHyperlink.getLocation());
-            }
+            record.addField("product_link", metadata.getExcelHyperlink() == null ? null : metadata.getExcelHyperlink());
         }
         return super.interceptRecord(record);
     }
