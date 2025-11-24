@@ -25,6 +25,7 @@ public class CreateHyperlinkInExcel {
         DataReader reader;
         DataWriter writer;
 
+        // create order_details excel sheet with different hyperlink
         reader = new MemoryReader(getOrderRecordList());
 
         writer = new ExcelWriter(document)
@@ -35,6 +36,7 @@ public class CreateHyperlinkInExcel {
         writer = new ExcelHyperlinkProxyWriter(writer);
         Job.run(reader, writer);
 
+        // create product_details excel sheet
         reader = new MemoryReader(getProductRecordList());
         writer = new ExcelWriter(document).setSheetName("product_details").setAutofitColumns(true);
         Job.run(reader, writer);
@@ -95,8 +97,7 @@ class ExcelHyperlinkProxyWriter extends ProxyWriter {
 
     @Override
     protected Record interceptRecord(Record record) throws Throwable {
-        for (int i = 0; i < record.getFields().size(); i++) {
-            Field field = record.getFields().get(i);
+        for (Field field : record) {
             metadata.setField(field);
 
             if ("product_name".equalsIgnoreCase(field.getName())) {
