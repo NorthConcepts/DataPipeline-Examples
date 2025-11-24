@@ -45,10 +45,11 @@ class ExcelHyperlinkReader extends ProxyReader {
 
     @Override
     protected Record interceptRecord(Record record) throws Throwable {
-        for (Field field: record) {
-            metadata.setField(field);
-            record.addField("product_link", metadata.getExcelHyperlink() == null ? null : metadata.getExcelHyperlink());
-        }
+        Field field = record.getField("product_name");
+        metadata.setField(field);
+        
+        record.addField("product_link", metadata.getExcelHyperlink() == null ? null : metadata.getExcelHyperlink().getLocation());
+        
         return super.interceptRecord(record);
     }
 
