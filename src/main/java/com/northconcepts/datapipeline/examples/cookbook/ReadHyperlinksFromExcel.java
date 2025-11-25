@@ -11,10 +11,11 @@ import com.northconcepts.datapipeline.csv.CSVWriter;
 import com.northconcepts.datapipeline.excel.ExcelDocument;
 import com.northconcepts.datapipeline.excel.ExcelDocument.ProviderType;
 import com.northconcepts.datapipeline.excel.ExcelFieldMetadata;
+import com.northconcepts.datapipeline.excel.ExcelHyperlink;
 import com.northconcepts.datapipeline.excel.ExcelReader;
 import com.northconcepts.datapipeline.job.Job;
 
-public class ReaderHyperlinksFromExcel {
+public class ReadHyperlinksFromExcel {
 
     private static File INPUT_FILE = new File("example/data/input", "product_list.xlsx");
     private static File OUTPUT_FILE = new File("example/data/output", "product_list.csv");
@@ -48,7 +49,8 @@ class ExcelHyperlinkReader extends ProxyReader {
         Field field = record.getField("product_name");
         metadata.setField(field);
         
-        record.addField("product_link", metadata.getExcelHyperlink() == null ? null : metadata.getExcelHyperlink().getLocation());
+        ExcelHyperlink excelHyperlink = metadata.getExcelHyperlink();
+        record.addField("product_link", excelHyperlink == null ? null : excelHyperlink.getLocation());
         
         return super.interceptRecord(record);
     }
