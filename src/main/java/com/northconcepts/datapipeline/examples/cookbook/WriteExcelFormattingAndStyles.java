@@ -2,7 +2,6 @@ package com.northconcepts.datapipeline.examples.cookbook;
 
 import java.io.File;
 
-import com.northconcepts.datapipeline.core.DataEndpoint;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.FieldLocationPredicate;
 import com.northconcepts.datapipeline.excel.ExcelCellStyleDecorator;
@@ -12,11 +11,7 @@ import com.northconcepts.datapipeline.excel.ExcelWriter;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.json.JsonRecordReader;
 
-import org.apache.log4j.Logger;
-
-public class WriteExcelWithRichFormattingAndStyles {
-
-    public static final Logger log = DataEndpoint.log;
+public class WriteExcelFormattingAndStyles {
 
     public static void main(String[] args) {
         DataReader reader = new JsonRecordReader(new File("example/data/input/transactions_data.json"))
@@ -40,7 +35,7 @@ public class WriteExcelWithRichFormattingAndStyles {
 
         Job.run(reader, writer);
         
-        document.save(new File("example/data/output/transactions-with-rich-formatting-and-styles.xlsx"));
+        document.save(new File("example/data/output/transactions-with-formatting-and-styles.xlsx"));
     }
 
 }
