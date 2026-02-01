@@ -1,0 +1,72 @@
+[
+  {
+    "transactionId": 1001,
+    "customerName": "Alice Johnson",
+    "category": "Refund",
+    "amount": -120.5,
+    "transactionDate": "2025-01-05"
+  },
+  {
+    "transactionId": 1002,
+    "customerName": "Bob Smith",
+    "category": "Purchase",
+    "amount": 250.0,
+    "transactionDate": "2025-01-06"
+  },
+  {
+    "transactionId": 1003,
+    "customerName": "Charlie Brown",
+    "category": "Refund",
+    "amount": -75.0,
+    "transactionDate": "2025-01-07"
+  },
+  {
+    "transactionId": 1004,
+    "customerName": "Diana Prince",
+    "category": "Purchase",
+    "amount": 430.25,
+    "transactionDate": "2025-01-08"
+  },
+  {
+    "transactionId": 1005,
+    "customerName": "Ethan Hunt",
+    "category": "Refund",
+    "amount": -60.0,
+    "transactionDate": "2025-01-09"
+  },
+  {
+    "transactionId": 1006,
+    "customerName": "Fiona Lee",
+    "category": "Purchase",
+    "amount": 180.75,
+    "transactionDate": "2025-01-10"
+  },
+  {
+    "transactionId": 1007,
+    "customerName": "George Miller",
+    "category": "Refund",
+    "amount": -200.0,
+    "transactionDate": "2025-01-11"
+  },
+  {
+    "transactionId": 1008,
+    "customerName": "Hannah Kim",
+    "category": "Purchase",
+    "amount": 95.0,
+    "transactionDate": "2025-01-12"
+  },
+  {
+    "transactionId": 1009,
+    "customerName": "Ian Wright",
+    "category": "Refund",
+    "amount": -45.99,
+    "transactionDate": "2025-01-13"
+  },
+  {
+    "transactionId": 1010,
+    "customerName": "Julia Roberts",
+    "category": "Purchase",
+    "amount": 320.4,
+    "transactionDate": "2025-01-14"
+  }
+]
