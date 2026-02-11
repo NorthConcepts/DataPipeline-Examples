@@ -26,11 +26,13 @@ public class WriteExcelFormattingAndStyles {
         writer.addHeaderCellStyle(FieldLocationPredicate.all(), ExcelCellStyleDecorator.bold()
                 .and(ExcelCellStyleDecorator.backgroundColor(ExcelColorPalette.DARK_YELLOW))
                 .and(ExcelCellStyleDecorator.fontColor(ExcelColorPalette.LIGHT_GREEN))
+                .and(ExcelCellStyleDecorator.underline())
                 );
 
         // Add Formatting & Cell Style for Data
         writer.addDataCellStyle(FieldLocationPredicate.negativeNumber(), ExcelCellStyleDecorator.fontColor(ExcelColorPalette.RED)
-                .and(ExcelCellStyleDecorator.italic()));
+                .and(ExcelCellStyleDecorator.italic())
+                .and(ExcelCellStyleDecorator.underline()));
         writer.addDataCellStyle(FieldLocationPredicate.evenRowIndex(), ExcelCellStyleDecorator.backgroundColor(ExcelColorPalette.GREY_25_PERCENT));
 
         Job.run(reader, writer);
