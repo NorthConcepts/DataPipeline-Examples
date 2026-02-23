@@ -1,7 +1,6 @@
 package com.northconcepts.datapipeline.examples.cookbook;
 
 import com.northconcepts.datapipeline.core.ArrayValue;
-import com.northconcepts.datapipeline.core.FieldType;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.core.ValueNode;
 
