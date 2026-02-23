@@ -40,13 +40,7 @@ public class SortArrayValuesUsingCustomComparator {
             .setField("active", true));
 
         System.out.println("Before sort:");
-        employees.forEach(node -> {
-            Record rec = (Record) node;
-            System.out.println("  ID: " + rec.getField("id").getValueAsInteger() +
-                             ", Name: " + rec.getField("firstName").getValueAsString() + " " + rec.getField("lastName").getValueAsString() +
-                             ", Salary: $" + rec.getField("salary").getValueAsDouble() +
-                             ", Active: " + rec.getField("active").getValueAsBoolean());
-        });
+        printEmployees(employees);
 
         // Sort by ID (integer field) in ascending order
         System.out.println("\nSorting by ID (ascending):");
@@ -54,13 +48,7 @@ public class SortArrayValuesUsingCustomComparator {
             ((Record) node).getField("id").getValueAsInteger()
         ));
 
-        employees.forEach(node -> {
-            Record rec = (Record) node;
-            System.out.println("  ID: " + rec.getField("id").getValueAsInteger() +
-                             ", Name: " + rec.getField("firstName").getValueAsString() + " " + rec.getField("lastName").getValueAsString() +
-                             ", Salary: $" + rec.getField("salary").getValueAsDouble() +
-                             ", Active: " + rec.getField("active").getValueAsBoolean());
-        });
+        printEmployees(employees);
 
         // Sort by last name (string field) alphabetically
         System.out.println("\nSorting by Last Name (alphabetically):");
@@ -68,13 +56,7 @@ public class SortArrayValuesUsingCustomComparator {
             ((Record) node).getField("lastName").getValueAsString()
         ));
 
-        employees.forEach(node -> {
-            Record rec = (Record) node;
-            System.out.println("  ID: " + rec.getField("id").getValueAsInteger() +
-                             ", Name: " + rec.getField("firstName").getValueAsString() + " " + rec.getField("lastName").getValueAsString() +
-                             ", Salary: $" + rec.getField("salary").getValueAsDouble() +
-                             ", Active: " + rec.getField("active").getValueAsBoolean());
-        });
+        printEmployees(employees);
 
         // Sort by salary (double field) in descending order
         System.out.println("\nSorting by Salary (descending):");
@@ -82,13 +64,7 @@ public class SortArrayValuesUsingCustomComparator {
             ((Record) node).getField("salary").getValueAsDouble()
         ).reversed());
 
-        employees.forEach(node -> {
-            Record rec = (Record) node;
-            System.out.println("  ID: " + rec.getField("id").getValueAsInteger() +
-                             ", Name: " + rec.getField("firstName").getValueAsString() + " " + rec.getField("lastName").getValueAsString() +
-                             ", Salary: $" + rec.getField("salary").getValueAsDouble() +
-                             ", Active: " + rec.getField("active").getValueAsBoolean());
-        });
+        printEmployees(employees);
 
         // Sort by active status (boolean field), then by last name
         System.out.println("\nSorting by Active status (active first), then by Last Name:");
@@ -101,6 +77,10 @@ public class SortArrayValuesUsingCustomComparator {
             )
         );
 
+        printEmployees(employees);
+    }
+
+    private static void printEmployees(ArrayValue employees) {
         employees.forEach(node -> {
             Record rec = (Record) node;
             System.out.println("  ID: " + rec.getField("id").getValueAsInteger() +
