@@ -11,7 +11,7 @@ import com.northconcepts.datapipeline.retry.RetryingOperation;
 import java.io.File;
 import java.io.IOException;
 
-public class UseRetryOperation {
+public class UseRetryingOperation {
 
 
     public static void main(String[] args) throws Throwable {
