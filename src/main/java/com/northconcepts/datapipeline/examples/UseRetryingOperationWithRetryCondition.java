@@ -11,11 +11,11 @@ import com.northconcepts.datapipeline.retry.RetryingOperation;
 import java.io.File;
 import java.io.IOException;
 
-public class UseRetryingOperation {
+public class UseRetryingOperationWithRetryCondition {
 
 
     public static void main(String[] args) throws Throwable {
-        RetryingOperation<Void> retryingOperation = new RetryingOperation<>();
+        RetryingOperation<String> retryingOperation = new RetryingOperation<>();
         retryingOperation.setInitialRetryDelay(1000L);
         retryingOperation.setMaxRetryCount(3);
         retryingOperation.setStrategy(RetryStrategy.EXPONENTIAL_BACKOFF);
@@ -25,8 +25,8 @@ public class UseRetryingOperation {
             DataReader reader = new AvroReader(new File("example/data/input/twitter.avro"));
             DataWriter writer = new CSVWriter(new File("example/data/output/twitter.csv"));
 
-            Job.run(reader, writer);
-            return null;
+            Job job = Job.run(reader, writer);
+            return job.getRunningTimeAsString();
         });
     }
 }
