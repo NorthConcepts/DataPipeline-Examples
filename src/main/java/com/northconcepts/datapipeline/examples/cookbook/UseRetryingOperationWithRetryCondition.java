@@ -1,4 +1,4 @@
-package com.northconcepts.datapipeline.examples;
+package com.northconcepts.datapipeline.examples.cookbook;
 
 import com.northconcepts.datapipeline.avro.AvroReader;
 import com.northconcepts.datapipeline.core.DataReader;
