@@ -1,0 +1,32 @@
+package com.northconcepts.datapipeline.examples.cookbook;
+
+import com.northconcepts.datapipeline.avro.AvroReader;
+import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.core.DataWriter;
+import com.northconcepts.datapipeline.csv.CSVWriter;
+import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.retry.RetryStrategy;
+import com.northconcepts.datapipeline.retry.RetryingOperation;
+
+import java.io.File;
+import java.io.IOException;
+
+public class UseRetryingOperationWithRetryCondition {
+
+
+    public static void main(String[] args) throws Throwable {
+        RetryingOperation<String> retryingOperation = new RetryingOperation<>();
+        retryingOperation.setInitialRetryDelay(1000L);
+        retryingOperation.setMaxRetryCount(3);
+        retryingOperation.setStrategy(RetryStrategy.EXPONENTIAL_BACKOFF);
+        retryingOperation.setRetryPredicate(context -> context.getLastException() instanceof IOException);
+
+        retryingOperation.call(() -> {
+            DataReader reader = new AvroReader(new File("example/data/input/twitter.avro"));
+            DataWriter writer = new CSVWriter(new File("example/data/output/twitter.csv"));
+
+            Job job = Job.run(reader, writer);
+            return job.getRunningTimeAsString();
+        });
+    }
+}
