@@ -8,7 +8,7 @@ import java.io.FileReader;
 import static com.northconcepts.datapipeline.jsonata.Jsonata.jsonata;
 
 
-public class QueryJsonUsingJSONAta {
+public class QueryJsonUsingJSONata {
 
     public static void main(String[] args) throws Throwable {
         try (FileReader fileReader = new FileReader("data/input/nested-data.json")) {
