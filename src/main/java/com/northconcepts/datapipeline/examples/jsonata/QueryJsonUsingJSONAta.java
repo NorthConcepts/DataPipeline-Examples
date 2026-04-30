@@ -1,6 +1,5 @@
 package com.northconcepts.datapipeline.examples.jsonata;
 
-import com.northconcepts.datapipeline.core.ArrayValue;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.core.ValueNode;
 
