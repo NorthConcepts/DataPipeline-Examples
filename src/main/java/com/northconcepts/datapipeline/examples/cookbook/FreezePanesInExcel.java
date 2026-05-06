@@ -9,8 +9,7 @@ import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.excel.ExcelDocument;
 import com.northconcepts.datapipeline.excel.ExcelWriter;
 import com.northconcepts.datapipeline.job.Job;
-
-import org.apache.log4j.Logger;
+import com.northconcepts.datapipeline.logger.Logger;
 
 public class FreezePanesInExcel {
 
