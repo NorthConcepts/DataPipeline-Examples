@@ -2,14 +2,13 @@ package com.northconcepts.datapipeline.examples.cookbook;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
-
 import com.northconcepts.datapipeline.core.DataEndpoint;
 import com.northconcepts.datapipeline.core.DataException;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.NullWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.logger.Logger;
 
 public class HandleExceptions {
     

@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
-
 import com.northconcepts.datapipeline.core.DataEndpoint;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
@@ -19,6 +17,7 @@ import com.northconcepts.datapipeline.internal.lang.Moment;
 import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.transform.SetCalculatedField;
 import com.northconcepts.datapipeline.transform.TransformingWriter;
+import com.northconcepts.datapipeline.logger.Logger;
 
 public class ProfilePerformance {
 

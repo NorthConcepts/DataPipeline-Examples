@@ -2,8 +2,6 @@ package com.northconcepts.datapipeline.examples.cookbook;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
-
 import com.northconcepts.datapipeline.core.DataEndpoint;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
@@ -18,6 +16,7 @@ import com.northconcepts.datapipeline.transform.MoveFieldAfter;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 import com.northconcepts.datapipeline.twitter.ApiLimitPolicy;
 import com.northconcepts.datapipeline.twitter.TwitterSearchReader;
+import com.northconcepts.datapipeline.logger.Logger;
 
 public class SearchTwitterForTweets {
     

@@ -4,12 +4,11 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
-
 import com.northconcepts.datapipeline.core.DataEndpoint;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.Record;
 import com.northconcepts.datapipeline.jdbc.JdbcReader;
+import com.northconcepts.datapipeline.logger.Logger;
 
 public class ReadFromADatabase {
 
