@@ -3,8 +3,6 @@ package com.northconcepts.datapipeline.examples.cookbook;
 import java.io.File;
 import java.sql.Connection;
 
-import org.apache.log4j.Logger;
-
 import com.northconcepts.datapipeline.core.DataEndpoint;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
@@ -13,6 +11,7 @@ import com.northconcepts.datapipeline.job.Job;
 import com.northconcepts.datapipeline.transform.BasicFieldTransformer;
 import com.northconcepts.datapipeline.transform.TransformingReader;
 import com.northconcepts.datapipeline.xml.XmlReader;
+import com.northconcepts.datapipeline.logger.Logger;
 
 public class ReadAnXmlFile2 {
     
