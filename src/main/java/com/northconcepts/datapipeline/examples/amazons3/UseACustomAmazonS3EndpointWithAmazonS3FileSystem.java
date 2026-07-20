@@ -3,9 +3,6 @@ package com.northconcepts.datapipeline.examples.amazons3;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.client.builder.AwsClientBuilder;
 import com.northconcepts.datapipeline.amazons3.AmazonS3FileSystem;
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
@@ -22,10 +19,10 @@ public class UseACustomAmazonS3EndpointWithAmazonS3FileSystem {
 	private static final String REGION = "YOUR AWS S3 REGION";
 
 	public static void main(String[] args) {
-		BasicAWSCredentials credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
 		AmazonS3FileSystem s3 = new AmazonS3FileSystem()
-				.setCredentialsProvider(new AWSStaticCredentialsProvider(credentials))
-				.setEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(AWS_S3_CUSTOM_ENDPOINT, REGION))
+				.setBasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
+				.setRegion(REGION)
+				.setEndpointOverride(AWS_S3_CUSTOM_ENDPOINT)
 				.setDebug(true);
 
 		s3.open();
