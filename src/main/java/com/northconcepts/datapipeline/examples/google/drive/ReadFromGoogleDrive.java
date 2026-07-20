@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
-import com.northconcepts.datapipeline.core.NullWriter;
+import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.csv.CSVReader;
 import com.northconcepts.datapipeline.googledrive.GoogleDriveFileSystem;
 import com.northconcepts.datapipeline.job.Job;
@@ -44,7 +44,7 @@ public class ReadFromGoogleDrive {
 
             DataReader reader = new CSVReader(new InputStreamReader(inputStream))
                     .setFieldNamesInFirstRow(true);
-            DataWriter writer = new NullWriter();
+            DataWriter writer = StreamWriter.newSystemOutWriter();
             Job.run(reader, writer);
 
             System.out.println("Records read: " + writer.getRecordCount());

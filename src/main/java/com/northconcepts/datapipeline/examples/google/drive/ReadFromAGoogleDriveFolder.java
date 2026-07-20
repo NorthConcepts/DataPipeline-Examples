@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.northconcepts.datapipeline.core.DataReader;
 import com.northconcepts.datapipeline.core.DataWriter;
-import com.northconcepts.datapipeline.core.NullWriter;
+import com.northconcepts.datapipeline.core.StreamWriter;
 import com.northconcepts.datapipeline.excel.ExcelDocument;
 import com.northconcepts.datapipeline.excel.ExcelReader;
 import com.northconcepts.datapipeline.googledrive.GoogleDriveFileSystem;
@@ -45,7 +45,7 @@ public class ReadFromAGoogleDriveFolder {
             DataReader reader = new ExcelReader(document)
                     .setSheetName("balance")
                     .setFieldNamesInFirstRow(true);
-            DataWriter writer = new NullWriter();
+            DataWriter writer = StreamWriter.newSystemOutWriter();
             Job.run(reader, writer);
 
             System.out.println("Records read: " + writer.getRecordCount());
