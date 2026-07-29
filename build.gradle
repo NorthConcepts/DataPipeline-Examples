@@ -87,6 +87,7 @@ dependencies {
 
 
     implementation "com.northconcepts:northconcepts-datapipeline-filesystems-amazons3:${version}"
+    implementation "com.northconcepts:northconcepts-datapipeline-filesystems-googledrive:${version}"
 
     implementation "com.fasterxml.jackson:jackson-bom:2.13.4.20221012";
 
