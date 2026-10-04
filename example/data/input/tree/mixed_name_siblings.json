@@ -1,0 +1,7 @@
+{
+    "inventory": {
+        "widget": { "sku": "W-1", "qty": 10, "price": 2.50 },
+        "gadget": { "sku": "G-7", "qty": 3, "price": 12.00 },
+        "doohickey": { "sku": "D-4", "qty": 8, "price": 5.25 }
+    }
+}

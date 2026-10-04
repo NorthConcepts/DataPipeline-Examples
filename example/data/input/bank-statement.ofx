@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?OFX OFXHEADER="200" VERSION="211" SECURITY="NONE" OLDFILEUID="NONE" NEWFILEUID="NONE"?>
+<OFX>
+  <SIGNONMSGSRSV1>
+    <SONRS>
+      <STATUS>
+        <CODE>0</CODE>
+        <SEVERITY>INFO</SEVERITY>
+      </STATUS>
+      <DTSERVER>20260131120000.000[0:GMT]</DTSERVER>
+      <LANGUAGE>ENG</LANGUAGE>
+      <FI>
+        <ORG>Sample Bank</ORG>
+        <FID>12345</FID>
+      </FI>
+    </SONRS>
+  </SIGNONMSGSRSV1>
+  <BANKMSGSRSV1>
+    <STMTTRNRS>
+      <TRNUID>1</TRNUID>
+      <STATUS>
+        <CODE>0</CODE>
+        <SEVERITY>INFO</SEVERITY>
+      </STATUS>
+      <STMTRS>
+        <CURDEF>USD</CURDEF>
+        <BANKACCTFROM>
+          <BANKID>111000025</BANKID>
+          <ACCTID>000123456789</ACCTID>
+          <ACCTTYPE>CHECKING</ACCTTYPE>
+        </BANKACCTFROM>
+        <BANKTRANLIST>
+          <DTSTART>20260101000000.000[0:GMT]</DTSTART>
+          <DTEND>20260131000000.000[0:GMT]</DTEND>
+          <STMTTRN>
+            <TRNTYPE>CREDIT</TRNTYPE>
+            <DTPOSTED>20260105120000.000[0:GMT]</DTPOSTED>
+            <TRNAMT>2500.00</TRNAMT>
+            <FITID>2026010500001</FITID>
+            <NAME>PAYROLL DEPOSIT</NAME>
+          </STMTTRN>
+          <STMTTRN>
+            <TRNTYPE>DEBIT</TRNTYPE>
+            <DTPOSTED>20260112120000.000[0:GMT]</DTPOSTED>
+            <TRNAMT>-86.42</TRNAMT>
+            <FITID>2026011200002</FITID>
+            <NAME>GROCERY MART</NAME>
+            <MEMO>Card purchase</MEMO>
+          </STMTTRN>
+          <STMTTRN>
+            <TRNTYPE>CHECK</TRNTYPE>
+            <DTPOSTED>20260120120000.000[0:GMT]</DTPOSTED>
+            <TRNAMT>-1200.00</TRNAMT>
+            <FITID>2026012000003</FITID>
+            <CHECKNUM>1042</CHECKNUM>
+            <NAME>RENT</NAME>
+          </STMTTRN>
+        </BANKTRANLIST>
+        <LEDGERBAL>
+          <BALAMT>4213.58</BALAMT>
+          <DTASOF>20260131000000.000[0:GMT]</DTASOF>
+        </LEDGERBAL>
+      </STMTRS>
+    </STMTTRNRS>
+  </BANKMSGSRSV1>
+</OFX>

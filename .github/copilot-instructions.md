@@ -14,8 +14,9 @@
   decision, not a refactor (see "Change discipline").
 
 ## Tech stack and build
-- Java **8** source/target (`sourceCompatibility = 1.8`) — no `var`, records,
-  text blocks, switch expressions, or `List.of`. CI compiles on JDK 8 (Zulu).
+- Java **21** source/target (`sourceCompatibility = JavaVersion.VERSION_21`). Keep the
+  existing plain style: lambdas are fine; avoid `var`, records, text blocks and switch
+  expressions unless they clearly read better. CI compiles on JDK 21 (Zulu).
 - Single Gradle project; wrapper is **Gradle 8.5**, vendored at
   `gradle/wrapper/gradle-8.5-bin.zip` (the `distributionUrl` is relative, so the
   build never downloads Gradle). `.gitignore` lists `gradle/`, so a new file under
@@ -24,8 +25,11 @@
   `mavenLocal()` first and then `https://maven.northconcepts.com/public/repositories/datapipeline`:
   `northconcepts-datapipeline-small-business` + `-foundations` + one line per
   `-integrations-*` / `-filesystems-*` module, all at the single `version` in
-  `build.gradle` (currently `10.2.0-SNAPSHOT`; it tracks the DataPipeline release in
+  `build.gradle` (currently `11.0.0-SNAPSHOT`; it tracks the DataPipeline release in
   progress and is bumped with each release, e.g. "DP-4993 update version to 10.0.0").
+  `build.gradle` also carries one `capabilitiesResolution` rule (`org.lz4:lz4-java`): the
+  parquet and kafka modules ship competing LZ4 artifacts and `gradlew run` fails to
+  resolve the runtime classpath without it (compile alone does not catch this).
 - A **license file** is required to *run* (not to compile):
   `src/main/resources/NorthConcepts-DataPipeline.license` (gitignored). Never commit
   it and never copy one in from another repo.
@@ -67,7 +71,7 @@ example/data/input/           the classic fixture root (+ datamapping/ pipeline/
 example/data/output/          gitignored run output (only .keep is tracked)
 data/input/                   the newer fixture root — ALSO consumed by DataConverter.io's CI (see below)
 data/output/                  gitignored run output
-.github/workflows/gradle.yml  CI: checkout with LFS → JDK 8 → ./gradlew build
+.github/workflows/gradle.yml  CI: checkout with LFS → JDK 21 → ./gradlew build
 docs/authoring/               agent recipes, skeletons, exemplars, ROADMAP (start at /CLAUDE.md)
 ```
 
@@ -108,10 +112,10 @@ at the package root. Don't copy that; new examples go under
   carry the proprietary NorthConcepts header; this public Apache-2.0 repo does not
   (2 legacy files do — leave them, don't add more, never paste the proprietary
   header in here).
-- Java 8 only (see above). Also no `JobTemplate` — `Job.run(...)` is the current API.
+- Java 21, plain style (see above). Also no `JobTemplate` — `Job.run(...)` is the current API.
 - Examples that need an external service (S3, Kafka, Mongo, MySQL, Jira, Google,
   Twitter, Shopify, Trello, email, Bloomberg) can't run in CI and that's expected;
-  they must still **compile** on JDK 8. Database examples that *can* run use the
+  they must still **compile** on JDK 21. Database examples that *can* run use the
   in-memory HSQLDB/H2 drivers already on the classpath (`examples/database/DB.java`
   is the HSQLDB helper); MySQL examples assume `localhost/datapipeline`, user/pw `etl`.
 

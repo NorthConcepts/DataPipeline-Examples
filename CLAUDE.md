@@ -48,14 +48,14 @@ canonical "write my own X" examples).
 
 ## Build
 
-CI-equivalent check (JDK 8; there are no tests), then run one example:
+CI-equivalent check (JDK 21; there are no tests), then run one example:
 
 ```bat
 gradlew.bat compileJava --no-daemon
 gradlew.bat run --quiet -PclassToExecute=com.northconcepts.datapipeline.examples.cookbook.WriteACsvFileToFixedWidth
 ```
 
-Java 8 source/target, Gradle 8.5 (vendored wrapper), published DataPipeline
+Java 21 source/target, Gradle 8.5 (vendored wrapper), published DataPipeline
 artifacts from `mavenLocal()` + `maven.northconcepts.com` at the single `version`
 in `build.gradle`. Running needs the gitignored
 `src/main/resources/NorthConcepts-DataPipeline.license` and the **repo root as
@@ -65,7 +65,8 @@ working directory**. See `copilot-instructions.md` → "Tech stack and build".
 
 - **The file is the page.** Write for a reader: one capability, 20–60 lines,
   `Job.run(reader, writer)`, placeholder constants for credentials, no scaffolding.
-- **Java 8 only** — no `var`, records, text blocks, `List.of`, switch expressions.
+- **Java 21 toolchain, plain style** — lambdas are fine; avoid `var`, records, text
+  blocks and switch expressions unless they clearly read better on the page.
 - **No comments / no Javadoc by default; never a copyright header** (this public
   repo is Apache-2.0; the proprietary header belongs to the core repo's copies).
 - **Don't rename, move, or delete** an existing example or fixture without a

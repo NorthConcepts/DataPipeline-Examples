@@ -12,10 +12,10 @@ published page.**
 - No `example/data/output/*`, `data/output/*`, license file, `bin/`, `build/`.
 
 ## 1. Compile truth
-- Java 8 only: scan for `var`, `record`, `"""`, `List.of/Map.of`, `switch ->`,
-  `Optional.isEmpty`, `String.isBlank`, `stream().toList()`.
+- Style: Java 21 toolchain, but the page style is plain — flag `var`, `record`, `"""`,
+  `switch ->` unless they clearly help the reader.
 - New module used? The matching `implementation` line exists at `${version}`.
-- Ideally: checkout + `gradlew.bat compileJava --no-daemon` on JDK 8 (CI does
+- Ideally: checkout + `gradlew.bat compileJava --no-daemon` on JDK 21 (CI does
   `build`; same thing here).
 
 ## 2. The example contract ([copilot-instructions](../../.github/copilot-instructions.md) → "What an example looks like")
@@ -45,7 +45,7 @@ published page.**
   description says whether/how it will be mirrored.
 
 ## 5. Verdict shape
-Approve when §1–§3 pass; request changes for any real-looking secret, Java 9+
-syntax, header, rename without ticket, or fixture change that hits another repo.
+Approve when §1–§3 pass; request changes for any real-looking secret,
+header, rename without ticket, or fixture change that hits another repo.
 Everything in §4 is a comment, not a blocker — but it is the reason the next step
 goes smoothly.

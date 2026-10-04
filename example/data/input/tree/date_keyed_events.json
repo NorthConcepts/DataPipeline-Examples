@@ -1,0 +1,8 @@
+{
+    "calendar": "product-team",
+    "events": {
+        "2024-01-15": { "title": "Kickoff", "attendees": 12 },
+        "2024-01-16": { "title": "Design Review", "attendees": 8 },
+        "2024-01-17": { "title": "Retrospective", "attendees": 15 }
+    }
+}
