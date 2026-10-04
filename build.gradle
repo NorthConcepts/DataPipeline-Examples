@@ -48,6 +48,15 @@ sourceSets {
     }
 }
 
+// gradlew run -PclassToExecute=com.northconcepts.datapipeline.examples.cookbook.WriteACsvFileToFixedWidth
+tasks.register('run', JavaExec) {
+    group = 'application'
+    description = 'Runs the example named by -PclassToExecute from the repository root.'
+    classpath = sourceSets.main.runtimeClasspath
+    workingDir = projectDir
+    mainClass = providers.gradleProperty('classToExecute')
+}
+
 configurations.all {
     // Check for updates every 30 minutes (0 for every build)
     //resolutionStrategy.cacheChangingModulesFor 30, 'minutes'

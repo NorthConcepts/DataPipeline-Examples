@@ -1,0 +1,84 @@
+# Curated, in-tree exemplars — the known-good file to copy patterns from for each
+# example pattern. Keep paths here current; this is the single place to fix on drift.
+# Paths are repo-relative to DataPipeline-Examples/.
+#
+# status: available = the recipe/skeleton + this exemplar are ready to use.
+
+file_to_file:
+  status: available
+  recipe: docs/authoring/Example.md
+  skeleton: docs/authoring/_skeletons/FileExample.java.txt
+  exemplar: src/main/java/com/northconcepts/datapipeline/examples/cookbook/WriteACsvFileToFixedWidth.java
+  fixture: example/data/input/credit-balance-01.csv
+  note: >
+    27 lines. CSVReader(File) -> FixedWidthWriter(File) -> Job.run. The canonical
+    shape; also the page the README names in its run command.
+
+file_to_stdout:
+  status: available
+  recipe: docs/authoring/Example.md
+  skeleton: docs/authoring/_skeletons/FileExample.java.txt
+  exemplar: src/main/java/com/northconcepts/datapipeline/examples/cookbook/ReadJsonLinesAsRecord.java
+  fixture: data/input/json-input-with-lines.jsonl
+  note: >
+    20 lines. Reader -> StreamWriter.newSystemOutWriter() -> Job.run; also shows the
+    newer data/input root. Use stdout whenever the output format is readable; ~130
+    examples do. (ReadACsvFile.java is the manual open/read/close loop variant.)
+
+memory_to_file:
+  status: available
+  recipe: docs/authoring/Example.md
+  skeleton: docs/authoring/_skeletons/MemoryExample.java.txt
+  exemplar: src/main/java/com/northconcepts/datapipeline/examples/latex/WriteALatexFile.java
+  build_line: build.gradle   # implementation "...-integrations-latex:${version}" added in the same PR
+  note: >
+    RecordList + MemoryReader -> writer, no fixture needed. Shows the one case where
+    short trailing // comments are justified (which characters get escaped). Also
+    the model PR for "new module": one Java file + one build.gradle line.
+
+external_service:
+  status: available
+  recipe: docs/authoring/Example.md
+  skeleton: docs/authoring/_skeletons/ExternalServiceExample.java.txt
+  exemplar: src/main/java/com/northconcepts/datapipeline/examples/amazons3/ReadFromAmazonS3.java
+  alternate: src/main/java/com/northconcepts/datapipeline/examples/jira/AddJiraComments.java
+  note: >
+    Placeholder constants ("YOUR ACCESS KEY"), open the file system, try/finally
+    close, NullWriter + record count when the payload isn't the point. Compiles in
+    CI, cannot run there — expected.
+
+custom_component:
+  status: available
+  recipe: docs/authoring/Example.md
+  skeleton: docs/authoring/_skeletons/CustomComponentExample.java.txt
+  exemplar:
+    component: src/main/java/com/northconcepts/datapipeline/examples/cookbook/customization/MyTransformer.java
+    main: src/main/java/com/northconcepts/datapipeline/examples/cookbook/customization/WriteMyOwnTransformer.java
+  siblings: MyDataReader/WriteMyOwnDataReader, MyDataWriter/WriteMyOwnDataWriter, MyFilter/WriteMyOwnFilterOrValidator, MyLookup/WriteMyOwnLookup, MyProxyReader, MyProxyWriter
+  note: >
+    Two files in cookbook/customization: the component (My<Base>) and the runnable
+    main (WriteMyOwn<Base>). The component's contract comes from the core repo's
+    DataPipeline/docs/authoring/<Base>.md — don't re-derive it here.
+
+foundations:
+  status: available
+  recipe: docs/authoring/Example.md
+  skeleton: docs/authoring/_skeletons/MemoryExample.java.txt
+  exemplar: src/main/java/com/northconcepts/datapipeline/foundations/examples/schema/AddArrayFieldsToEntities.java
+  alternate: src/main/java/com/northconcepts/datapipeline/foundations/examples/pipeline/ReadFromCsvWriteToExcel.java
+  note: >
+    Foundations examples live under foundations/examples/<area>, publish under the
+    datapipeline-foundations category, and often print schema.toXml()/pipeline JSON
+    between separator lines instead of running a Job.
+
+data_fixture:
+  status: available
+  recipe: docs/authoring/DataFixture.md
+  exemplar:
+    classic: example/data/input/credit-balance-01.csv
+    format_set: data/input/transformer-input.jsonl
+    lfs_rules: .gitattributes
+  consumers: DataConverter.io src/test/java/.../FileConverterUrlBaseTest.java (fetches data/input/transformer-input.* from master)
+  note: >
+    data/input/transformer-input.<ext> is one dataset in every format; a new format
+    means a converted copy, never an edit. Large CSVs are LFS.

@@ -1,0 +1,28 @@
+package com.northconcepts.datapipeline.examples.cookbook; // TODO: product area package (examples/<area> or foundations/examples/<area>)
+
+import java.io.File;
+
+import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.core.DataWriter;
+import com.northconcepts.datapipeline.core.StreamWriter;
+import com.northconcepts.datapipeline.csv.CSVReader;
+import com.northconcepts.datapipeline.job.Job;
+
+// TODO: rename to the how-to phrase the page will carry, e.g. ReadACsvFile, ConvertJsonToParquet
+public class ReadAFileAndDoSomething {
+
+    public static void main(String[] args) throws Throwable {
+        // TODO: reuse an existing fixture (credit-balance-01.csv is the workhorse); paths are relative to the repo root
+        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-01.csv"))
+                .setFieldNamesInFirstRow(true);
+
+        // TODO: the one capability this example shows — a transformer, filter, lookup, or reader/writer option
+
+        // TODO: stdout when the result is readable; a file under example/data/output/ when the format IS the point
+        DataWriter writer = StreamWriter.newSystemOutWriter();
+        // DataWriter writer = new FixedWidthWriter(new File("example/data/output/credit-balance-01.fw"));
+
+        Job.run(reader, writer);
+    }
+
+}

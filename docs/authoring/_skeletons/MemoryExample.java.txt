@@ -1,0 +1,36 @@
+package com.northconcepts.datapipeline.examples.cookbook; // TODO: product area package
+
+import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.core.DataWriter;
+import com.northconcepts.datapipeline.core.Record;
+import com.northconcepts.datapipeline.core.RecordList;
+import com.northconcepts.datapipeline.core.StreamWriter;
+import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.memory.MemoryReader;
+
+// TODO: rename to the how-to phrase, e.g. WriteALatexFile, SortArrayValuesUsingCustomComparator
+public class DoSomethingWithInMemoryRecords {
+
+    public static void main(String[] args) throws Throwable {
+        // TODO: 3–5 records are enough; pick values that make the capability visible in the output
+        RecordList records = new RecordList(
+                new Record()
+                    .setField("Account", 101)
+                    .setField("LastName", "Reeves")
+                    .setField("Balance", 9315.45),
+                new Record()
+                    .setField("Account", 312)
+                    .setField("LastName", "Nguyen")
+                    .setField("Balance", 90.00));
+
+        DataReader reader = new MemoryReader(records);
+
+        // TODO: the one capability this example shows
+
+        DataWriter writer = StreamWriter.newSystemOutWriter();
+        // DataWriter writer = new SomeFormatWriter(new File("example/data/output/<Name>.<ext>"));
+
+        Job.run(reader, writer);
+    }
+
+}

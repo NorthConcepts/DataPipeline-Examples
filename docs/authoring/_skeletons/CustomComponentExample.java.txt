@@ -1,0 +1,49 @@
+// Two files, same package (cookbook/customization): the component and the runnable main.
+// The component's contract (which method to override, lifecycle, exception wrapping) is
+// defined in the core repo: DataPipeline/docs/authoring/<Base>.md — follow it, don't re-derive it.
+
+// ===== File 1: My<Base>.java  (e.g. MyTransformer.java) =====================================
+package com.northconcepts.datapipeline.examples.cookbook.customization;
+
+import com.northconcepts.datapipeline.core.Record;
+import com.northconcepts.datapipeline.transform.Transformer;
+
+// TODO: My<Base>: MyTransformer, MyFilter, MyLookup, MyDataReader, MyDataWriter, MyProxyReader, MyProxyWriter
+public class MyTransformer extends Transformer {
+
+    @Override
+    public boolean transform(Record record) throws Throwable {
+        // TODO: the smallest change that shows the hook; keep it to a few lines
+        record.setField("Greeting", "Hello " + record.getField("FirstName").getValueAsString());
+        return true;
+    }
+
+}
+
+// ===== File 2: WriteMyOwn<Base>.java  (e.g. WriteMyOwnTransformer.java) =====================
+package com.northconcepts.datapipeline.examples.cookbook.customization;
+
+import java.io.File;
+
+import com.northconcepts.datapipeline.core.DataReader;
+import com.northconcepts.datapipeline.core.DataWriter;
+import com.northconcepts.datapipeline.core.StreamWriter;
+import com.northconcepts.datapipeline.csv.CSVReader;
+import com.northconcepts.datapipeline.job.Job;
+import com.northconcepts.datapipeline.transform.TransformingReader;
+
+public class WriteMyOwnTransformer {
+
+    public static void main(String[] args) throws Throwable {
+        DataReader reader = new CSVReader(new File("example/data/input/credit-balance-01.csv"))
+                .setFieldNamesInFirstRow(true);
+
+        // TODO: plug the component in the way its base expects (TransformingReader, FilteringReader, LookupTransformer, ...)
+        reader = new TransformingReader(reader).add(new MyTransformer());
+
+        DataWriter writer = StreamWriter.newSystemOutWriter();
+
+        Job.run(reader, writer);
+    }
+
+}

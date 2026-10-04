@@ -31,7 +31,10 @@ You can also run examples with the following Gradle command.  Just replace `com.
     ./gradlew run --quiet -PclassToExecute="com.northconcepts.datapipeline.examples.cookbook.WriteACsvFileToFixedWidth"
 
 ## Data
-Most examples read from the `example/data/input` folder and write to `example/data/output`.
+Most examples read from the `example/data/input` folder and write to `example/data/output`.  Newer examples read from `data/input` and write to `data/output`.  Run examples with the repository root as the working directory.
+
+## Contributing / agent guidance
+Adding, updating, or reviewing an example?  Start at [CLAUDE.md](CLAUDE.md), then the canonical rules in [.github/copilot-instructions.md](.github/copilot-instructions.md) and the one-screen recipes in [docs/authoring](docs/authoring/README.md) (how an example is shaped, how fixtures work, and how a file here becomes a page on the website).
 
 ## DataPipeline Resources
 - [DataPipeline Home](https://northconcepts.com/)
