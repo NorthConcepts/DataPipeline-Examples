@@ -15,7 +15,7 @@ import com.northconcepts.datapipeline.security.CredentialsResolver;
 import com.northconcepts.datapipeline.security.CredentialsResolverRegistry;
 import com.northconcepts.datapipeline.security.SuppliedCredentialsResolver;
 
-public class CacheCredentialsFromASecretsManager {
+public class CacheAndRegisterACredentialsResolver {
 
     private static final String RESOLVER_ID = "s3-trades";
     private static final String BUCKET = "YOUR BUCKET";
@@ -23,7 +23,7 @@ public class CacheCredentialsFromASecretsManager {
 
     public static void main(String[] args) throws Throwable {
         CredentialsResolver resolver = new CachingCredentialsResolver(
-                new SuppliedCredentialsResolver(CacheCredentialsFromASecretsManager::fetchFromSecretsManager),
+                new SuppliedCredentialsResolver(CacheAndRegisterACredentialsResolver::fetchCredentials),
                 TimeUnit.MINUTES.toMillis(15));
 
         CredentialsResolverRegistry.getSystemRegistry().add(RESOLVER_ID, resolver);
@@ -42,7 +42,7 @@ public class CacheCredentialsFromASecretsManager {
         }
     }
 
-    private static Credentials fetchFromSecretsManager() {
+    private static Credentials fetchCredentials() {
         return Credentials.builder()
                 .set(Credentials.ACCESS_KEY, "YOUR ACCESS KEY")
                 .set(Credentials.SECRET_KEY, "YOUR SECRET KEY")

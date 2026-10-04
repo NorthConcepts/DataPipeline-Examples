@@ -59,6 +59,31 @@ external_service:
     system, try/finally close, NullWriter + record count when the payload isn't the
     point. Compiles in CI, cannot run there — expected.
 
+credential_source:
+  status: available
+  recipe: docs/authoring/Example.md
+  skeleton: docs/authoring/_skeletons/ExternalServiceExample.java.txt
+  exemplar: src/main/java/com/northconcepts/datapipeline/examples/security/ReadFromAmazonS3UsingEnvironmentCredentials.java
+  alternate: src/main/java/com/northconcepts/datapipeline/examples/security/ReadFromAmazonS3UsingRotatingCredentialsFile.java
+  note: >
+    The one sanctioned reader of ambient configuration: the capability IS the
+    credential source, so it names the environment variables / properties file it
+    reads (AWS_ACCESS_KEY_ID, example/data/input/s3-credentials.properties) and
+    never a value. Every other example keeps placeholder constants.
+
+google_oauth:
+  status: available
+  recipe: docs/authoring/Example.md
+  skeleton: docs/authoring/_skeletons/ExternalServiceExample.java.txt
+  exemplar: src/main/java/com/northconcepts/datapipeline/examples/google/sheets/ReadAGoogleSheet.java
+  alternate: src/main/java/com/northconcepts/datapipeline/examples/google/sheets/WriteToAGoogleSheet.java
+  note: >
+    The installed-app authorize() block: GsonFactory, client secret loaded from
+    src/main/resources (gitignored *.json), FileDataStoreFactory under the
+    gitignored tokens/, LocalServerReceiver on 8888. Copy from here, not from the
+    older calendar/gmail/contacts examples, which still carry Javadoc. One
+    tokens/<api>[-readonly] directory per OAuth scope.
+
 custom_component:
   status: available
   recipe: docs/authoring/Example.md

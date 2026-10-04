@@ -28,11 +28,10 @@ public class ReadAGoogleSheet {
     private static final String SPREADSHEET_ID = "YOUR SPREADSHEET ID";
     private static final String SHEET_NAME = "Sheet1";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-    private static final String TOKENS_DIRECTORY_PATH = "tokens/sheets";
+    private static final String TOKENS_DIRECTORY_PATH = "tokens/sheets-readonly";
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
     private static final String CLIENT_SECRET = "/integrations.json";
 
-    /** Authorizes the installed application to access user's protected data. */
     private static Credential authorize(NetHttpTransport httpTransport) throws Throwable {
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY,
                 new InputStreamReader(ReadAGoogleSheet.class.getResourceAsStream(CLIENT_SECRET)));

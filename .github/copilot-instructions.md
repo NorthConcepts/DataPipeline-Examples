@@ -85,7 +85,10 @@ at the package root. Don't copy that; new examples go under
   page will carry: `ReadACsvFile`, `WriteACsvFileToFixedWidth`,
   `UseRetryingOperationWithRetryCondition`. Variants get a numeric suffix
   (`ReadAnXmlFile2`) or a qualifier (`...UsingATemporaryFile`). The CMS title is the
-  same phrase with spaces; the slug is its kebab-case.
+  same phrase with spaces; the slug is its kebab-case. The name promises exactly
+  what the body shows: don't name a page after a service the code only stubs with
+  placeholders (`...FromASecretsManager` around `"YOUR ACCESS KEY"`) — name the
+  mechanism it demonstrates (`CacheAndRegisterACredentialsResolver`).
 - `public static void main(String[] args) throws Throwable` (or no `throws` when
   nothing is checked). No argument parsing, no frameworks, no `System.exit`.
 - Shape: build the reader → (transform/filter/lookup) → build the writer →
@@ -101,13 +104,27 @@ at the package root. Don't copy that; new examples go under
   `MyTransformer` + `WriteMyOwnTransformer`).
 - **Credentials and endpoints are placeholder constants** at the top of the class:
   `private static final String ACCESS_KEY = "YOUR ACCESS KEY";`,
-  `JIRA_API_KEY = "API_KEY"`. Never a real value, never read from env/system
-  properties (no example does — the page must be self-explanatory), never a real
-  bucket/host that isn't obviously a sample.
+  `JIRA_API_KEY = "API_KEY"`. Never a real value, never a real bucket/host that
+  isn't obviously a sample. The secret itself is never read from env/system
+  properties — with one narrow exception: an example whose *capability* is a
+  credential source (`EnvironmentCredentialsResolver`, `FileCredentialsResolver`,
+  an AWS profile) names the variable/file/profile it reads (`"AWS_ACCESS_KEY_ID"`,
+  a placeholder properties file under `example/data/input/`) and still contains no
+  value. The page stays self-explanatory because the source is the point.
+- **Anything an example writes while running lands in a gitignored path**: output
+  files (`example/data/output/`, `data/output/`), OAuth token caches (`tokens/`),
+  and the Google client-secret JSON the Google examples load from
+  `src/main/resources/` are all ignored. A new runtime path means a new
+  `.gitignore` line in the same PR — this repo is public, and an unignored token
+  cache is one `git add .` away from leaking credentials. One token cache per
+  OAuth scope (`tokens/sheets`, `tokens/sheets-readonly`): the first run writes the
+  cache, and a read-only token reused by a write example fails.
 - **Comments:** default to none. Names and the fluent API carry the meaning. A short
   `//` is warranted only where the output would surprise a reader (e.g. which
   characters a LaTeX writer escapes). Never Javadoc, never ticket numbers, never a
-  class comment restating the class name.
+  class comment restating the class name. Copying a block from an older sibling
+  (the Google `authorize()` method, say) copies its legacy Javadoc too — strip it;
+  older files are not the contract.
 - **No copyright headers.** The core `DataPipeline` repo's copies of these examples
   carry the proprietary NorthConcepts header; this public Apache-2.0 repo does not
   (2 legacy files do — leave them, don't add more, never paste the proprietary
@@ -163,8 +180,8 @@ Consequences:
   version bump. Don't add test frameworks or an `application`-plugin main class —
   there is intentionally no single entry point (the `run` task takes the class via
   `-PclassToExecute`).
-- Don't commit `example/data/output/*`, `data/output/*`, the license file, or
-  IDE output (`bin/`, `build/`).
+- Don't commit `example/data/output/*`, `data/output/*`, `tokens/`, the license
+  file, client-secret JSON, or IDE output (`bin/`, `build/`).
 - Core repo mirror: ~136 of these examples also ship inside the DataPipeline
   download (`DataPipeline/example/src/java`, with the proprietary header). When you
   change one that exists there, say so in the PR so it can be mirrored; don't copy
