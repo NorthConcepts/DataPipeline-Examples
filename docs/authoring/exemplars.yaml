@@ -11,7 +11,7 @@ file_to_file:
   exemplar: src/main/java/com/northconcepts/datapipeline/examples/cookbook/WriteACsvFileToFixedWidth.java
   fixture: example/data/input/credit-balance-01.csv
   note: >
-    27 lines. CSVReader(File) -> FixedWidthWriter(File) -> Job.run. The canonical
+    28 lines. CSVReader(File) -> FixedWidthWriter(File) -> Job.run. The canonical
     shape; also the page the README names in its run command.
 
 file_to_stdout:
@@ -29,12 +29,24 @@ memory_to_file:
   status: available
   recipe: docs/authoring/Example.md
   skeleton: docs/authoring/_skeletons/MemoryExample.java.txt
-  exemplar: src/main/java/com/northconcepts/datapipeline/examples/latex/WriteALatexFile.java
-  build_line: build.gradle   # implementation "...-integrations-latex:${version}" added in the same PR
+  exemplar: src/main/java/com/northconcepts/datapipeline/examples/cookbook/WriteSimpleJsonFile.java
+  alternate: src/main/java/com/northconcepts/datapipeline/examples/cookbook/WriteSimpleXmlFile.java
   note: >
-    RecordList + MemoryReader -> writer, no fixture needed. Shows the one case where
-    short trailing // comments are justified (which characters get escaped). Also
-    the model PR for "new module": one Java file + one build.gradle line.
+    33 lines. RecordList + MemoryReader -> SimpleJsonWriter(File).setPretty(true) ->
+    Job.run; no fixture, no comments. The alternate is the same shape for XML.
+
+new_module:
+  status: available
+  recipe: docs/authoring/Example.md
+  skeleton: docs/authoring/_skeletons/MemoryExample.java.txt
+  exemplar: src/main/java/com/northconcepts/datapipeline/examples/latex/WriteALatexFile.java
+  build_line: build.gradle   # implementation "...-integrations-latex:${version}" added in the same PR (#241)
+  note: >
+    The model PR shape for a module not yet in build.gradle: one Java file + one
+    implementation line. Copy the PR shape, not the file's length: at 77 lines it is
+    a deliberate exception to the 20–60-line rule (five records chosen to show every
+    LaTeX-escaped character), and the one case where short trailing // comments are
+    justified. A new example still targets 20–60 lines.
 
 external_service:
   status: available
@@ -46,6 +58,12 @@ external_service:
     Placeholder constants ("YOUR ACCESS KEY"), open the file system, try/finally
     close, NullWriter + record count when the payload isn't the point. Compiles in
     CI, cannot run there — expected.
+  caveat: >
+    Legacy, do not copy: the bucket and key passed to readFile are hard-coded
+    literals and line 26 is a commented-out writer. Both predate the placeholder
+    rule; new code lifts them into BUCKET / KEY placeholder constants as the
+    skeleton does and carries no dead code. The other amazons3 examples share the
+    same literals — cleaning them up is a separate ticket.
 
 custom_component:
   status: available

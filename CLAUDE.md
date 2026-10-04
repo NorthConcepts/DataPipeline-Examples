@@ -48,8 +48,10 @@ canonical "write my own X" examples).
 
 ## Build
 
+CI-equivalent check (JDK 8; there are no tests), then run one example:
+
 ```bat
-gradlew.bat compileJava --no-daemon      :: CI-equivalent check (JDK 8; there are no tests)
+gradlew.bat compileJava --no-daemon
 gradlew.bat run --quiet -PclassToExecute=com.northconcepts.datapipeline.examples.cookbook.WriteACsvFileToFixedWidth
 ```
 

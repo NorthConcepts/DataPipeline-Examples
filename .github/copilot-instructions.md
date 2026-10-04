@@ -33,12 +33,15 @@
   `credit-balance-02-*`, `trades.csv`). Clone with LFS or those files are pointers.
 - Windows: Parquet/ORC/HDFS-backed examples need `HADOOP_HOME` + `%HADOOP_HOME%\bin`
   on `PATH` (winutils) — see `README.md`.
+- The three commands below, in order: `compileJava` is what CI effectively checks
+  (there are no tests); `build` is the exact CI task (`.github/workflows/gradle.yml`);
+  `run` is the JavaExec task in `build.gradle` that runs one example with the repo
+  root as cwd.
 
 ```bat
-gradlew.bat compileJava --no-daemon                  :: what CI effectively checks (there are no tests)
-gradlew.bat build --no-daemon                        :: the exact CI task (.github/workflows/gradle.yml)
+gradlew.bat compileJava --no-daemon
+gradlew.bat build --no-daemon
 gradlew.bat run --quiet -PclassToExecute=com.northconcepts.datapipeline.examples.cookbook.WriteACsvFileToFixedWidth
-                                                     :: run one example (JavaExec task in build.gradle; cwd = repo root)
 ```
 
 Or run the `main` from the IDE (Eclipse `.project`/`.classpath` are committed; any
