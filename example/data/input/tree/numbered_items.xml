@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order id="po-1001">
+    <item-1 sku="A100" price="9.99">
+        <qty>2</qty>
+    </item-1>
+    <item-2 sku="B200" price="19.99">
+        <qty>1</qty>
+    </item-2>
+    <item-3 sku="C300" price="29.99">
+        <qty>5</qty>
+    </item-3>
+    <summary>
+        <total>8</total>
+    </summary>
+</order>

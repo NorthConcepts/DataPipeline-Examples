@@ -43,10 +43,10 @@ once instead of being rediscovered from `Examples3Resource`/`DocsService` each t
 ## 2. Findings that ground the plan (verified 2026-10-04)
 
 - 445 Java files (~415 runnable `main` classes + ~30 helper classes), one Gradle
-  project, Java 8 source/target, Gradle 8.5 vendored wrapper, no tests; CI
-  (`.github/workflows/gradle.yml`) = `./gradlew build` on JDK 8 with LFS.
+  project, Java 21 source/target, Gradle 8.5 vendored wrapper, no tests; CI
+  (`.github/workflows/gradle.yml`) = `./gradlew build` on JDK 21 with LFS.
 - Dependencies are the published DataPipeline artifacts at one `version`
-  (`10.2.0-SNAPSHOT`), from `mavenLocal()` then `maven.northconcepts.com`. A new
+  (`11.0.0-SNAPSHOT`), from `mavenLocal()` then `maven.northconcepts.com`. A new
   integration module = one `implementation` line (LaTeX, PDF PRs).
 - Code conventions are strong and consistent: how-to class names, `Job.run`,
   relative fixture paths, placeholder constants, almost no comments (8 files have
@@ -102,9 +102,8 @@ one skeleton without opening any existing example, and knows the publish sequenc
 
 - [ ] **Compile-only CI job name.** CI runs `build`, which here equals compile;
       document (or rename the step) so nobody expects tests to exist.
-- [ ] **JDK matrix (optional).** The libraries are moving to JDK 21+
-      (`DP-5946`); when `build.gradle` follows, this roadmap's "Java 8 only" rule
-      flips — update `copilot-instructions.md` §"Tech stack" in the same PR.
+- [x] **JDK 21.** Done in DP-6034 (`build.gradle`, CI and the "Java 8 only" rule in
+      `copilot-instructions.md` §"Tech stack" flipped together, following `DP-5946`).
 
 ---
 
@@ -114,8 +113,8 @@ one skeleton without opening any existing example, and knows the publish sequenc
       `"example/data/input/…"` / `"data/input/…"` literal and fails when the file
       doesn't exist — catches renamed fixtures (no compile-time check today).
 - [ ] **Header/Java-level lint.** Fail the build on `Copyright (c)` in
-      `src/main/java` (except the 2 legacy files) and on obvious Java 9+ tokens, so
-      review doesn't have to.
+      `src/main/java` (except the 2 legacy files) and on syntax newer than the
+      toolchain, so review doesn't have to.
 - [ ] **CMS cross-check (read-only).** A script that lists examples in this repo
       with no published CMS record and CMS records whose `github_url` 404s on
       `master`. Needs read access to the CMS API or a DB export; outputs a report,
@@ -178,8 +177,8 @@ consulted). That is the win.
   and by being read.
 - **Risk — drift between the site and the repo:** mitigated by `PublishExample.md`
   §3 (re-publish after code changes) and, later, the Phase 2 cross-check.
-- **Risk — the Java 8 floor moving:** one place to update (`copilot-instructions`
-  §"Tech stack"); the recipes say "Java 8 only" by reference, not by repetition.
+- **Risk — the Java floor moving:** one place to update (`copilot-instructions`
+  §"Tech stack"); the recipes say "Java 21 plain style" by reference, not by repetition.
 - **Risk — stale exemplar paths:** `exemplars.yaml` is the single place to fix.
 
 ---

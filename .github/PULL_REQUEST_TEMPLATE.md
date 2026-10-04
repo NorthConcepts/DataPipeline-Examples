@@ -24,7 +24,7 @@ Body:     (none) | (one-paragraph intro suggested: ...)
 
 ## Checklist (see docs/authoring/ReviewExample.md)
 
-- [ ] Compiles on JDK 8 (`gradlew.bat compileJava --no-daemon`); Java 8 syntax only
+- [ ] Compiles on JDK 21 (`gradlew.bat compileJava --no-daemon`); plain style (no `var`/records unless clearer)
 - [ ] One capability, how-to class name, product-area package, `Job.run`, relative paths from repo root
 - [ ] Credentials/hosts are placeholders; nothing real-looking (public repo)
 - [ ] No comments/Javadoc beyond a justified one-liner; no copyright header

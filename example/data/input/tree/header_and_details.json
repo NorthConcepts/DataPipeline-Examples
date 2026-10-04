@@ -1,0 +1,19 @@
+{
+    "root": {
+        "header": "Orders exported 2025-08-05",
+        "body": {
+            "order_details": [
+                {
+                    "product": { "product_name": "Nike Shoes", "order_quantity": 1 },
+                    "order_id": "1234",
+                    "order_date": "2025-08-05T11:16:47Z"
+                },
+                {
+                    "product": { "product_name": "Clothes", "order_quantity": 2 },
+                    "order_id": "456",
+                    "order_date": "2025-08-04T04:39:31Z"
+                }
+            ]
+        }
+    }
+}

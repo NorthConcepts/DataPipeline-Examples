@@ -1,0 +1,8 @@
+{
+    "order": {
+        "item-1": { "sku": "A100", "qty": 2 },
+        "item-2": { "sku": "B200", "qty": 1 },
+        "item-3": { "sku": "C300", "qty": 5 },
+        "summary": { "total": 8 }
+    }
+}

@@ -42,7 +42,7 @@ Nothing else: no registry, no index file, no website change.
 - Inputs by **relative path from the repo root**: `new File("example/data/input/credit-balance-01.csv")`.
   Outputs to `example/data/output/<Name>.<ext>` (gitignored) or
   `StreamWriter.newSystemOutWriter()`.
-- Java 8 syntax only. `Job.run(...)`, not `JobTemplate`. Imports explicit (no `*`).
+- Java 21, plain style (lambdas fine; no `var`/records unless clearer). `Job.run(...)`, not `JobTemplate`. Imports explicit (no `*`).
 - Credentials/hosts are `private static final String` placeholders
   (`"YOUR ACCESS KEY"`, `"API_KEY"`, `"localhost"`). Never real, never from env.
 - No comments unless the output would surprise; no Javadoc; no copyright header.
@@ -74,7 +74,7 @@ name) and record them in the PR description for whoever creates the CMS record.
 - Reuse fixtures: `credit-balance-01.csv` (CSV workhorse), `credit-balance-02*.csv`
   (bigger/variants), `purchases.csv`, `products.xml`, `json-01.json`, `jewelry.xlsx`,
   `data/input/transformer-input.*` (one dataset in every format),
-  `example/data/input/{datamapping,pipeline,schema,template}/` for Foundations.
+  `example/data/input/{datamapping,pipeline,schema,template,tree}/` for Foundations.
 - The page body is optional prose written **in the CMS**, not here. If the example
   needs explanation beyond the code, put a one-paragraph suggestion in the PR
   description; the code itself stays clean.
@@ -87,7 +87,7 @@ Not applicable — the website renders the raw file; there is no generation step
 this repo.
 
 ## 10. Validation & limits
-- Must compile on JDK 8 (`gradlew.bat compileJava --no-daemon`).
+- Must compile on JDK 21 (`gradlew.bat compileJava --no-daemon`).
 - Must run from the repo root with a license file present, when it needs no
   external service. If it needs one, it must still compile and its placeholders must
   make that obvious.
@@ -95,7 +95,7 @@ this repo.
 
 ## 11. Tests / verification
 There are no unit tests. Verify by:
-1. `gradlew.bat compileJava --no-daemon` (JDK 8).
+1. `gradlew.bat compileJava --no-daemon` (JDK 21).
 2. Run it — `gradlew.bat run --quiet -PclassToExecute=<fqcn>` (cwd is forced to the
    repo root) or the `main` from the IDE — and eyeball the output; paste the first
    lines into the PR description.
@@ -104,7 +104,7 @@ There are no unit tests. Verify by:
 
 ## 12. Antipatterns & gotchas
 - Working directory ≠ repo root → `FileNotFoundException` on `example/data/input/...`.
-- Java 9+ syntax compiles locally on a newer JDK and fails CI (JDK 8).
+- Syntax newer than the toolchain (JDK 21) fails CI; keep to the plain style the other examples use.
 - Pasting an example from the core repo brings its proprietary copyright header — strip it.
 - `JobTemplate.DEFAULT.transfer(...)` is the old API; use `Job.run(...)`.
 - Using `data/input/transformer-input.*` as output or modifying it — those files feed another repo's CI.
@@ -119,16 +119,15 @@ Exemplars (see [exemplars.yaml](exemplars.yaml)):
 `latex/WriteALatexFile.java` (new-module PR shape: one file + one `build.gradle`
 line; a deliberate 77-line exception with justified comments — copy the shape, not
 the length),
-`amazons3/ReadFromAmazonS3.java` (external service, try/finally close; its
-hard-coded bucket/key are legacy — use the skeleton's `BUCKET`/`KEY` placeholders),
+`amazons3/ReadFromAmazonS3.java` (external service, `BUCKET`/`KEY` placeholders, try/finally close),
 `cookbook/customization/MyTransformer.java` + `WriteMyOwnTransformer.java` (custom component pair).
 
 - [ ] class name is the how-to phrase; package is the product area
 - [ ] skeleton copied; `// TODO` lines resolved or deleted
-- [ ] Java 8; `Job.run`; relative paths from repo root; placeholders for secrets
+- [ ] Java 21 plain style; `Job.run`; relative paths from repo root; placeholders for secrets
 - [ ] fixture reused, or a tiny new one added per [DataFixture.md](DataFixture.md)
 - [ ] `build.gradle` line added only if the module was missing
-- [ ] compiles on JDK 8; ran locally (or compiles + obviously needs a service)
+- [ ] compiles on JDK 21; ran locally (or compiles + obviously needs a service)
 - [ ] no comments/Javadoc/copyright header; 20–60 lines
 - [ ] PR description carries: proposed title, slug, category, tags, sample output
 - [ ] after merge: CMS record created and published ([PublishExample.md](PublishExample.md))

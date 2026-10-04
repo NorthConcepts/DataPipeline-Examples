@@ -18,6 +18,9 @@ public class UseACustomAmazonS3EndpointWithAmazonS3FileSystem {
 	private static final String AWS_S3_CUSTOM_ENDPOINT = "YOUR S3 CUSTOM ENDPOINT";
 	private static final String REGION = "YOUR AWS S3 REGION";
 
+	private static final String BUCKET = "YOUR BUCKET";
+	private static final String KEY = "output/trades.csv";
+
 	public static void main(String[] args) {
 		AmazonS3FileSystem s3 = new AmazonS3FileSystem()
 				.setBasicAWSCredentials(ACCESS_KEY, SECRET_KEY)
@@ -28,7 +31,7 @@ public class UseACustomAmazonS3EndpointWithAmazonS3FileSystem {
 		s3.open();
 
 		try {
-			InputStream inputStream = s3.readFile("datapipeline-test-01", "output/trades.csv");
+			InputStream inputStream = s3.readFile(BUCKET, KEY);
 
 			DataReader reader = new CSVReader(new InputStreamReader(inputStream));
 			DataWriter writer = StreamWriter.newSystemOutWriter();

@@ -19,6 +19,8 @@ public class ConfigureAmazonS3FileSystemUsingClient {
 
     private static final String ACCESS_KEY = "YOUR ACCESS KEY";
     private static final String SECRET_KEY = "YOUR SECRET KEY";
+    private static final String BUCKET = "YOUR BUCKET";
+    private static final String KEY = "output/orders-records.csv";
 
     public static void main(String[] args) throws Throwable {
         S3Client s3Client = S3Client.builder()
@@ -31,7 +33,7 @@ public class ConfigureAmazonS3FileSystemUsingClient {
         s3.open();
 
         try {
-            InputStream inputStream = s3.readFile("datapipeline-test-01", "output/orders-records.csv");
+            InputStream inputStream = s3.readFile(BUCKET, KEY);
 
             DataReader reader = new CSVReader(new InputStreamReader(inputStream));
             DataWriter writer = StreamWriter.newSystemOutWriter();
