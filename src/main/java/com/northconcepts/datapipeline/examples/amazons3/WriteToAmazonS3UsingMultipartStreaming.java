@@ -15,15 +15,16 @@ public class WriteToAmazonS3UsingMultipartStreaming {
     
     private static final String ACCESS_KEY = "YOUR ACCESS KEY";
     private static final String SECRET_KEY = "YOUR SECRET KEY";
+    private static final String BUCKET = "YOUR BUCKET";
+    private static final String KEY = "output/trades.csv";
 
     public static void main(String[] args) throws Throwable {
         AmazonS3FileSystem s3 = new AmazonS3FileSystem();
         s3.setBasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
-//        s3.setDebug(true);
         s3.open();
         try {
             // Create AWS S3 streaming, multi-part OutputStream 
-            OutputStream outputStream = s3.writeMultipartFile("datapipeline-test-01", "output/trades.csv");
+            OutputStream outputStream = s3.writeMultipartFile(BUCKET, KEY);
 
             DataReader reader = new CSVReader(new File("example/data/input/trades.csv"))
                     .setFieldNamesInFirstRow(true);

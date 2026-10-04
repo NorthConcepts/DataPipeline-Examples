@@ -15,6 +15,8 @@ public class WriteExcelToAmazonS3 {
     
     private static final String ACCESS_KEY = "YOUR ACCESS KEY";
     private static final String SECRET_KEY = "YOUR SECRET KEY";
+    private static final String BUCKET = "YOUR BUCKET";
+    private static final String KEY = "output/call-center-inbound-call.xlsx";
 
     public static void main(String[] args) throws Throwable {
         AmazonS3FileSystem s3 = new AmazonS3FileSystem();
@@ -22,7 +24,7 @@ public class WriteExcelToAmazonS3 {
         s3.open();
 
         try {
-            OutputStream outputStream = s3.writeMultipartFile("datapipeline-test-01", "output/call-center-inbound-call.xlsx");
+            OutputStream outputStream = s3.writeMultipartFile(BUCKET, KEY);
 
             ExcelDocument document = new ExcelDocument(ExcelDocument.ProviderType.POI_XSSF_SAX)
                     .open(new File("example/data/input/call-center-inbound-call.xlsx"));

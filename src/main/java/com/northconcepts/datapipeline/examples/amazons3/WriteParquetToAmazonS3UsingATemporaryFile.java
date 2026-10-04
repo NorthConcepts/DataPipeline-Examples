@@ -16,6 +16,8 @@ public class WriteParquetToAmazonS3UsingATemporaryFile {
 
     private static final String ACCESS_KEY = "YOUR ACCESS KEY";
     private static final String SECRET_KEY = "YOUR SECRET KEY";
+    private static final String BUCKET = "YOUR BUCKET";
+    private static final String KEY = "output/credit-balance.parquet";
 
     public static void main(String[] args) throws Throwable {
 
@@ -41,7 +43,7 @@ public class WriteParquetToAmazonS3UsingATemporaryFile {
             s3.setBasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
             s3.open();
 
-            OutputStream out = s3.writeMultipartFile("datapipeline-test-01", "output/credit-balance.parquet");
+            OutputStream out = s3.writeMultipartFile(BUCKET, KEY);
             InputStream in = new BufferedInputStream(new FileInputStream(parquetFile));
 
             byte[] buffer = new byte[1024];

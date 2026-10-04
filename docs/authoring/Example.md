@@ -119,8 +119,7 @@ Exemplars (see [exemplars.yaml](exemplars.yaml)):
 `latex/WriteALatexFile.java` (new-module PR shape: one file + one `build.gradle`
 line; a deliberate 77-line exception with justified comments — copy the shape, not
 the length),
-`amazons3/ReadFromAmazonS3.java` (external service, try/finally close; its
-hard-coded bucket/key are legacy — use the skeleton's `BUCKET`/`KEY` placeholders),
+`amazons3/ReadFromAmazonS3.java` (external service, `BUCKET`/`KEY` placeholders, try/finally close),
 `cookbook/customization/MyTransformer.java` + `WriteMyOwnTransformer.java` (custom component pair).
 
 - [ ] class name is the how-to phrase; package is the product area

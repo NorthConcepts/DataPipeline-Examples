@@ -55,15 +55,9 @@ external_service:
   exemplar: src/main/java/com/northconcepts/datapipeline/examples/amazons3/ReadFromAmazonS3.java
   alternate: src/main/java/com/northconcepts/datapipeline/examples/jira/AddJiraComments.java
   note: >
-    Placeholder constants ("YOUR ACCESS KEY"), open the file system, try/finally
-    close, NullWriter + record count when the payload isn't the point. Compiles in
-    CI, cannot run there — expected.
-  caveat: >
-    Legacy, do not copy: the bucket and key passed to readFile are hard-coded
-    literals and line 26 is a commented-out writer. Both predate the placeholder
-    rule; new code lifts them into BUCKET / KEY placeholder constants as the
-    skeleton does and carries no dead code. The other amazons3 examples share the
-    same literals — cleaning them up is a separate ticket.
+    Placeholder constants (ACCESS_KEY / SECRET_KEY / BUCKET / KEY), open the file
+    system, try/finally close, NullWriter + record count when the payload isn't the
+    point. Compiles in CI, cannot run there — expected.
 
 custom_component:
   status: available
