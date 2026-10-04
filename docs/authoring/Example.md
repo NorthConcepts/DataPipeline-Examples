@@ -44,14 +44,23 @@ Nothing else: no registry, no index file, no website change.
   `StreamWriter.newSystemOutWriter()`.
 - Java 21, plain style (lambdas fine; no `var`/records unless clearer). `Job.run(...)`, not `JobTemplate`. Imports explicit (no `*`).
 - Credentials/hosts are `private static final String` placeholders
-  (`"YOUR ACCESS KEY"`, `"API_KEY"`, `"localhost"`). Never real, never from env.
+  (`"YOUR ACCESS KEY"`, `"API_KEY"`, `"localhost"`). Never real, never from env —
+  except when the capability *is* a credential source (env/file/profile resolver):
+  then name the variable/file it reads, never a value
+  ([copilot-instructions](../../.github/copilot-instructions.md) → "Credentials").
+- Anything written at runtime (output file, OAuth token cache) goes under a path
+  `.gitignore` already covers (`example/data/output/`, `data/output/`, `tokens/`);
+  a new path gets its `.gitignore` line in the same PR.
 - No comments unless the output would surprise; no Javadoc; no copyright header.
 - 20–60 lines. If it's longer, you are showing two things — split it.
 
 ## 4. The naming contract
 - Class = imperative how-to phrase in UpperCamelCase: `Read…`, `Write…`, `Convert…To…`,
   `Use…`, `Filter…`, `Add…To…`, `Handle…`, `Generate…`. Avoid `Example`, `Demo`,
-  `Test` in the name.
+  `Test` in the name. The name promises only what the body shows — a page that
+  stubs a service with placeholders is named after the mechanism it demonstrates,
+  not the service (`CacheAndRegisterACredentialsResolver`, not
+  `CacheCredentialsFromASecretsManager`).
 - Package = product area: `examples/<module>` (`parquet`, `jira`, `amazons3`, …),
   `examples/cookbook` for core-library how-tos, `examples/cookbook/customization` for
   "write my own X", `foundations/examples/<area>` for Foundations.
@@ -106,6 +115,12 @@ There are no unit tests. Verify by:
 - Working directory ≠ repo root → `FileNotFoundException` on `example/data/input/...`.
 - Syntax newer than the toolchain (JDK 21) fails CI; keep to the plain style the other examples use.
 - Pasting an example from the core repo brings its proprietary copyright header — strip it.
+- Copying a block from an older sibling (the Google `authorize()` method) brings its
+  legacy Javadoc and token-cache path — copy the pattern, then re-check the copy
+  against §3. Prefer the exemplar in [exemplars.yaml](exemplars.yaml) over the oldest file.
+- One OAuth token cache shared by a read-only and a read-write example: whichever
+  runs first writes the cache, and the other fails with 403 — one `tokens/<api>`
+  directory per scope (`tokens/sheets`, `tokens/sheets-readonly`).
 - `JobTemplate.DEFAULT.transfer(...)` is the old API; use `Job.run(...)`.
 - Using `data/input/transformer-input.*` as output or modifying it — those files feed another repo's CI.
 - A second public class in the same file, or a `package-info`, or `args` parsing — none exist here; don't start.
@@ -125,6 +140,7 @@ the length),
 - [ ] class name is the how-to phrase; package is the product area
 - [ ] skeleton copied; `// TODO` lines resolved or deleted
 - [ ] Java 21 plain style; `Job.run`; relative paths from repo root; placeholders for secrets
+- [ ] runtime artifacts (output files, token caches) land in a gitignored path
 - [ ] fixture reused, or a tiny new one added per [DataFixture.md](DataFixture.md)
 - [ ] `build.gradle` line added only if the module was missing
 - [ ] compiles on JDK 21; ran locally (or compiles + obviously needs a service)

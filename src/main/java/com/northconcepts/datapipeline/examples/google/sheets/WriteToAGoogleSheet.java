@@ -32,7 +32,6 @@ public class WriteToAGoogleSheet {
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS);
     private static final String CLIENT_SECRET = "/integrations.json";
 
-    /** Authorizes the installed application to access user's protected data. */
     private static Credential authorize(NetHttpTransport httpTransport) throws Throwable {
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY,
                 new InputStreamReader(WriteToAGoogleSheet.class.getResourceAsStream(CLIENT_SECRET)));

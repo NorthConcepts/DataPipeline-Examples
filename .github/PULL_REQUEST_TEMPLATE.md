@@ -26,9 +26,9 @@ Body:     (none) | (one-paragraph intro suggested: ...)
 
 - [ ] Compiles on JDK 21 (`gradlew.bat compileJava --no-daemon`); plain style (no `var`/records unless clearer)
 - [ ] One capability, how-to class name, product-area package, `Job.run`, relative paths from repo root
-- [ ] Credentials/hosts are placeholders; nothing real-looking (public repo)
+- [ ] Credentials/hosts are placeholders (a credential-source example names the variable/file, never a value); nothing real-looking (public repo)
 - [ ] No comments/Javadoc beyond a justified one-liner; no copyright header
 - [ ] Fixture reused, or new one is small/synthetic/under `input/`; `data/input/transformer-input.*` untouched
 - [ ] `build.gradle` touched only to add a missing module line
-- [ ] No output files, license file, or IDE output committed
+- [ ] No output files, token caches, license file, or IDE output committed; a new runtime path has its `.gitignore` line
 - [ ] If this example also exists in the core repo's `example/src/java`: mirror noted

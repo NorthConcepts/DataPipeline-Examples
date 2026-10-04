@@ -69,6 +69,9 @@ working directory**. See `copilot-instructions.md` → "Tech stack and build".
   blocks and switch expressions unless they clearly read better on the page.
 - **No comments / no Javadoc by default; never a copyright header** (this public
   repo is Apache-2.0; the proprietary header belongs to the core repo's copies).
+- **Runtime artifacts are gitignored** (output dirs, `tokens/` OAuth caches, client
+  secrets); a credential-source example names the variable/file it reads, never a
+  value; the class name promises only what the body shows.
 - **Don't rename, move, or delete** an existing example or fixture without a
   ticket — each is a live URL, and `data/input/transformer-input.*` is fetched by
   DataConverter.io's CI straight from `master`.

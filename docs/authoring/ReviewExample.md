@@ -9,7 +9,10 @@ published page.**
   `build.gradle` line? Anything else (reformatting, renames, deletions, unrelated
   files) needs a ticket reference in the description.
 - Branch/commit/PR title start with `DP-NNNN`.
-- No `example/data/output/*`, `data/output/*`, license file, `bin/`, `build/`.
+- No `example/data/output/*`, `data/output/*`, `tokens/`, license file, `bin/`, `build/`.
+- Anything the example writes at runtime (output, OAuth token cache, downloaded
+  client secret) lands in a gitignored path; a new runtime path grows `.gitignore`
+  in the same PR (`git check-ignore -v <path>` answers in one line).
 
 ## 1. Compile truth
 - Style: Java 21 toolchain, but the page style is plain — flag `var`, `record`, `"""`,
@@ -19,14 +22,19 @@ published page.**
   `build`; same thing here).
 
 ## 2. The example contract ([copilot-instructions](../../.github/copilot-instructions.md) → "What an example looks like")
-- Name is the how-to phrase; package is the product area; no `Demo/Test/Example` suffix.
+- Name is the how-to phrase; package is the product area; no `Demo/Test/Example` suffix;
+  the name promises only what the body shows (no `…FromASecretsManager` around
+  placeholder constants).
 - One capability, 20–60 lines, reader → transform → writer → `Job.run`.
 - Relative paths from the repo root; fixture exists (or is added, small, under `input/`).
 - Secrets/hosts are obvious placeholders — **no real keys, tokens, bucket names,
   hostnames, emails** (this repo is public; treat any real-looking value as a
-  blocker).
+  blocker). A credential-*source* example (env/file/profile resolver) is the one
+  allowed reader of ambient configuration: check it names the variable/file,
+  never a value.
 - No comments except a justified one-liner; no Javadoc; **no copyright header**
-  (a header means it was pasted from the core repo).
+  (a header means it was pasted from the core repo). Javadoc copied from an older
+  sibling still counts — the old file is not the contract.
 - No `JobTemplate`, no `System.exit`, no arg parsing, no second public class.
 
 ## 3. Fixtures ([DataFixture.md](DataFixture.md))
