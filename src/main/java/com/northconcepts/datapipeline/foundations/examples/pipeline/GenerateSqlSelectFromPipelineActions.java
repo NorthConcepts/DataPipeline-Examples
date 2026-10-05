@@ -18,14 +18,15 @@ public class GenerateSqlSelectFromPipelineActions {
 
         RenameFieldsAction rename = new RenameFieldsAction()
                 .add("Rating", "CreditRating")
-                .add("Accounts", "AccountCount");
+                .add("Accounts", "AccountCount")
+                .add("TotalBalance", "TotalBalance");
 
         SortFieldsAction sort = new SortFieldsAction()
                 .add("TotalBalance", false);
 
         Select select = aggregate.generateSqlSelect(new TableQuerySource("credit_balance"));
-        select = rename.generateSqlSelect(select);
-        select = sort.generateSqlSelect(select);
+        select = rename.generateSqlSelect(select.setNestedAlias("totals"));
+        select = sort.generateSqlSelect(select.setNestedAlias("renamed"));
 
         System.out.println(select.setPretty(true).getSqlFragment());
     }
