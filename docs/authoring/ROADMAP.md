@@ -46,7 +46,7 @@ once instead of being rediscovered from `Examples3Resource`/`DocsService` each t
   project, Java 21 source/target, Gradle 8.5 vendored wrapper, no tests; CI
   (`.github/workflows/gradle.yml`) = `./gradlew build` on JDK 21 with LFS.
 - Dependencies are the published DataPipeline artifacts at one `version`
-  (`11.0.0-SNAPSHOT`), from `mavenLocal()` then `maven.northconcepts.com`. A new
+  (`11.0.0`), from `mavenLocal()` then `maven.northconcepts.com`. A new
   integration module = one `implementation` line (LaTeX, PDF PRs).
 - Code conventions are strong and consistent: how-to class names, `Job.run`,
   relative fixture paths, placeholder constants, almost no comments (8 files have
