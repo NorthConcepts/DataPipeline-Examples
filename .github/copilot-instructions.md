@@ -25,7 +25,7 @@
   `mavenLocal()` first and then `https://maven.northconcepts.com/public/repositories/datapipeline`:
   `northconcepts-datapipeline-small-business` + `-foundations` + one line per
   `-integrations-*` / `-filesystems-*` module, all at the single `version` in
-  `build.gradle` (currently `11.0.0-SNAPSHOT`; it tracks the DataPipeline release in
+  `build.gradle` (currently `11.0.0`; it tracks the DataPipeline release in
   progress and is bumped with each release, e.g. "DP-4993 update version to 10.0.0").
   `build.gradle` also carries one `capabilitiesResolution` rule (`org.lz4:lz4-java`): the
   parquet and kafka modules ship competing LZ4 artifacts and `gradlew run` fails to

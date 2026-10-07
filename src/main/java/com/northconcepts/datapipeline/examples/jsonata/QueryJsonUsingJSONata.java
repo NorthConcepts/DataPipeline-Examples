@@ -24,10 +24,10 @@ public class QueryJsonUsingJSONata {
 
             printSection("Reshaping");
             runQuery("Query 5 - Name With Batter And Topping Counts",
-                    "{'name': name, 'batterCount': $count(batters.batter), 'toppingCount': $count(topping)}",
+                    "$.{'name': name, 'batterCount': $count(batters.batter), 'toppingCount': $count(topping)}",
                     data);
             runQuery("Query 6 - Donut Summary",
-                    "{'id': id, 'name': name, 'pricePerUnit': ppu}",
+                    "$.{'id': id, 'name': name, 'pricePerUnit': ppu}",
                     data);
 
             printSection("Metrics");
