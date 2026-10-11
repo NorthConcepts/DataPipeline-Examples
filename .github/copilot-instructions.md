@@ -17,8 +17,8 @@
 - Java **21** source/target (`sourceCompatibility = JavaVersion.VERSION_21`). Keep the
   existing plain style: lambdas are fine; avoid `var`, records, text blocks and switch
   expressions unless they clearly read better. CI compiles on JDK 21 (Zulu).
-- Single Gradle project; wrapper is **Gradle 8.5**, vendored at
-  `gradle/wrapper/gradle-8.5-bin.zip` (the `distributionUrl` is relative, so the
+- Single Gradle project; wrapper is **Gradle 9.8.1**, vendored at
+  `gradle/wrapper/gradle-9.8.1-bin.zip` (the `distributionUrl` is relative, so the
   build never downloads Gradle). `.gitignore` lists `gradle/`, so a new file under
   `gradle/` needs `git add -f`.
 - Dependencies are the **published** DataPipeline artifacts, resolved from

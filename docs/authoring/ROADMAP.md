@@ -43,7 +43,7 @@ once instead of being rediscovered from `Examples3Resource`/`DocsService` each t
 ## 2. Findings that ground the plan (verified 2026-10-04)
 
 - 445 Java files (~415 runnable `main` classes + ~30 helper classes), one Gradle
-  project, Java 21 source/target, Gradle 8.5 vendored wrapper, no tests; CI
+  project, Java 21 source/target, Gradle 9.8.1 vendored wrapper, no tests; CI
   (`.github/workflows/gradle.yml`) = `./gradlew build` on JDK 21 with LFS.
 - Dependencies are the published DataPipeline artifacts at one `version`
   (`11.1.0-SNAPSHOT`), from `mavenLocal()` then `maven.northconcepts.com`. A new

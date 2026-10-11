@@ -55,7 +55,7 @@ gradlew.bat compileJava --no-daemon
 gradlew.bat run --quiet -PclassToExecute=com.northconcepts.datapipeline.examples.cookbook.WriteACsvFileToFixedWidth
 ```
 
-Java 21 source/target, Gradle 8.5 (vendored wrapper), published DataPipeline
+Java 21 source/target, Gradle 9.8.1 (vendored wrapper), published DataPipeline
 artifacts from `mavenLocal()` + `maven.northconcepts.com` at the single `version`
 in `build.gradle`. Running needs the gitignored
 `src/main/resources/NorthConcepts-DataPipeline.license` and the **repo root as
